@@ -1,11 +1,9 @@
 import arg from 'arg';
-import chalk from 'chalk';
-import clear from 'clear';
 
 import { generateComponent } from './commands';
 import { config } from './config';
 import { askComponentConfig } from './questions';
-import { capitalizeFirstLetter } from './utils';
+import { capitalizeFirstLetter, chalkColored } from './utils';
 
 import { ProgLangNames, StyleLangNames, TestLibNames } from './enums';
 import { ComponentConfigBasiс } from './interfaces';
@@ -71,8 +69,6 @@ function parseArgs(rawArgs: string[]): ComponentConfigBasiс {
 
 export default async function cli(argv: string[]): Promise<void> {
   try {
-    clear();
-
     const args = argv.slice(2);
 
     if (!args.length) {
@@ -83,9 +79,9 @@ export default async function cli(argv: string[]): Promise<void> {
 
     await generateComponent();
 
-    console.log(chalk.green('DONE'));
+    console.log(chalkColored('DONE', 'Green'));
   } catch (error) {
-    console.log(chalk.red('Something went wrong'));
+    console.log(chalkColored('Something went wrong...', 'Red'));
     console.error(error);
 
     process.exit(1);
