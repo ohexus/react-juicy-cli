@@ -4,8 +4,6 @@ This is a Node.js CLI for quickly generating React components!
 
 ## Install
 
-### Globally:
-
 npm:
 
 ```bash
@@ -18,20 +16,6 @@ yarn:
 $ yarn global add react-juicy-cli
 ```
 
-### Or locally to your project:
-
-npm:
-
-```bash
-$ npm install react-juicy-cli
-```
-
-yarn:
-
-```bash
-$ yarn add react-juicy-cli
-```
-
 ## Usage
 
 ### With questionnaire
@@ -39,7 +23,7 @@ $ yarn add react-juicy-cli
 Just run
 
 ```bash
-$ yarn add react-juicy-cli
+$ react-juicy-cli
 ```
 
 and you will get questions about what your component should be.
@@ -50,6 +34,12 @@ You can provide flags to skip questionnaire and generate component in 1 line of 
 
 ```bash
 $ react-juicy-cli --component testComponent --javascript --scss
+```
+
+or
+
+```bash
+$ react-juicy-cli -c testComponent --ts --css
 ```
 
 ## Available flags
