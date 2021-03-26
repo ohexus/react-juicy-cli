@@ -1,7 +1,7 @@
 {
   "name": "react-juicy-cli",
   "version": "0.0.12",
-  "description": "Juicy CLI",
+  "description": "Juicy CLI for React components generation",
   "main": "lib/index.js",
   "bin": {
     "react-juicy-cli": "lib/index.js"
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@types/clear": "^0.1.1",
     "@types/configstore": "^5.0.0",
+    "@types/figlet": "^1.2.1",
     "@types/inquirer": "^7.3.1",
     "@types/node": "^14.14.36",
     "ts-node": "^9.1.1",
@@ -42,6 +43,7 @@
     "clear": "^0.1.0",
     "clui": "^0.3.6",
     "configstore": "^5.0.1",
+    "figlet": "^1.5.0",
     "inquirer": "^8.0.0"
   }
 }
