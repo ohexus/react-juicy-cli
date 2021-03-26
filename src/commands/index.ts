@@ -1,0 +1,1 @@
+export { generateComponent } from './generateComponent';
