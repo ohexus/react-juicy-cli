@@ -1,4 +1,10 @@
 #!/usr/bin/env node
+import clear from 'clear';
 import reactJuicyCLI from './cli';
+import { juicyFiglet } from './utils';
 
-reactJuicyCLI(process.argv);
+(async () => {
+  clear();
+  await juicyFiglet();
+  reactJuicyCLI(process.argv);
+})();
