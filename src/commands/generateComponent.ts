@@ -1,55 +1,28 @@
 import fs from 'fs';
 import { config } from '../config';
 
-import {
-  jsTemplate,
-  tsTemplate,
-  indexTemplate,
-  testEnzymeTemplate,
-  testTestingLibraryTemplate,
-  sassTemplate,
-  cssTemplate,
-} from '../templates';
+import { switchComponentTemplate, switchExt, switchTestLib } from './switchHelpers';
+
+import { indexTemplate, sassTemplate, cssTemplate } from '../templates';
 import { askProgLang, askStyleLang, askTestLib, askComponentName } from '../questions';
 import { writeData } from '../utils';
 
-import { ProgLangExts, ProgLangNames, StyleLangExts, StyleLangNames, TestLibExts, TestLibNames } from '../enums';
+import { ProgLangNames, StyleLangExts, StyleLangNames, TestLibNames } from '../enums';
 import { ComponentConfig, PromiseReturnStatus } from '../interfaces';
 
-function switchProg(lang: ProgLangNames): [ProgLangExts, typeof jsTemplate | typeof tsTemplate] {
-  if (lang === ProgLangNames.JS) {
-    return [ProgLangExts.JS, jsTemplate];
-  } else if (lang === ProgLangNames.TS) {
-    return [ProgLangExts.TS, tsTemplate];
-  } else {
-    return [ProgLangExts.JS, jsTemplate];
-  }
-}
-
-function switchTestLib(
-  lib: TestLibNames,
-): [TestLibExts, typeof testEnzymeTemplate | typeof testTestingLibraryTemplate] {
-  if (lib === TestLibNames.ENZYME) {
-    return [TestLibExts.ENZYME, testEnzymeTemplate];
-  } else if (lib === TestLibNames.TESTING_LIB) {
-    return [TestLibExts.TESTING_LIB, testTestingLibraryTemplate];
-  } else {
-    return [TestLibExts.ENZYME, testEnzymeTemplate];
-  }
-}
-
 function componentPromise(name: string, lang: ProgLangNames, sslang: StyleLangNames): Promise<PromiseReturnStatus> {
-  const [ext, template] = switchProg(lang);
+  const ext = switchExt(lang);
+  const template = switchComponentTemplate(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${ext}`, template(name, (sslang as string) as StyleLangExts))
+    writeData(`${name}/${name}.${ext}x`, template(name, (sslang as string) as StyleLangExts))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
 }
 
 function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
-  const [ext] = switchProg(lang);
+  const ext = switchExt(lang);
 
   return new Promise((resolve, reject) => {
     writeData(`${name}/index.${ext}`, indexTemplate(name))
@@ -67,11 +40,11 @@ function styleSheetPromise(name: string, lang: StyleLangNames): Promise<PromiseR
 }
 
 function testLibPromise(name: string, lang: ProgLangNames, lib: TestLibNames): Promise<PromiseReturnStatus> {
-  const [ext] = switchProg(lang);
+  const ext = switchExt(lang);
   const [testExt, template] = switchTestLib(lib);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${testExt}.${ext}`, template(name))
+    writeData(`${name}/${name}.${testExt}.${ext}x`, template(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
