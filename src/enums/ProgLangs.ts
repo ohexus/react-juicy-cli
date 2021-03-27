@@ -4,6 +4,6 @@ export enum ProgLangNames {
 }
 
 export enum ProgLangExts {
-  JS = 'jsx',
-  TS = 'tsx',
+  JS = 'js',
+  TS = 'ts',
 }
