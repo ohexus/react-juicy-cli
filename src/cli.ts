@@ -17,17 +17,17 @@ export default async function cli(argv: string[]): Promise<void> {
       const entity = await askWhichEntity();
 
       if (entity === GenerationEntities.Component) {
-        config.set('component', await askComponentConfig());
+        config.set(GenerationEntities.Component, await askComponentConfig());
       } else if (entity === GenerationEntities.Hook) {
-        config.set('hook', await askHookConfig());
+        config.set(GenerationEntities.Hook, await askHookConfig());
       }
     } else {
       parseArgs(args);
     }
 
-    if (config.has('component')) {
+    if (config.has(GenerationEntities.Component)) {
       await generateComponent();
-    } else if (config.has('hook')) {
+    } else if (config.has(GenerationEntities.Hook)) {
       await generateHook();
     }
 

@@ -7,7 +7,7 @@ import { indexTemplate } from '../templates';
 import { askProgLang, askHookName } from '../questions';
 import { writeData } from '../utils';
 
-import { ProgLangNames } from '../enums';
+import { GenerationEntities, ProgLangNames } from '../enums';
 import { HookConfig, PromiseReturnStatus } from '../interfaces';
 
 function hookPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
@@ -32,7 +32,7 @@ function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnS
 }
 
 async function getHookConfig(): Promise<HookConfig> {
-  const { name, prog } = config.get('hook');
+  const { name, prog } = config.get(GenerationEntities.Hook);
 
   let newProg = '';
   if (!prog) {
@@ -49,7 +49,7 @@ async function getHookConfig(): Promise<HookConfig> {
     name: name || newName,
   };
 
-  config.set('hook', options);
+  config.set(GenerationEntities.Hook, options);
 
   return options;
 }

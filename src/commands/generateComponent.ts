@@ -7,7 +7,7 @@ import { indexTemplate, sassTemplate, cssTemplate } from '../templates';
 import { askProgLang, askStyleLang, askTestLib, askComponentName } from '../questions';
 import { writeData } from '../utils';
 
-import { ProgLangNames, StyleLangExts, StyleLangNames, TestLibNames } from '../enums';
+import { GenerationEntities, ProgLangNames, StyleLangExts, StyleLangNames, TestLibNames } from '../enums';
 import { ComponentConfig, PromiseReturnStatus } from '../interfaces';
 
 function componentPromise(name: string, lang: ProgLangNames, sslang: StyleLangNames): Promise<PromiseReturnStatus> {
@@ -51,7 +51,7 @@ function testLibPromise(name: string, lang: ProgLangNames, lib: TestLibNames): P
 }
 
 async function getComponentConfig(): Promise<ComponentConfig> {
-  const { name, prog, style, testLib } = config.get('component');
+  const { name, prog, style, testLib } = config.get(GenerationEntities.Component);
 
   let newProg = '';
   if (!prog) {
@@ -80,7 +80,7 @@ async function getComponentConfig(): Promise<ComponentConfig> {
     name: name || newName,
   };
 
-  config.set('component', options);
+  config.set(GenerationEntities.Component, options);
 
   return options;
 }

@@ -3,7 +3,7 @@ import arg from 'arg';
 import { config } from './config';
 import { capitalizeFirstLetter, replaceWithUse } from './utils';
 
-import { ProgLangNames, StyleLangNames, TestLibNames } from './enums';
+import { GenerationEntities, ProgLangNames, StyleLangNames, TestLibNames } from './enums';
 import { ComponentConfigBasic, HookConfigBasic } from './interfaces';
 
 export function parseArgs(rawArgs: string[]): void {
@@ -70,14 +70,14 @@ export function parseArgs(rawArgs: string[]): void {
   })();
 
   if (args['--component']) {
-    config.set('component', {
+    config.set(GenerationEntities.Component, {
       name: capitalizeFirstLetter(args['--component']),
       prog,
       style,
       testLib,
     } as ComponentConfigBasic);
   } else if (args['--hook']) {
-    config.set('hook', {
+    config.set(GenerationEntities.Hook, {
       name: replaceWithUse(args['--hook']),
       prog,
     } as HookConfigBasic);
