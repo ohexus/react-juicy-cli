@@ -1,6 +1,6 @@
 import { ProgLangNames, StyleLangNames, TestLibNames } from '../enums';
 
-export interface ComponentConfigBasiс {
+export interface ComponentConfigBasic {
   prog: ProgLangNames | null;
   style: StyleLangNames | null;
   testLib: TestLibNames | null;
