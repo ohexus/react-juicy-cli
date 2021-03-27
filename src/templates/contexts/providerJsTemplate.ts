@@ -16,7 +16,7 @@ export const ${name}Provider = ({ children }) => {
     dispatch${name}({ type: CLEAR_STATE });
   };
 
-  const setStatus = (status: boolean) => {
+  const setStatus = (status) => {
     dispatch${name}({ type: SET_STATUS, payload: { status } });
   };
 
