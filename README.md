@@ -51,6 +51,8 @@ Don't worry if you miss a few flags, the CLI will ask you a question from a ques
 | flag                | interface | description                                                            |
 | ------------------- | --------- | ---------------------------------------------------------------------- |
 | '--component'       | String    | specify component name and tell CLI to generate a component            |
+| '--context'         | String    | specify context name and tell CLI to generate a context                |
+| '--hook'            | String    | specify hook name and tell CLI to generate a hook                      |
 | '--javascript'      | Boolean   | generate JavaScript component                                          |
 | '--typescript'      | Boolean   | generate TypeScript component                                          |
 | '--css'             | Boolean   | generate CSS file                                                      |
@@ -64,7 +66,9 @@ Don't worry if you miss a few flags, the CLI will ask you a question from a ques
 
 | alias        | flag                |
 | ------------ | ------------------- |
-| '-c'         | '--component'       |
+| '--cmp'      | '--component'       |
+| '--ctx'      | '--context'         |
+| '--hk'       | '--hook'            |
 | '--js'       | '--javascript'      |
 | '--ts'       | '--typescript'      |
 | '--enz'      | '--enzyme'          |
