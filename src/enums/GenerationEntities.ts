@@ -1,4 +1,4 @@
 export enum GenerationEntities {
-  Component = 'component',
-  Hook = 'hook',
-};
+  Component = 'Component',
+  Hook = 'Hook',
+}
