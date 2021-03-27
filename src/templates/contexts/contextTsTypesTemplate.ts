@@ -12,17 +12,17 @@ export interface Set${name}StatusAction {
   type: typeof ${name}ActionTypes.SetStatus;
   payload: {
     status: boolean;
-  }
+  };
 }
 
 export interface Toggle${name}StatusAction {
-  type: typeof ${name}ActionTypes.ClearState;
+  type: typeof ${name}ActionTypes.ToggleStatus;
 }
 
 export type ${name}Actions =
-| Clear${name}Action;
-| Set${name}StatusAction;
-| Toggle${name}StatusAction;
+  | Clear${name}Action
+  | Set${name}StatusAction
+  | Toggle${name}StatusAction;
 
 export interface ${name}State {
   status: boolean;

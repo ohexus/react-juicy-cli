@@ -24,7 +24,7 @@ function contextTypesPromise(name: string, lang: ProgLangNames): Promise<Promise
   const ext = switchExt(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${ext}`, contextTsTypesTemplate(name))
+    writeData(`${name}/${name}Types.${ext}`, contextTsTypesTemplate(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
@@ -34,7 +34,7 @@ function providerPromise(name: string, lang: ProgLangNames): Promise<PromiseRetu
   const ext = switchExt(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${ext}x`, providerTsTemplate(name))
+    writeData(`${name}/${name}Provider.${ext}x`, providerTsTemplate(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
@@ -44,7 +44,7 @@ function reducerPromise(name: string, lang: ProgLangNames): Promise<PromiseRetur
   const ext = switchExt(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${ext}`, reducerTsTemplate(name))
+    writeData(`${name}/${name}Reducer.${ext}`, reducerTsTemplate(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });

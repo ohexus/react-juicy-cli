@@ -4,38 +4,38 @@ export const providerTsTemplate = (name: string = 'ContextTemplate'): string => 
   useReducer,
 } from 'react';
 
-import { ${name}ActionTypes } from './${name}ContextTypes';
+import { ${name}, INITIAL_${name.toUpperCase()}_STATE } from './${name}';
+import { ${name}Reducer } from './${name}Reducer';
+import { ${name}ActionTypes } from './${name}Types';
 
-import { ${name}Context, INITIAL_${name.toUpperCase}_STATE } from './${name}Context';
-
-type ${name}ContextProviderProps = {
+type ${name}ProviderProps = {
   children: ReactNode;
 };
 
-export const ${name}ContextProvider: FC<${name}ContextProviderProps> = ({ children }) => {
-  const [${name}State, dispatch${name}] = useReducer(${name}Reducer, INITIAL_${name.toUpperCase}_STATE);
+export const ${name}Provider: FC<${name}ProviderProps> = ({ children }) => {
+  const [${name}State, dispatch${name}] = useReducer(${name}Reducer, INITIAL_${name.toUpperCase()}_STATE);
   
   const clearState = () => {
-    dispatchCharacter({ type: ${name}ActionTypes.ClearState });
+    dispatch${name}({ type: ${name}ActionTypes.ClearState });
   };
 
   const setStatus = (status: boolean) => {
-    dispatchCharacter({ type: ${name}ActionTypes.SetStatus, payload: { status } });
+    dispatch${name}({ type: ${name}ActionTypes.SetStatus, payload: { status } });
   };
 
-  const toggleStatus = (color) => {
-    dispatchCharacter({ type: ${name}ActionTypes.ToggleStatus });
+  const toggleStatus = () => {
+    dispatch${name}({ type: ${name}ActionTypes.ToggleStatus });
   };
 
   return (
-    <${name}Context.Provider value={{
+    <${name}.Provider value={{
       status: ${name}State.status,
       clearState,
       setStatus,
       toggleStatus,
     }}>
       {children}
-    </${name}Context.Provider>
+    </${name}.Provider>
   );
 };
 `;
