@@ -4,8 +4,8 @@ import { config } from '../config';
 import { switchComponentTemplate, switchExt, switchTestLib } from './switchHelpers';
 
 import { indexTemplate, sassTemplate, cssTemplate } from '../templates';
-import { askProgLang, askStyleLang, askTestLib, askComponentName } from '../questions';
-import { writeData } from '../utils';
+import { askProgLang, askStyleLang, askTestLib, askEntityName } from '../questions';
+import { capitalizeFirstLetter, writeData } from '../utils';
 
 import { GenerationEntities, ProgLangNames, StyleLangExts, StyleLangNames, TestLibNames } from '../enums';
 import { ComponentConfig, PromiseReturnStatus } from '../interfaces';
@@ -70,7 +70,7 @@ async function getComponentConfig(): Promise<ComponentConfig> {
 
   let newName = '';
   if (!name) {
-    newName = await askComponentName();
+    newName = capitalizeFirstLetter(await askEntityName(GenerationEntities.Component));
   }
 
   const options = {

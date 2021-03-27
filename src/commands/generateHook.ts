@@ -4,8 +4,8 @@ import { config } from '../config';
 import { switchExt, switchHookTemplate } from './switchHelpers';
 
 import { indexTemplate } from '../templates';
-import { askProgLang, askHookName } from '../questions';
-import { writeData } from '../utils';
+import { askProgLang, askEntityName } from '../questions';
+import { replaceWithUse, writeData } from '../utils';
 
 import { GenerationEntities, ProgLangNames } from '../enums';
 import { HookConfig, PromiseReturnStatus } from '../interfaces';
@@ -41,7 +41,7 @@ async function getHookConfig(): Promise<HookConfig> {
 
   let newName = '';
   if (!name) {
-    newName = await askHookName();
+    newName = replaceWithUse(await askEntityName(GenerationEntities.Hook));
   }
 
   const options = {
