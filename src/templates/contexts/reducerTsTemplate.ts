@@ -1,16 +1,12 @@
 export const reducerTsTemplate = (
   name: string = 'ContextTemplate',
-): string => `import { ${name}Actions, ${name}ActionTypes } from './${name}Types';
+): string => `import { initial${name}State } from './${name}';
+import { ${name}Actions, ${name}ActionTypes } from './${name}Types';
 
-import { INITIAL_${name.toUpperCase()}_STATE } from './${name}';
-
-export const ${name}Reducer = (
-  currentState = INITIAL_${name.toUpperCase()}_STATE,
-  action: ${name}Actions,
-) => {
+export const ${name}Reducer = (currentState = initial${name}State, action: ${name}Actions) => {
   switch (action.type) {
     case ${name}ActionTypes.ClearState:
-      return INITIAL_${name.toUpperCase()}_STATE;
+      return initial${name}State;
 
     case TestContextActionTypes.SetStatus:
       return { status: action.payload.status };

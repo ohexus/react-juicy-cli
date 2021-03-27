@@ -4,7 +4,7 @@ export const providerTsTemplate = (name: string = 'ContextTemplate'): string => 
   useReducer,
 } from 'react';
 
-import { ${name}, INITIAL_${name.toUpperCase()}_STATE } from './${name}';
+import { ${name}, initial${name}State } from './${name}';
 import { ${name}Reducer } from './${name}Reducer';
 import { ${name}ActionTypes } from './${name}Types';
 
@@ -13,7 +13,7 @@ type ${name}ProviderProps = {
 };
 
 export const ${name}Provider: FC<${name}ProviderProps> = ({ children }) => {
-  const [${name}State, dispatch${name}] = useReducer(${name}Reducer, INITIAL_${name.toUpperCase()}_STATE);
+  const [${name}State, dispatch${name}] = useReducer(${name}Reducer, initial${name}State);
   
   const clearState = () => {
     dispatch${name}({ type: ${name}ActionTypes.ClearState });
