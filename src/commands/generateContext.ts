@@ -10,7 +10,7 @@ import {
 } from './switchHelpers';
 
 import { askProgLang, askEntityName } from '../questions';
-import { writeData } from '../utils';
+import { replaceWithContext, writeData } from '../utils';
 
 import { GenerationEntities, ProgLangNames } from '../enums';
 import { ContextConfig, PromiseReturnStatus } from '../interfaces';
@@ -69,7 +69,7 @@ async function getContextConfig(): Promise<ContextConfig> {
 
   let newName = '';
   if (!name) {
-    newName = await askEntityName(GenerationEntities.Context);
+    newName = replaceWithContext(await askEntityName(GenerationEntities.Context));
   }
 
   const options = {
