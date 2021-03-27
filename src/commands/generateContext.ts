@@ -1,9 +1,14 @@
 import fs from 'fs';
 import { config } from '../config';
 
-import { switchExt } from './switchHelpers';
+import {
+  switchExt,
+  switchContextProviderTemplate,
+  switchContextReducerTemplate,
+  switchContextTemplate,
+  switchContextTypesTemplate,
+} from './switchHelpers';
 
-import { contextTsTemplate, contextTsTypesTemplate, providerTsTemplate, reducerTsTemplate } from '../templates';
 import { askProgLang, askEntityName } from '../questions';
 import { writeData } from '../utils';
 
@@ -12,9 +17,10 @@ import { ContextConfig, PromiseReturnStatus } from '../interfaces';
 
 function contextPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
+  const template = switchContextTemplate(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${ext}`, contextTsTemplate(name))
+    writeData(`${name}/${name}.${ext}`, template(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
@@ -22,9 +28,10 @@ function contextPromise(name: string, lang: ProgLangNames): Promise<PromiseRetur
 
 function contextTypesPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
+  const template = switchContextTypesTemplate(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}Types.${ext}`, contextTsTypesTemplate(name))
+    writeData(`${name}/${name}Types.${ext}`, template(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
@@ -32,9 +39,10 @@ function contextTypesPromise(name: string, lang: ProgLangNames): Promise<Promise
 
 function providerPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
+  const template = switchContextProviderTemplate(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}Provider.${ext}x`, providerTsTemplate(name))
+    writeData(`${name}/${name}Provider.${ext}x`, template(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
@@ -42,9 +50,10 @@ function providerPromise(name: string, lang: ProgLangNames): Promise<PromiseRetu
 
 function reducerPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
+  const template = switchContextReducerTemplate(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}Reducer.${ext}`, reducerTsTemplate(name))
+    writeData(`${name}/${name}Reducer.${ext}`, template(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
