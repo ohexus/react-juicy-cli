@@ -1,8 +1,8 @@
 import { config } from './config';
 import { parseArgs } from './parseArgs';
 
-import { generateComponent, generateHook } from './commands';
-import { askComponentConfig, askHookConfig, askWhichEntity } from './questions';
+import { generateComponent, generateContext, generateHook } from './commands';
+import { askComponentConfig, askContextConfig, askHookConfig, askWhichEntity } from './questions';
 import { chalkColored } from './utils';
 
 import { GenerationEntities } from './enums';
@@ -18,17 +18,16 @@ export default async function cli(argv: string[]): Promise<void> {
 
       if (entity === GenerationEntities.Component) {
         config.set(GenerationEntities.Component, await askComponentConfig());
+        await generateComponent();
+      } else if (entity === GenerationEntities.Context) {
+        config.set(GenerationEntities.Context, await askContextConfig());
+        await generateContext();
       } else if (entity === GenerationEntities.Hook) {
         config.set(GenerationEntities.Hook, await askHookConfig());
+        await generateHook();
       }
     } else {
       parseArgs(args);
-    }
-
-    if (config.has(GenerationEntities.Component)) {
-      await generateComponent();
-    } else if (config.has(GenerationEntities.Hook)) {
-      await generateHook();
     }
 
     console.log(chalkColored('DONE', 'Green'));
