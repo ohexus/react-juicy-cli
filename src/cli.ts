@@ -1,88 +1,39 @@
-import arg from 'arg';
-
-import { generateComponent } from './commands';
 import { config } from './config';
-import { askComponentConfig } from './questions';
-import { capitalizeFirstLetter, chalkColored } from './utils';
+import { parseArgs } from './parseArgs';
 
-import { ProgLangNames, StyleLangNames, TestLibNames } from './enums';
-import { ComponentConfigBasiс } from './interfaces';
+import { generateComponent, generateHook } from './commands';
+import { askComponentConfig, askHookConfig, askWhichEntity } from './questions';
+import { chalkColored } from './utils';
 
-function parseArgs(rawArgs: string[]): ComponentConfigBasiс {
-  const args = arg(
-    {
-      // Flags
-      '--component': String,
-      '--javascript': Boolean,
-      '--typescript': Boolean,
-      '--css': Boolean,
-      '--scss': Boolean,
-      '--sass': Boolean,
-      '--less': Boolean,
-      '--enzyme': Boolean,
-      '--testing-library': Boolean,
-      // Aliases
-      '-c': '--component',
-      '--js': '--javascript',
-      '--ts': '--typescript',
-      '--enz': '--enzyme',
-      '--test-lib': '--testing-library',
-    },
-    { permissive: true, argv: rawArgs },
-  );
-
-  return {
-    name: args['--component'] ? capitalizeFirstLetter(args['--component']) : null,
-    prog: (() => {
-      if (args['--javascript']) {
-        return ProgLangNames.JS;
-      } else if (args['--typescript']) {
-        return ProgLangNames.TS;
-      } else {
-        return null;
-      }
-    })(),
-    style: (() => {
-      if (args['--css']) {
-        return StyleLangNames.CSS;
-      } else if (args['--scss']) {
-        return StyleLangNames.SCSS;
-      } else if (args['--sass']) {
-        return StyleLangNames.SASS;
-      } else if (args['--less']) {
-        return StyleLangNames.LESS;
-      } else {
-        return null;
-      }
-    })(),
-    testLib: (() => {
-      if (args['--enzyme']) {
-        return TestLibNames.ENZYME;
-      } else if (args['--testing-library']) {
-        return TestLibNames.TESTING_LIB;
-      } else {
-        return null;
-      }
-    })(),
-  };
-}
+import { GenerationEntities } from './enums';
 
 export default async function cli(argv: string[]): Promise<void> {
   try {
+    config.clear();
+
     const args = argv.slice(2);
 
     if (!args.length) {
-      config.set('component', await askComponentConfig());
+      const entity = await askWhichEntity();
+
+      if (entity === GenerationEntities.Component) {
+        config.set('component', await askComponentConfig());
+      } else if (entity === GenerationEntities.Hook) {
+        config.set('hook', await askHookConfig());
+      }
     } else {
-      config.set('component', parseArgs(args));
+      parseArgs(args);
     }
 
-    await generateComponent();
+    if (config.has('component')) {
+      await generateComponent();
+    } else if (config.has('hook')) {
+      await generateHook();
+    }
 
     console.log(chalkColored('DONE', 'Green'));
   } catch (error) {
-    console.log(chalkColored('Something went wrong...', 'Red'));
-    console.error(error);
+    console.log(chalkColored(`\n${error.message}\n`, 'Red'));
 
     process.exit(1);
   }
