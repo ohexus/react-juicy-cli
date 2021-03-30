@@ -1,5 +1,6 @@
 import fs from 'fs';
 
+import { StatusMessages } from '../enums';
 import { PromiseReturnStatus } from '../interfaces';
 
 export function writeData(path: string, data: string): Promise<PromiseReturnStatus> {
@@ -10,7 +11,7 @@ export function writeData(path: string, data: string): Promise<PromiseReturnStat
         reject(error);
       }
 
-      resolve('Success!');
+      resolve(StatusMessages.Success);
     });
   });
 }
