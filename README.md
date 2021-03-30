@@ -39,7 +39,7 @@ $ react-juicy-cli --component testComponent --javascript --scss
 or
 
 ```bash
-$ react-juicy-cli -c testComponent --ts --css
+$ react-juicy-cli --cmp testComponent --ts --css
 ```
 
 ## Available flags
