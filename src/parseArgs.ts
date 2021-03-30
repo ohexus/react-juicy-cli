@@ -52,7 +52,11 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--skipS': '--skip-styles',
       '--skipT': '--skip-tests',
       // Alternatives
+      '--skip-style': '--skip-styles',
+      '--skipStyle': '--skip-styles',
       '--skipStyles': '--skip-styles',
+      '--skip-test': '--skip-tests',
+      '--skipTest': '--skip-tests',
       '--skipTests': '--skip-tests',
       '--testing-lib': '--testing-library',
       '--testingLib': '--testing-library',
