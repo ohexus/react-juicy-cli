@@ -1,2 +1,2 @@
-export const indexTemplate = (name: string = 'Component'): string => `export { default } from './${name}';
+export const indexTemplate = (name: string): string => `export { default } from './${name}';
 `;

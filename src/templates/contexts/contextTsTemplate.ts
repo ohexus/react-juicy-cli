@@ -1,4 +1,4 @@
-export const contextTsTemplate = (name: string = 'ContextTemplate'): string => `import React from 'react';
+export const contextTsTemplate = (name: string): string => `import React from 'react';
 import { ${name}State } from './${name}Types';
 
 export const initial${name}State: ${name}State = {

@@ -1,4 +1,4 @@
-export const hookJsTemplate = (name: string = 'useHook'): string => `import { useRef, useEffect } from 'react';
+export const hookJsTemplate = (name: string): string => `import { useRef, useEffect } from 'react';
 
 export default function ${name}(value) {
   const ref = useRef();

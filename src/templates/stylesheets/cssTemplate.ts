@@ -1,4 +1,4 @@
-export const cssTemplate = (name: string = 'Component'): string => `.${name.toLowerCase()} {
+export const cssTemplate = (name: string): string => `.${name.toLowerCase()} {
   font-family: Helvetica, sans-serif;
 }
 `;

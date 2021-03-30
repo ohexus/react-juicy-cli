@@ -1,4 +1,4 @@
-export const contextTsTypesTemplate = (name: string = 'ContextTemplate'): string => `export enum ${name}ActionTypes {
+export const contextTsTypesTemplate = (name: string): string => `export enum ${name}ActionTypes {
   ClearState = 'CLEAR_STATE',
   SetStatus = 'SET_STATUS',
   ToggleStatus = 'TOGGLE_STATUS',

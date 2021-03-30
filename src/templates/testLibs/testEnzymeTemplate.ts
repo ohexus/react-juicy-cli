@@ -1,4 +1,4 @@
-export const testEnzymeTemplate = (name = 'Component') => `import React from 'react';
+export const testEnzymeTemplate = (name: string): string => `import React from 'react';
 import { shallow } from 'enzyme';
 
 import ${name} from './${name}';
