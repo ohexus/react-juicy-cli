@@ -1,8 +1,4 @@
-export const providerTsTemplate = (name: string = 'ContextTemplate'): string => `import React, {
-  FC,
-  ReactNode,
-  useReducer,
-} from 'react';
+export const providerTsTemplate = (name: string): string => `import React, { ReactNode, useReducer, } from 'react';
 
 import { ${name}, initial${name}State } from './${name}';
 import { ${name}Reducer } from './${name}Reducer';
@@ -12,7 +8,7 @@ type ${name}ProviderProps = {
   children: ReactNode;
 };
 
-export const ${name}Provider: FC<${name}ProviderProps> = ({ children }) => {
+export const ${name}Provider: React.FC<${name}ProviderProps> = ({ children }) => {
   const [${name}State, dispatch${name}] = useReducer(${name}Reducer, initial${name}State);
   
   const clearState = () => {

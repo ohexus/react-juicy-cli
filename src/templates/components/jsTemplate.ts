@@ -1,10 +1,7 @@
 import { cssImportTemplate } from './cssImportTemplate';
 import { StyleLangExts } from '../../enums';
 
-export const jsTemplate = (
-  name: string = 'Component',
-  cssExt: StyleLangExts = StyleLangExts.CSS,
-): string => `import React from 'react';
+export const jsTemplate = (name: string, cssExt: StyleLangExts): string => `import React from 'react';
 import PropTypes from 'prop-types';
 ${cssImportTemplate(name, cssExt)}
 const ${name}PropTypes = {}

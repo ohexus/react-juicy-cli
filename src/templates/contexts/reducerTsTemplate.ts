@@ -1,6 +1,4 @@
-export const reducerTsTemplate = (
-  name: string = 'ContextTemplate',
-): string => `import { initial${name}State } from './${name}';
+export const reducerTsTemplate = (name: string): string => `import { initial${name}State } from './${name}';
 import { ${name}Actions, ${name}ActionTypes } from './${name}Types';
 
 export const ${name}Reducer = (currentState = initial${name}State, action: ${name}Actions) => {

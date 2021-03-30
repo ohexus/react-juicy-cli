@@ -1,4 +1,4 @@
-export const providerJsTemplate = (name: string = 'ContextTemplate'): string => `import React, { useReducer } from 'react';
+export const providerJsTemplate = (name: string): string => `import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 import { ${name}, initial${name}State } from './${name}';

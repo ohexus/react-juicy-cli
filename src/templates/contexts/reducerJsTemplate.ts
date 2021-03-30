@@ -1,6 +1,4 @@
-export const reducerJsTemplate = (
-  name: string = 'ContextTemplate',
-): string => `import { initial${name}State } from './${name}';
+export const reducerJsTemplate = (name: string): string => `import { initial${name}State } from './${name}';
 import { CLEAR_STATE, SET_STATUS, TOGGLE_STATUS } from './${name}Types';
 
 export const ${name}Reducer = (currentState = initial${name}State, action) => {
