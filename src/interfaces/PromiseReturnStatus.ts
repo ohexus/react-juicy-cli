@@ -1,1 +1,3 @@
-export type PromiseReturnStatus = 'Success!' | Error;
+import { StatusMessages } from '../enums';
+
+export type PromiseReturnStatus = StatusMessages | Error;

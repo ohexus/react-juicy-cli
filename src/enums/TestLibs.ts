@@ -1,9 +1,10 @@
 export enum TestLibNames {
-  ENZYME = 'enzyme',
-  TESTING_LIB = 'testing-library',
+  Enzyme = 'enzyme',
+  TestingLibrary = 'testing-library',
+  Skip = 'Skip',
 }
 
 export enum TestLibExts {
-  ENZYME = 'spec',
-  TESTING_LIB = 'test',
+  Enzyme = 'spec',
+  TestingLibrary = 'test',
 }

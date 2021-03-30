@@ -51,7 +51,7 @@ function testLibPromise(name: string, lang: ProgLangNames, lib: TestLibNames): P
 }
 
 async function getComponentConfig(): Promise<ComponentConfig> {
-  const { name, prog, style, testLib } = config.get(GenerationEntities.Component);
+  const { name, prog, style, testLib, skipStyles, skipTests } = config.get(GenerationEntities.Component);
 
   let newProg = '';
   if (!prog) {
@@ -59,12 +59,12 @@ async function getComponentConfig(): Promise<ComponentConfig> {
   }
 
   let newStyle = '';
-  if (!style) {
+  if (!skipStyles && !style) {
     newStyle = await askStyleLang();
   }
 
   let newTestLib = '';
-  if (!testLib) {
+  if (!skipTests && !testLib) {
     newTestLib = await askTestLib();
   }
 
@@ -78,6 +78,8 @@ async function getComponentConfig(): Promise<ComponentConfig> {
     style: style || newStyle,
     testLib: testLib || newTestLib,
     name: name || newName,
+    skipStyles: skipStyles || newStyle === StyleLangNames.Skip,
+    skipTests: skipTests || newTestLib === TestLibNames.Skip,
   };
 
   config.set(GenerationEntities.Component, options);
@@ -85,17 +87,20 @@ async function getComponentConfig(): Promise<ComponentConfig> {
   return options;
 }
 
-export async function generateComponent(): Promise<
-  [PromiseReturnStatus, PromiseReturnStatus, PromiseReturnStatus, PromiseReturnStatus]
-> {
-  const { name, prog, style, testLib } = await getComponentConfig();
+export async function generateComponent(): Promise<PromiseReturnStatus[]> {
+  const { name, prog, style, testLib, skipStyles, skipTests } = await getComponentConfig();
 
   fs.mkdirSync(name);
 
-  return Promise.all([
-    componentPromise(name, prog, style),
-    indexPromise(name, prog),
-    styleSheetPromise(name, style),
-    testLibPromise(name, prog, testLib),
-  ]);
+  const promises = [componentPromise(name, prog, style), indexPromise(name, prog)];
+
+  if (!skipStyles) {
+    promises.push(styleSheetPromise(name, style));
+  }
+
+  if (!skipTests) {
+    promises.push(testLibPromise(name, prog, testLib));
+  }
+
+  return Promise.all(promises);
 }

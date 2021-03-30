@@ -38,6 +38,9 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--less': Boolean,
       '--enzyme': Boolean,
       '--testing-library': Boolean,
+      '--skip': Boolean,
+      '--skip-styles': Boolean,
+      '--skip-tests': Boolean,
       // Aliases
       '--cmp': '--component',
       '--ctx': '--context',
@@ -46,6 +49,18 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--ts': '--typescript',
       '--enz': '--enzyme',
       '--test-lib': '--testing-library',
+      '--skipS': '--skip-styles',
+      '--skipT': '--skip-tests',
+      // Alternatives
+      '--skip-style': '--skip-styles',
+      '--skipStyle': '--skip-styles',
+      '--skipStyles': '--skip-styles',
+      '--skip-test': '--skip-tests',
+      '--skipTest': '--skip-tests',
+      '--skipTests': '--skip-tests',
+      '--testing-lib': '--testing-library',
+      '--testingLib': '--testing-library',
+      '--testingLibrary': '--testing-library',
     },
     { permissive: true, argv: rawArgs },
   );
@@ -105,9 +120,9 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
 
   const testLib = (() => {
     if (args['--enzyme']) {
-      return TestLibNames.ENZYME;
+      return TestLibNames.Enzyme;
     } else if (args['--testing-library']) {
-      return TestLibNames.TESTING_LIB;
+      return TestLibNames.TestingLibrary;
     } else {
       return null;
     }
@@ -119,6 +134,8 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       prog,
       style,
       testLib,
+      skipStyles: args['--skip'] || args['--skip-styles'] || false,
+      skipTests: args['--skip'] || args['--skip-tests'] || false,
     } as ComponentConfigBasic);
 
     await generateComponent();

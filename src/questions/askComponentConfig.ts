@@ -6,7 +6,7 @@ import { askTestLib } from './askTestLib';
 import { capitalizeFirstLetter } from '../utils';
 
 import { ComponentConfig } from '../interfaces';
-import { GenerationEntities } from '../enums';
+import { GenerationEntities, StyleLangNames, TestLibNames } from '../enums';
 
 export async function askComponentConfig(): Promise<ComponentConfig> {
   const prog = await askProgLang();
@@ -19,5 +19,7 @@ export async function askComponentConfig(): Promise<ComponentConfig> {
     style,
     testLib,
     name,
+    skipStyles: style === StyleLangNames.Skip,
+    skipTests: testLib === TestLibNames.Skip,
   };
 }
