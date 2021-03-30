@@ -7,7 +7,7 @@ import { Configs, ProgLangNames, Quotes, StyleLangNames, TestLibNames } from './
 import { ComponentConfigBasic, ContextConfigBasic, GlobalConfig, HookConfigBasic } from './interfaces';
 import { generateComponent, generateContext, generateHook } from './commands';
 
-function severalFlagsMessage(flags: string[]) {
+function severalFlagsMessage(flags: string[]): string {
   const message = flags.reduce((acc, next, index) => {
     if (index !== 0) {
       if (index < flags.length - 1) {
