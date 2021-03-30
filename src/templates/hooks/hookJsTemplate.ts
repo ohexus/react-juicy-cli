@@ -1,4 +1,9 @@
-export const hookJsTemplate = (name: string): string => `import { useRef, useEffect } from 'react';
+import { Quotes } from '../../enums';
+
+export const hookJsTemplate = (
+  name: string,
+  quotes: Quotes,
+): string => `import { useRef, useEffect } from ${quotes}react${quotes};
 
 export default function ${name}(value) {
   const ref = useRef();

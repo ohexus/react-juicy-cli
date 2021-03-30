@@ -1,10 +1,12 @@
-export const testEnzymeTemplate = (name: string): string => `import React from 'react';
-import { shallow } from 'enzyme';
+import { Quotes } from '../../enums';
 
-import ${name} from './${name}';
+export const testEnzymeTemplate = (name: string, quotes: Quotes): string => `import React from ${quotes}react${quotes};
+import { shallow } from ${quotes}enzyme${quotes};
 
-describe('${name}', () => {
-  it('should mount', () => {
+import ${name} from ${quotes}./${name}${quotes};
+
+describe(${quotes}${name}${quotes}, () => {
+  it(${quotes}should mount${quotes}, () => {
     const wrapper = shallow(<${name} />);
 
     expect(wrapper.length).toBe(1);

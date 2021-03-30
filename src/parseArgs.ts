@@ -3,11 +3,11 @@ import arg from 'arg';
 import { config } from './config';
 import { capitalizeFirstLetter, replaceWithUse } from './utils';
 
-import { GenerationEntities, ProgLangNames, StyleLangNames, TestLibNames } from './enums';
-import { ComponentConfigBasic, ContextConfigBasic, HookConfigBasic } from './interfaces';
+import { Configs, ProgLangNames, Quotes, StyleLangNames, TestLibNames } from './enums';
+import { ComponentConfigBasic, ContextConfigBasic, GlobalConfig, HookConfigBasic } from './interfaces';
 import { generateComponent, generateContext, generateHook } from './commands';
 
-function severalFlagsMessage(flags: string[]) {
+function severalFlagsMessage(flags: string[]): string {
   const message = flags.reduce((acc, next, index) => {
     if (index !== 0) {
       if (index < flags.length - 1) {
@@ -41,6 +41,8 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--skip': Boolean,
       '--skip-styles': Boolean,
       '--skip-tests': Boolean,
+      '--single-quotes': Boolean,
+      '--double-quotes': Boolean,
       // Aliases
       '--cmp': '--component',
       '--ctx': '--context',
@@ -51,6 +53,8 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--test-lib': '--testing-library',
       '--skipS': '--skip-styles',
       '--skipT': '--skip-tests',
+      '--sq': '--single-quotes',
+      '--dq': '--double-quotes',
       // Alternatives
       '--skip-style': '--skip-styles',
       '--skipStyle': '--skip-styles',
@@ -94,6 +98,15 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
     throw new Error(severalFlagsMessage(['--enzyme', '--testing-library']));
   }
 
+  const isSeveralQuotes = args['--single-quotes'] && args['--double-quotes'];
+  if (isSeveralQuotes) {
+    throw new Error(severalFlagsMessage(['--single-quotes', '--double-quotes']));
+  }
+
+  config.set(Configs.Global, {
+    quotes: args['--double-quotes'] ? Quotes.Double : Quotes.Single,
+  } as GlobalConfig);
+
   const prog = (() => {
     if (args['--javascript']) {
       return ProgLangNames.JS;
@@ -129,7 +142,7 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
   })();
 
   if (args['--component']) {
-    config.set(GenerationEntities.Component, {
+    config.set(Configs.Component, {
       name: capitalizeFirstLetter(args['--component']),
       prog,
       style,
@@ -140,14 +153,14 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
 
     await generateComponent();
   } else if (args['--context']) {
-    config.set(GenerationEntities.Context, {
+    config.set(Configs.Context, {
       name: capitalizeFirstLetter(args['--context']),
       prog,
     } as ContextConfigBasic);
 
     await generateContext();
   } else if (args['--hook']) {
-    config.set(GenerationEntities.Hook, {
+    config.set(Configs.Hook, {
       name: replaceWithUse(args['--hook']),
       prog,
     } as HookConfigBasic);

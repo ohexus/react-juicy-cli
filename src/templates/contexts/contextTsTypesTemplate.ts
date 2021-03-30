@@ -1,7 +1,9 @@
-export const contextTsTypesTemplate = (name: string): string => `export enum ${name}ActionTypes {
-  ClearState = 'CLEAR_STATE',
-  SetStatus = 'SET_STATUS',
-  ToggleStatus = 'TOGGLE_STATUS',
+import { Quotes } from '../../enums';
+
+export const contextTsTypesTemplate = (name: string, quotes: Quotes): string => `export enum ${name}ActionTypes {
+  ClearState = ${quotes}CLEAR_STATE${quotes},
+  SetStatus = ${quotes}SET_STATUS${quotes},
+  ToggleStatus = ${quotes}TOGGLE_STATUS${quotes},
 }
 
 export interface Clear${name}Action {

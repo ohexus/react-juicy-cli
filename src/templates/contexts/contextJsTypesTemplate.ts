@@ -1,4 +1,9 @@
-export const contextJsTypesTemplate = (): string => `export const CLEAR_STATE = 'CLEAR_STATE';
-export const SET_STATUS = 'SET_STATUS';
-export const TOGGLE_STATUS = 'TOGGLE_STATUS';
+import { Quotes } from '../../enums';
+
+export const contextJsTypesTemplate = (
+  name: string,
+  quotes: Quotes,
+): string => `export const CLEAR_STATE = ${quotes}CLEAR_STATE${quotes};
+export const SET_STATUS = ${quotes}SET_STATUS${quotes};
+export const TOGGLE_STATUS = ${quotes}TOGGLE_STATUS${quotes};
 `;
