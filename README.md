@@ -44,7 +44,9 @@ $ react-juicy-cli --cmp testComponent --ts --css
 
 ## Available flags
 
-Don't worry if you miss a few flags, the CLI will ask you a question from a questionnaire about the missing info.
+Don't worry if you miss a few flag, the CLI will ask you a question from a questionnaire about missing information.\
+The only thing you should know is that the generator uses single quotes by default, you will only get the quotes question if no flags are specified.\
+If you use arguments and want to swap quotes, use the --single-quotes (--sq) or --double-quotes (--dq) flag.
 
 ### Flags
 
@@ -64,6 +66,8 @@ Don't worry if you miss a few flags, the CLI will ask you a question from a ques
 | '--skip-styles'     | Boolean   | skip styles step and generate component with tests                     |
 | '--skip-tests'      | Boolean   | skip tests step and generate component with styles                     |
 | '--skip'            | Boolean   | skip styles and tests and generate only component                      |
+| '--single-quotes'   | Boolean   | show the generator that you prefer single quotes                       |
+| '--double-quotes'   | Boolean   | show the generator that you prefer double quotes                       |
 
 ### Aliases
 
@@ -78,6 +82,8 @@ Don't worry if you miss a few flags, the CLI will ask you a question from a ques
 | '--test-lib' | '--testing-library' |
 | '--skipS'    | '--skip-styles'     |
 | '--skipT'    | '--skip-tests'      |
+| '--sq'       | '--single-quotes'   |
+| '--dq'       | '--double-quotes'   |
 
 ### Alternatives
 
