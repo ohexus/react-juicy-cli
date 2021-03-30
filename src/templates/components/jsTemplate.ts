@@ -1,13 +1,11 @@
 import { StyleLangExts } from '../../enums';
 
-export const jsTemplate = (
-  name: string = 'Component',
-  cssExt: StyleLangExts = StyleLangExts.CSS,
-): string => `import React from 'react';
+export const jsTemplate = (name: string = 'Component', cssExt: StyleLangExts = StyleLangExts.CSS): string => {
+  const cssImport = cssExt === StyleLangExts.SKIP ? '' : '\n' + `import './${name}.${cssExt}';` + '\n';
+
+  return `import React from 'react';
 import PropTypes from 'prop-types';
-
-import './${name}.${cssExt}';
-
+${cssImport}
 const ${name}PropTypes = {}
 
 const ${name} = () => (
@@ -20,3 +18,4 @@ ${name}.propTypes = ${name}PropTypes;
 
 export default ${name};
 `;
+};
