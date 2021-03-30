@@ -1,10 +1,11 @@
+import { cssImportTemplate } from './cssImportTemplate';
 import { StyleLangExts } from '../../enums';
 
-export const tsTemplate = (name: string = 'Component', cssExt: StyleLangExts = StyleLangExts.CSS): string => {
-  const cssImport = cssExt === StyleLangExts.Skip ? '' : '\n' + `import './${name}.${cssExt}';` + '\n';
-
-  return `import React from 'react';
-${cssImport}
+export const tsTemplate = (
+  name: string = 'Component',
+  cssExt: StyleLangExts = StyleLangExts.CSS,
+): string => `import React from 'react';
+${cssImportTemplate(name, cssExt)}
 interface ${name}Props {}
 
 const ${name}: React.FC = (props: ${name}Props) => (
@@ -15,4 +16,3 @@ const ${name}: React.FC = (props: ${name}Props) => (
 
 export default ${name};
 `;
-};
