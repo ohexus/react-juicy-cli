@@ -49,6 +49,14 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--ts': '--typescript',
       '--enz': '--enzyme',
       '--test-lib': '--testing-library',
+      '--skipS': '--skip-styles',
+      '--skipT': '--skip-tests',
+      // Alternatives
+      '--skipStyles': '--skip-styles',
+      '--skipTests': '--skip-tests',
+      '--testing-lib': '--testing-library',
+      '--testingLib': '--testing-library',
+      '--testingLibrary': '--testing-library',
     },
     { permissive: true, argv: rawArgs },
   );
