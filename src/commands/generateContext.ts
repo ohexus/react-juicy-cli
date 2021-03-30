@@ -12,7 +12,7 @@ import {
 import { askProgLang, askEntityName } from '../questions';
 import { replaceWithContext, writeData } from '../utils';
 
-import { GenerationEntities, ProgLangNames } from '../enums';
+import { Configs, GenerationEntities, ProgLangNames } from '../enums';
 import { ContextConfig, PromiseReturnStatus } from '../interfaces';
 
 function contextPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
@@ -60,7 +60,7 @@ function reducerPromise(name: string, lang: ProgLangNames): Promise<PromiseRetur
 }
 
 async function getContextConfig(): Promise<ContextConfig> {
-  const { name, prog } = config.get(GenerationEntities.Context);
+  const { name, prog } = config.get(Configs.Context);
 
   let newProg = '';
   if (!prog) {
@@ -77,7 +77,7 @@ async function getContextConfig(): Promise<ContextConfig> {
     name: name || newName,
   };
 
-  config.set(GenerationEntities.Context, options);
+  config.set(Configs.Context, options);
 
   return options;
 }

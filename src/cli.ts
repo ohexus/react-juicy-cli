@@ -5,7 +5,7 @@ import { generateComponent, generateContext, generateHook } from './commands';
 import { askComponentConfig, askContextConfig, askHookConfig, askWhichEntity } from './questions';
 import { chalkColored } from './utils';
 
-import { GenerationEntities } from './enums';
+import { Configs, GenerationEntities } from './enums';
 
 export default async function cli(argv: string[]): Promise<void> {
   try {
@@ -17,13 +17,13 @@ export default async function cli(argv: string[]): Promise<void> {
       const entity = await askWhichEntity();
 
       if (entity === GenerationEntities.Component) {
-        config.set(GenerationEntities.Component, await askComponentConfig());
+        config.set(Configs.Component, await askComponentConfig());
         await generateComponent();
       } else if (entity === GenerationEntities.Context) {
-        config.set(GenerationEntities.Context, await askContextConfig());
+        config.set(Configs.Context, await askContextConfig());
         await generateContext();
       } else if (entity === GenerationEntities.Hook) {
-        config.set(GenerationEntities.Hook, await askHookConfig());
+        config.set(Configs.Hook, await askHookConfig());
         await generateHook();
       }
     } else {
