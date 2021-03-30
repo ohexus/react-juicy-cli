@@ -61,6 +61,9 @@ Don't worry if you miss a few flags, the CLI will ask you a question from a ques
 | '--less'            | Boolean   | generate LESS file                                                     |
 | '--enzyme'          | Boolean   | generate .spec file according to your component extension (tsx \| jsx) |
 | '--testing-library' | Boolean   | generate .test file according to your component extension (tsx \| jsx) |
+| '--skip-styles'     | Boolean   | skip styles step and generate component with tests                     |
+| '--skip-tests'      | Boolean   | skip tests step and generate component with styles                     |
+| '--skip'            | Boolean   | skip styles and tests and generate only component                      |
 
 ### Aliases
 
@@ -73,6 +76,22 @@ Don't worry if you miss a few flags, the CLI will ask you a question from a ques
 | '--ts'       | '--typescript'      |
 | '--enz'      | '--enzyme'          |
 | '--test-lib' | '--testing-library' |
+| '--skipS'    | '--skip-styles'     |
+| '--skipT'    | '--skip-tests'      |
+
+### Alternatives
+
+| alternative flag   | flag                |
+| ------------------ | ------------------- |
+| '--skip-style'     | '--skip-styles'     |
+| '--skipStyle'      | '--skip-styles'     |
+| '--skipStyles'     | '--skip-styles'     |
+| '--skip-test'      | '--skip-tests'      |
+| '--skipTest'       | '--skip-tests'      |
+| '--skipTests'      | '--skip-tests'      |
+| '--testing-lib'    | '--testing-library' |
+| '--testingLib'     | '--testing-library' |
+| '--testingLibrary' | '--testing-library' |
 
 ## License
 
