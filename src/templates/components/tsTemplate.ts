@@ -10,7 +10,7 @@ import './${name}.${cssExt}';
 interface ${name}Props {}
 
 const ${name}: React.FC = (props: ${name}Props) => (
-  <div className="${name}" data-testid="${name}.testId">
+  <div className="${name.toLowerCase()}" data-testid="${name}.testId">
     ${name} works!
   </div>
 );

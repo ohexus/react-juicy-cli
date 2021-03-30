@@ -11,7 +11,7 @@ import './${name}.${cssExt}';
 const ${name}PropTypes = {}
 
 const ${name} = () => (
-  <div className="${name}" data-testid="${name}.testId">
+  <div className="${name.toLowerCase()}" data-testid="${name}.testId">
     ${name} works!
   </div>
 );
