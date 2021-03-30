@@ -38,6 +38,9 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--less': Boolean,
       '--enzyme': Boolean,
       '--testing-library': Boolean,
+      '--skip': Boolean,
+      '--skip-styles': Boolean,
+      '--skip-tests': Boolean,
       // Aliases
       '--cmp': '--component',
       '--ctx': '--context',
@@ -119,6 +122,8 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       prog,
       style,
       testLib,
+      skipStyles: args['--skip'] || args['--skip-styles'] || false,
+      skipTests: args['--skip'] || args['--skip-tests'] || false,
     } as ComponentConfigBasic);
 
     await generateComponent();
