@@ -78,8 +78,8 @@ async function getComponentConfig(): Promise<ComponentConfig> {
     style: style || newStyle,
     testLib: testLib || newTestLib,
     name: name || newName,
-    skipStyles: skipStyles || newStyle === StyleLangNames.SKIP,
-    skipTests: skipTests || newTestLib === TestLibNames.SKIP,
+    skipStyles: skipStyles || newStyle === StyleLangNames.Skip,
+    skipTests: skipTests || newTestLib === TestLibNames.Skip,
   };
 
   config.set(GenerationEntities.Component, options);

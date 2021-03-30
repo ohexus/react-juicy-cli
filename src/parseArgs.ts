@@ -108,9 +108,9 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
 
   const testLib = (() => {
     if (args['--enzyme']) {
-      return TestLibNames.ENZYME;
+      return TestLibNames.Enzyme;
     } else if (args['--testing-library']) {
-      return TestLibNames.TESTING_LIB;
+      return TestLibNames.TestingLibrary;
     } else {
       return null;
     }

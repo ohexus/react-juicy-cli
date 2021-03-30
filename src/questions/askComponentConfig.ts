@@ -19,7 +19,7 @@ export async function askComponentConfig(): Promise<ComponentConfig> {
     style,
     testLib,
     name,
-    skipStyles: style === StyleLangNames.SKIP,
-    skipTests: testLib === TestLibNames.SKIP,
+    skipStyles: style === StyleLangNames.Skip,
+    skipTests: testLib === TestLibNames.Skip,
   };
 }

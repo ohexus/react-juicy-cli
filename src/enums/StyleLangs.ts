@@ -3,7 +3,7 @@ export enum StyleLangNames {
   SCSS = 'scss',
   SASS = 'sass',
   LESS = 'less',
-  SKIP = 'Skip',
+  Skip = 'Skip',
 }
 
 export enum StyleLangExts {
@@ -11,5 +11,5 @@ export enum StyleLangExts {
   SCSS = 'scss',
   SASS = 'sass',
   LESS = 'less',
-  SKIP = 'Skip',
+  Skip = 'Skip',
 }

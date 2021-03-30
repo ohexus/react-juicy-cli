@@ -1,7 +1,7 @@
 import { StyleLangExts } from '../../enums';
 
 export const tsTemplate = (name: string = 'Component', cssExt: StyleLangExts = StyleLangExts.CSS): string => {
-  const cssImport = cssExt === StyleLangExts.SKIP ? '' : '\n' + `import './${name}.${cssExt}';` + '\n';
+  const cssImport = cssExt === StyleLangExts.Skip ? '' : '\n' + `import './${name}.${cssExt}';` + '\n';
 
   return `import React from 'react';
 ${cssImport}
