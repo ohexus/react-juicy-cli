@@ -1,4 +1,6 @@
-export const contextJsTemplate = (name: string): string => `import React from 'react';
+import { Quotes } from '../../enums';
+
+export const contextJsTemplate = (name: string, quotes: Quotes): string => `import React from ${quotes}react${quotes};
 
 export const initial${name}State = {
   status: false,

@@ -7,25 +7,25 @@ import { indexTemplate } from '../templates';
 import { askProgLang, askEntityName } from '../questions';
 import { replaceWithUse, writeData } from '../utils';
 
-import { Configs, GenerationEntities, ProgLangNames } from '../enums';
+import { Configs, GenerationEntities, ProgLangNames, Quotes } from '../enums';
 import { HookConfig, PromiseReturnStatus } from '../interfaces';
 
-function hookPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
+function hookPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
   const template = switchHookTemplate(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${ext}`, template(name))
+    writeData(`${name}/${name}.${ext}`, template(name, quotes))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
 }
 
-function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
+function indexPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/index.${ext}`, indexTemplate(name))
+    writeData(`${name}/index.${ext}`, indexTemplate(name, quotes))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
@@ -56,8 +56,9 @@ async function getHookConfig(): Promise<HookConfig> {
 
 export async function generateHook(): Promise<[PromiseReturnStatus, PromiseReturnStatus]> {
   const { name, prog } = await getHookConfig();
+  const { quotes } = config.get(Configs.Global);
 
   fs.mkdirSync(name);
 
-  return Promise.all([hookPromise(name, prog), indexPromise(name, prog)]);
+  return Promise.all([hookPromise(name, prog, quotes), indexPromise(name, prog, quotes)]);
 }

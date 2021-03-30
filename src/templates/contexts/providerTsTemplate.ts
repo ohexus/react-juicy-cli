@@ -1,8 +1,13 @@
-export const providerTsTemplate = (name: string): string => `import React, { ReactNode, useReducer, } from 'react';
+import { Quotes } from '../../enums';
 
-import { ${name}, initial${name}State } from './${name}';
-import { ${name}Reducer } from './${name}Reducer';
-import { ${name}ActionTypes } from './${name}Types';
+export const providerTsTemplate = (
+  name: string,
+  quotes: Quotes,
+): string => `import React, { ReactNode, useReducer, } from ${quotes}react${quotes};
+
+import { ${name}, initial${name}State } from ${quotes}./${name}${quotes};
+import { ${name}Reducer } from ${quotes}./${name}Reducer${quotes};
+import { ${name}ActionTypes } from ${quotes}./${name}Types${quotes};
 
 type ${name}ProviderProps = {
   children: ReactNode;
