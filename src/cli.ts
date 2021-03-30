@@ -2,7 +2,7 @@ import { config } from './config';
 import { parseArgs } from './parseArgs';
 
 import { generateComponent, generateContext, generateHook } from './commands';
-import { askComponentConfig, askContextConfig, askHookConfig, askWhichEntity } from './questions';
+import { askComponentConfig, askContextConfig, askHookConfig, askQuotes, askWhichEntity } from './questions';
 import { chalkColored } from './utils';
 
 import { Configs, GenerationEntities } from './enums';
@@ -14,6 +14,10 @@ export default async function cli(argv: string[]): Promise<void> {
     const args = argv.slice(2);
 
     if (!args.length) {
+      const quotes = await askQuotes();
+
+      config.set(Configs.Global, { quotes });
+
       const entity = await askWhichEntity();
 
       if (entity === GenerationEntities.Component) {
