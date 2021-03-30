@@ -1,3 +1,5 @@
+import clear from 'clear';
+
 import { config } from './config';
 import { parseArgs } from './parseArgs';
 
@@ -34,7 +36,10 @@ export default async function cli(argv: string[]): Promise<void> {
       parseArgs(args);
     }
 
+    clear();
     console.log(chalkColored('DONE', 'Green'));
+
+    process.exit(0);
   } catch (error) {
     console.log(chalkColored(`\n${error.message}\n`, 'Red'));
 
