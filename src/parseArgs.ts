@@ -1,11 +1,12 @@
 import arg from 'arg';
+import clear from 'clear';
 
 import { config } from './config';
 import { capitalizeFirstLetter, replaceWithUse } from './utils';
 
 import { Configs, ProgLangNames, Quotes, StyleLangNames, TestLibNames } from './enums';
 import { ComponentConfigBasic, ContextConfigBasic, GlobalConfig, HookConfigBasic } from './interfaces';
-import { generateComponent, generateContext, generateHook } from './commands';
+import { generateComponent, generateContext, generateHook, logHelp, logVersion } from './commands';
 
 function severalFlagsMessage(flags: string[]): string {
   const message = flags.reduce((acc, next, index) => {
@@ -27,6 +28,8 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
   const args = arg(
     {
       // Flags
+      '--help': Boolean,
+      '--version': Boolean,
       '--component': String,
       '--context': String,
       '--hook': String,
@@ -44,6 +47,8 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--single-quotes': Boolean,
       '--double-quotes': Boolean,
       // Aliases
+      '-h': '--help',
+      '-v': '--version',
       '--cmp': '--component',
       '--ctx': '--context',
       '--hk': '--hook',
@@ -66,8 +71,18 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--testingLib': '--testing-library',
       '--testingLibrary': '--testing-library',
     },
-    { permissive: true, argv: rawArgs },
+    { argv: rawArgs },
   );
+
+  if (args['--help']) {
+    logHelp();
+    return;
+  }
+
+  if (args['--version']) {
+    logVersion();
+    return;
+  }
 
   const isSeveralEntities =
     (args['--component'] && args['--hook']) ||
@@ -167,4 +182,6 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
 
     await generateHook();
   }
+
+  clear();
 }

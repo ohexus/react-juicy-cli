@@ -52,6 +52,8 @@ If you use arguments and want to swap quotes, use the --single-quotes (--sq) or 
 
 | flag                | interface | description                                                            |
 | ------------------- | --------- | ---------------------------------------------------------------------- |
+| '--help'            | Boolean   | display help for react-juicy-cli                                       |
+| '--version'         | Boolean   | display current version                                                |
 | '--component'       | String    | specify component name and tell CLI to generate a component            |
 | '--context'         | String    | specify context name and tell CLI to generate a context                |
 | '--hook'            | String    | specify hook name and tell CLI to generate a hook                      |
@@ -61,8 +63,8 @@ If you use arguments and want to swap quotes, use the --single-quotes (--sq) or 
 | '--scss'            | Boolean   | generate SCSS file                                                     |
 | '--sass'            | Boolean   | generate SASS file                                                     |
 | '--less'            | Boolean   | generate LESS file                                                     |
-| '--enzyme'          | Boolean   | generate .spec file according to your component extension (tsx \| jsx) |
-| '--testing-library' | Boolean   | generate .test file according to your component extension (tsx \| jsx) |
+| '--enzyme'          | Boolean   | generate .spec file according to your component extension (tsx or jsx) |
+| '--testing-library' | Boolean   | generate .test file according to your component extension (tsx or jsx) |
 | '--skip-styles'     | Boolean   | skip styles step and generate component with tests                     |
 | '--skip-tests'      | Boolean   | skip tests step and generate component with styles                     |
 | '--skip'            | Boolean   | skip styles and tests and generate only component                      |
@@ -73,6 +75,8 @@ If you use arguments and want to swap quotes, use the --single-quotes (--sq) or 
 
 | alias        | flag                |
 | ------------ | ------------------- |
+| '-h'         | '--help'            |
+| '-v'         | '--version'         |
 | '--cmp'      | '--component'       |
 | '--ctx'      | '--context'         |
 | '--hk'       | '--hook'            |
