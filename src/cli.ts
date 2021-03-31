@@ -32,12 +32,11 @@ export default async function cli(argv: string[]): Promise<void> {
         config.set(Configs.Hook, await askHookConfig());
         await generateHook();
       }
+
+      clear();
     } else {
       parseArgs(args);
     }
-
-    clear();
-    console.log(chalkColored('DONE', 'Green'));
 
     process.exit(0);
   } catch (error) {

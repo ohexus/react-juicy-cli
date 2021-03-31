@@ -1,4 +1,5 @@
 import arg from 'arg';
+import clear from 'clear';
 
 import { config } from './config';
 import { capitalizeFirstLetter, replaceWithUse } from './utils';
@@ -181,4 +182,6 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
 
     await generateHook();
   }
+
+  clear();
 }
