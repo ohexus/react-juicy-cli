@@ -1,6 +1,6 @@
 {
   "name": "react-juicy-cli",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "Juicy CLI for React components generation",
   "main": "lib/index.js",
   "bin": {
@@ -8,9 +8,9 @@
   },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "prepublishOnly": "rm -rf lib/ && yarn build"
   },
-  "prepublishOnly": "yarn build",
   "files": [
     "lib/**/*"
   ],
