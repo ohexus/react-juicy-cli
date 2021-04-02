@@ -6,5 +6,5 @@ import { juicyFiglet } from './utils';
 (async () => {
   clear();
   await juicyFiglet();
-  reactJuicyCLI(process.argv);
+  await reactJuicyCLI(process.argv);
 })();

@@ -16,23 +16,39 @@ export default async function cli(argv: string[]): Promise<void> {
     if (!args.length) {
       const quotes = await askQuotes();
 
-      config.set(Configs.Global, { quotes });
-
       const entity = await askWhichEntity();
 
+      config.set(Configs.Global, { entity, quotes });
+
       if (entity === GenerationEntities.Component) {
-        config.set(Configs.Component, await askComponentConfig());
+        const componentConfig = await askComponentConfig();
+
+        config.set(Configs.Component, componentConfig);
+        config.set(`${Configs.Global}.name`, { name: componentConfig.name });
+
         await generateComponent();
       } else if (entity === GenerationEntities.Context) {
-        config.set(Configs.Context, await askContextConfig());
+        const contextConfig = await askContextConfig();
+
+        config.set(Configs.Context, contextConfig);
+        config.set(`${Configs.Global}.name`, { name: contextConfig.name });
+
         await generateContext();
       } else if (entity === GenerationEntities.Hook) {
-        config.set(Configs.Hook, await askHookConfig());
+        const hookConfig = await askHookConfig();
+
+        config.set(Configs.Hook, hookConfig);
+        config.set(`${Configs.Global}.name`, hookConfig.name);
+
         await generateHook();
       }
     } else {
       await parseArgs(args);
     }
+
+    const { entity, name } = config.get(Configs.Global);
+
+    console.log(chalkColored(`\n${entity} ${name} generated successfully!\n`, 'Green'));
 
     process.exit(0);
   } catch (error) {
