@@ -4,7 +4,7 @@ import clear from 'clear';
 import { config } from './config';
 import { capitalizeFirstLetter, replaceWithUse } from './utils';
 
-import { Configs, ProgLangNames, Quotes, StyleLangNames, TestLibNames } from './enums';
+import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangNames, TestLibNames } from './enums';
 import { ComponentConfigBasic, ContextConfigBasic, GlobalConfig, HookConfigBasic } from './interfaces';
 import { generateComponent, generateContext, generateHook, logHelp, logVersion } from './commands';
 
@@ -157,8 +157,13 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
   })();
 
   if (args['--component']) {
+    const name = capitalizeFirstLetter(args['--component']);
+
+    config.set(`${Configs.Global}.entity`, GenerationEntities.Component);
+    config.set(`${Configs.Global}.name`, name);
+
     config.set(Configs.Component, {
-      name: capitalizeFirstLetter(args['--component']),
+      name,
       prog,
       style,
       testLib,
@@ -168,18 +173,30 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
 
     await generateComponent();
   } else if (args['--context']) {
+    const name = capitalizeFirstLetter(args['--context']);
+
+    config.set(`${Configs.Global}.entity`, GenerationEntities.Context);
+    config.set(`${Configs.Global}.name`, name);
+
     config.set(Configs.Context, {
-      name: capitalizeFirstLetter(args['--context']),
+      name,
       prog,
     } as ContextConfigBasic);
 
     await generateContext();
   } else if (args['--hook']) {
+    const name = replaceWithUse(args['--hook']);
+
+    config.set(`${Configs.Global}.entity`, GenerationEntities.Hook);
+    config.set(`${Configs.Global}.name`, name);
+
     config.set(Configs.Hook, {
-      name: replaceWithUse(args['--hook']),
+      name,
       prog,
     } as HookConfigBasic);
 
     await generateHook();
+  } else {
+    throw new Error('No entity specified!');
   }
 }
