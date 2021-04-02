@@ -35,7 +35,7 @@ export default async function cli(argv: string[]): Promise<void> {
 
       clear();
     } else {
-      parseArgs(args);
+      await parseArgs(args);
     }
 
     process.exit(0);
