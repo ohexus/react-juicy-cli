@@ -91,7 +91,7 @@ async function getComponentConfig(): Promise<ComponentConfig> {
     newName = capitalizeFirstLetter(await askEntityName(GenerationEntities.Component));
   }
 
-  const options = {
+  const options: ComponentConfig = {
     prog: prog || newProg,
     style: style || newStyle,
     testLib: testLib || newTestLib,
