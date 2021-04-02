@@ -6,6 +6,7 @@ import { askComponentConfig, askContextConfig, askHookConfig, askQuotes, askWhic
 import { chalkColored } from './utils';
 
 import { Configs, GenerationEntities } from './enums';
+import { GlobalConfig } from './interfaces';
 
 export default async function cli(argv: string[]): Promise<void> {
   try {
@@ -46,9 +47,13 @@ export default async function cli(argv: string[]): Promise<void> {
       await parseArgs(args);
     }
 
-    const { entity, name } = config.get(Configs.Global);
+    const globalConfig: GlobalConfig = config.get(Configs.Global);
 
-    console.log(chalkColored(`\n${entity} ${name} generated successfully!\n`, 'Green'));
+    if (globalConfig) {
+      const { entity, name } = globalConfig;
+
+      console.log(chalkColored(`\n${entity} ${name} generated successfully!\n`, 'Green'));
+    }
 
     process.exit(0);
   } catch (error) {
