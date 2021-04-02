@@ -182,6 +182,4 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
 
     await generateHook();
   }
-
-  clear();
 }

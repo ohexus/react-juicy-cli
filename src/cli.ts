@@ -1,5 +1,3 @@
-import clear from 'clear';
-
 import { config } from './config';
 import { parseArgs } from './parseArgs';
 
@@ -32,8 +30,6 @@ export default async function cli(argv: string[]): Promise<void> {
         config.set(Configs.Hook, await askHookConfig());
         await generateHook();
       }
-
-      clear();
     } else {
       await parseArgs(args);
     }
