@@ -6,3 +6,4 @@ export { switchContextTypesTemplate } from './switchContextTypesTemplate';
 export { switchHookTemplate } from './switchHookTemplate';
 export { switchExt } from './switchExt';
 export { switchTestLib } from './switchTestLib';
+export { switchTestExt } from './switchTestExt';
