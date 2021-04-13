@@ -1,6 +1,6 @@
 import { Quotes } from '../../enums';
 
-export const providerJsTemplate = (
+const providerJsTemplate = (
   name: string,
   quotes: Quotes,
 ): string => `import React, { useReducer } from ${quotes}react${quotes};
@@ -43,3 +43,5 @@ export const ${name}Provider = ({ children }) => {
 
 ${name}Provider.propsTypes = ${name}ProviderPropsTypes;
 `;
+
+export default providerJsTemplate;

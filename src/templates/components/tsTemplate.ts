@@ -1,13 +1,10 @@
-import { cssImportTemplate } from './cssImportTemplate';
-import { Quotes, StyleLangExts } from '../../enums';
+import cssImportTemplate from './cssImportTemplate';
 
-export const tsTemplate = (
-  name: string,
-  cssExt: StyleLangExts,
-  quotes: Quotes,
-): string => `import React from ${quotes}react${quotes};
-${cssImportTemplate(name, cssExt, quotes)}
-interface ${name}Props {}
+import { Quotes, StyleLangs } from '../../enums';
+
+const tsTemplate = (name: string, cssExt: StyleLangs, quotes: Quotes): string => `import React from 'react';
+${cssImportTemplate(name, cssExt)}
+export interface ${name}Props {}
 
 const ${name}: React.FC<${name}Props> = ({}) => (
   <div className=${quotes}${name.toLowerCase()}${quotes} data-testid=${quotes}${name}.testId${quotes}>
@@ -17,3 +14,5 @@ const ${name}: React.FC<${name}Props> = ({}) => (
 
 export default ${name};
 `;
+
+export default tsTemplate;

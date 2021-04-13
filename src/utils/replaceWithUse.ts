@@ -1,8 +1,8 @@
-import { capitalizeFirstLetter } from './capitalizeFirstLetter';
+import capitalizeFirstLetter from './capitalizeFirstLetter';
 
 const useRegex = /^(u?s?e?)/i;
 
-export function replaceWithUse(str: string): string {
+function replaceWithUse(str: string): string {
   if (str.length <= 3 || !str.slice(0, 3).match(useRegex)) {
     return 'use' + capitalizeFirstLetter(str);
   }
@@ -11,3 +11,5 @@ export function replaceWithUse(str: string): string {
 
   return replaced.slice(0, 3) + capitalizeFirstLetter(replaced.slice(3));
 }
+
+export default replaceWithUse;

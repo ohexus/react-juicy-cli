@@ -1,2 +1,2 @@
-export { testEnzymeTemplate } from './testEnzymeTemplate';
-export { testTestingLibraryTemplate } from './testTestingLibraryTemplate';
+export { default as enzymeTemplate } from './enzymeTemplate';
+export { default as testingLibraryTemplate } from './testingLibraryTemplate';

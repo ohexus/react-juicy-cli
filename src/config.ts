@@ -1,3 +1,3 @@
 import Configstore from 'configstore';
 
-export const config = new Configstore('react-juicy-cli');
+export default new Configstore('react-juicy-cli');

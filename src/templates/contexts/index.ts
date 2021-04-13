@@ -1,8 +1,8 @@
-export { contextJsTemplate } from './contextJsTemplate';
-export { contextTsTemplate } from './contextTsTemplate';
-export { contextJsTypesTemplate } from './contextJsTypesTemplate';
-export { contextTsTypesTemplate } from './contextTsTypesTemplate';
-export { providerJsTemplate } from './providerJsTemplate';
-export { providerTsTemplate } from './providerTsTemplate';
-export { reducerJsTemplate } from './reducerJsTemplate';
-export { reducerTsTemplate } from './reducerTsTemplate';
+export { default as contextJsTemplate } from './contextJsTemplate';
+export { default as contextTsTemplate } from './contextTsTemplate';
+export { default as contextJsTypesTemplate } from './contextJsTypesTemplate';
+export { default as contextTsTypesTemplate } from './contextTsTypesTemplate';
+export { default as providerJsTemplate } from './providerJsTemplate';
+export { default as providerTsTemplate } from './providerTsTemplate';
+export { default as reducerJsTemplate } from './reducerJsTemplate';
+export { default as reducerTsTemplate } from './reducerTsTemplate';

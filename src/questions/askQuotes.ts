@@ -10,8 +10,10 @@ const quotesQuestion = {
   choices: Object.keys(Quotes),
 };
 
-export async function askQuotes(): Promise<GlobalConfig['quotes']> {
+async function askQuotes(): Promise<GlobalConfig['quotes']> {
   const quotesKey = (await inquirer.prompt([quotesQuestion])).quotes as keyof typeof Quotes;
 
   return Quotes[quotesKey];
 }
+
+export default askQuotes;

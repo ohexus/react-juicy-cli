@@ -1,6 +1,6 @@
 import { Quotes } from '../../enums';
 
-export const hookJsTemplate = (
+const hookJsTemplate = (
   name: string,
   quotes: Quotes,
 ): string => `import { useRef, useEffect } from ${quotes}react${quotes};
@@ -15,3 +15,5 @@ export default function ${name}(value) {
   return ref.current;
 }
 `;
+
+export default hookJsTemplate;

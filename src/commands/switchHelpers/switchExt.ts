@@ -1,6 +1,6 @@
 import { ProgLangNames, ProgLangExts } from '../../enums';
 
-export function switchExt(lang: ProgLangNames): ProgLangExts {
+function switchExt(lang: ProgLangNames): ProgLangExts {
   if (lang === ProgLangNames.JS) {
     return ProgLangExts.JS;
   } else if (lang === ProgLangNames.TS) {
@@ -9,3 +9,5 @@ export function switchExt(lang: ProgLangNames): ProgLangExts {
     return ProgLangExts.JS;
   }
 }
+
+export default switchExt;

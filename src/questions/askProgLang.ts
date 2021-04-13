@@ -10,6 +10,8 @@ const progLangQuestion = {
   choices: Object.values(ProgLangNames),
 };
 
-export async function askProgLang(): Promise<ComponentConfig['prog']> {
+async function askProgLang(): Promise<ComponentConfig['prog']> {
   return (await inquirer.prompt([progLangQuestion])).prog;
 }
+
+export default askProgLang;

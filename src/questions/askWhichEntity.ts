@@ -9,6 +9,8 @@ const entityQuestion = {
   choices: Object.values(GenerationEntities),
 };
 
-export async function askWhichEntity(): Promise<GenerationEntities> {
+async function askWhichEntity(): Promise<GenerationEntities> {
   return (await inquirer.prompt([entityQuestion])).entity;
 }
+
+export default askWhichEntity;

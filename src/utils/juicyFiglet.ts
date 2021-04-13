@@ -1,8 +1,7 @@
 import figlet from 'figlet';
+import chalkColored from './chalkColored';
 
-import { chalkColored } from './chalkColored';
-
-export function juicyFiglet() {
+function juicyFiglet() {
   return new Promise((resolve, reject) => {
     figlet.text('Juicy CLI', { font: 'Cyberlarge' }, (err: Error | null, result?: string) => {
       if (err) {
@@ -19,3 +18,5 @@ export function juicyFiglet() {
     });
   });
 }
+
+export default juicyFiglet;

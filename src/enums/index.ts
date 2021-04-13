@@ -1,8 +1,8 @@
-export { Colors } from './Colors';
-export { Configs } from './Configs';
-export { GenerationEntities } from './GenerationEntities';
+export { default as Colors } from './Colors';
+export { default as Configs } from './Configs';
+export { default as GenerationEntities } from './GenerationEntities';
+export { default as Quotes } from './Quotes';
+export { default as StatusMessages } from './StatusMessages';
+export { default as StyleLangs } from './StyleLangs';
 export { ProgLangNames, ProgLangExts } from './ProgLangs';
-export { Quotes } from './Quotes';
-export { StatusMessages } from './StatusMessages';
-export { StyleLangNames, StyleLangExts } from './StyleLangs';
-export { TestLibNames, TestLibExts } from './TestLibs';
+export { TestExts, TestLibs, TestTypes } from './TestTypes';

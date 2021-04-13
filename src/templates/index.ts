@@ -11,4 +11,4 @@ export {
 } from './contexts';
 export { hookJsTemplate, hookTsTemplate } from './hooks';
 export { cssTemplate, sassTemplate } from './stylesheets';
-export { testEnzymeTemplate, testTestingLibraryTemplate } from './testLibs';
+export { enzymeTemplate, testingLibraryTemplate } from './testLibs';

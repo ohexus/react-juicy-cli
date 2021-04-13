@@ -1,9 +1,11 @@
-import { Quotes, StyleLangExts } from '../../enums';
+import { StyleLangs } from '../../enums';
 
-export const cssImportTemplate = (name: string, cssExt: StyleLangExts, quotes: Quotes): string => {
-  if (cssExt && cssExt.length && cssExt !== StyleLangExts.Skip) {
-    return '\n' + `import ${quotes}./${name}.${cssExt}${quotes};` + '\n';
+const cssImportTemplate = (name: string, cssExt: StyleLangs): string => {
+  if (cssExt && cssExt.length && cssExt !== StyleLangs.Skip) {
+    return '\n' + `import './${name}.${cssExt}';` + '\n';
   }
 
   return '';
 };
+
+export default cssImportTemplate;

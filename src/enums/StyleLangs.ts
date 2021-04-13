@@ -1,15 +1,9 @@
-export enum StyleLangNames {
+enum StyleLangs {
   CSS = 'css',
   SCSS = 'scss',
   SASS = 'sass',
   LESS = 'less',
-  Skip = 'Skip',
+  Skip = 'skip',
 }
 
-export enum StyleLangExts {
-  CSS = 'css',
-  SCSS = 'scss',
-  SASS = 'sass',
-  LESS = 'less',
-  Skip = 'Skip',
-}
+export default StyleLangs;

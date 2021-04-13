@@ -1,5 +1,5 @@
-export { generateComponent } from './generateComponent';
-export { generateContext } from './generateContext';
-export { generateHook } from './generateHook';
-export { logHelp } from './logHelp';
-export { logVersion } from './logVersion';
+export { default as generateComponent } from './generateComponent';
+export { default as generateContext } from './generateContext';
+export { default as generateHook } from './generateHook';
+export { default as logHelp } from './logHelp';
+export { default as logVersion } from './logVersion';

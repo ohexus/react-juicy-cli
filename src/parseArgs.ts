@@ -1,12 +1,11 @@
 import arg from 'arg';
-import clear from 'clear';
+import config from './config';
 
-import { config } from './config';
+import { generateComponent, generateContext, generateHook, logHelp, logVersion } from './commands';
 import { capitalizeFirstLetter, replaceWithUse } from './utils';
 
-import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangNames, TestLibNames } from './enums';
+import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from './enums';
 import { ComponentConfigBasic, ContextConfigBasic, GlobalConfig, HookConfigBasic } from './interfaces';
-import { generateComponent, generateContext, generateHook, logHelp, logVersion } from './commands';
 
 function severalFlagsMessage(flags: string[]): string {
   const message = flags.reduce((acc, next, index) => {
@@ -24,7 +23,7 @@ function severalFlagsMessage(flags: string[]): string {
   return message + ' flags can only be used separately!';
 }
 
-export async function parseArgs(rawArgs: string[]): Promise<void> {
+async function parseArgs(rawArgs: string[]): Promise<void> {
   const args = arg(
     {
       // Flags
@@ -41,6 +40,8 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--less': Boolean,
       '--enzyme': Boolean,
       '--testing-library': Boolean,
+      '--unit': Boolean,
+      '--integration': Boolean,
       '--skip': Boolean,
       '--skip-styles': Boolean,
       '--skip-tests': Boolean,
@@ -56,6 +57,8 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       '--ts': '--typescript',
       '--enz': '--enzyme',
       '--test-lib': '--testing-library',
+      '-u': '--unit',
+      '-i': '--integration',
       '--skipS': '--skip-styles',
       '--skipT': '--skip-tests',
       '--sq': '--single-quotes',
@@ -113,6 +116,11 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
     throw new Error(severalFlagsMessage(['--enzyme', '--testing-library']));
   }
 
+  const isSeveralTestTypes = args['--unit'] && args['--integration'];
+  if (isSeveralTestTypes) {
+    throw new Error(severalFlagsMessage(['--unit', '--integration']));
+  }
+
   const isSeveralQuotes = args['--single-quotes'] && args['--double-quotes'];
   if (isSeveralQuotes) {
     throw new Error(severalFlagsMessage(['--single-quotes', '--double-quotes']));
@@ -134,13 +142,13 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
 
   const style = (() => {
     if (args['--css']) {
-      return StyleLangNames.CSS;
+      return StyleLangs.CSS;
     } else if (args['--scss']) {
-      return StyleLangNames.SCSS;
+      return StyleLangs.SCSS;
     } else if (args['--sass']) {
-      return StyleLangNames.SASS;
+      return StyleLangs.SASS;
     } else if (args['--less']) {
-      return StyleLangNames.LESS;
+      return StyleLangs.LESS;
     } else {
       return null;
     }
@@ -148,9 +156,19 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
 
   const testLib = (() => {
     if (args['--enzyme']) {
-      return TestLibNames.Enzyme;
+      return TestLibs.Enzyme;
     } else if (args['--testing-library']) {
-      return TestLibNames.TestingLibrary;
+      return TestLibs.TestingLibrary;
+    } else {
+      return null;
+    }
+  })();
+
+  const testType = (() => {
+    if (args['--unit']) {
+      return TestTypes.Unit;
+    } else if (args['--integration']) {
+      return TestTypes.Integration;
     } else {
       return null;
     }
@@ -167,6 +185,7 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
       prog,
       style,
       testLib,
+      testType,
       skipStyles: args['--skip'] || args['--skip-styles'] || false,
       skipTests: args['--skip'] || args['--skip-tests'] || false,
     } as ComponentConfigBasic);
@@ -200,3 +219,5 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
     throw new Error('No entity specified!');
   }
 }
+
+export default parseArgs;

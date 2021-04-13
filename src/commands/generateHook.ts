@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { config } from '../config';
+import config from '../config';
 
 import { switchExt, switchHookTemplate } from './switchHelpers';
 
@@ -25,7 +25,7 @@ function indexPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promis
   const ext = switchExt(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/index.${ext}`, indexTemplate(name, quotes))
+    writeData(`${name}/index.${ext}`, indexTemplate(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
@@ -54,7 +54,7 @@ async function getHookConfig(): Promise<HookConfig> {
   return options;
 }
 
-export async function generateHook(): Promise<[PromiseReturnStatus, PromiseReturnStatus]> {
+async function generateHook(): Promise<[PromiseReturnStatus, PromiseReturnStatus]> {
   const { name, prog } = await getHookConfig();
   const { quotes } = config.get(Configs.Global);
 
@@ -62,3 +62,5 @@ export async function generateHook(): Promise<[PromiseReturnStatus, PromiseRetur
 
   return Promise.all([hookPromise(name, prog, quotes), indexPromise(name, prog, quotes)]);
 }
+
+export default generateHook;
