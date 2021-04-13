@@ -6,4 +6,5 @@ export { askProgLang } from './askProgLang';
 export { askQuotes } from './askQuotes';
 export { askStyleLang } from './askStyleLang';
 export { askTestLib } from './askTestLib';
+export { askTestType } from './askTestType';
 export { askWhichEntity } from './askWhichEntity';
