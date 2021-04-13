@@ -1,75 +1,62 @@
 import fs from 'fs';
 import { config } from '../config';
 
-import { switchComponentTemplate, switchExt, switchTestLib } from './switchHelpers';
-
+import { askProgLang, askStyleLang, askTestLib, askEntityName, askTestType } from '../questions';
+import { switchComponentTemplate, switchExt, switchTestExt, switchTestLib } from './switchHelpers';
 import { indexTemplate, sassTemplate, cssTemplate } from '../templates';
-import { askProgLang, askStyleLang, askTestLib, askEntityName } from '../questions';
 import { capitalizeFirstLetter, writeData } from '../utils';
 
-import {
-  Configs,
-  GenerationEntities,
-  ProgLangNames,
-  Quotes,
-  StyleLangExts,
-  StyleLangNames,
-  TestLibNames,
-} from '../enums';
+import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../enums';
 import { ComponentConfig, PromiseReturnStatus } from '../interfaces';
 
 function componentPromise(
   name: string,
   lang: ProgLangNames,
-  sslang: StyleLangNames,
+  sslang: StyleLangs,
   quotes: Quotes,
 ): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
   const template = switchComponentTemplate(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${ext}x`, template(name, (sslang as string) as StyleLangExts, quotes))
+    writeData(`${name}/${name}.${ext}x`, template(name, (sslang as string) as StyleLangs, quotes))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
 }
 
-function indexPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promise<PromiseReturnStatus> {
+function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/index.${ext}`, indexTemplate(name, quotes))
+    writeData(`${name}/index.${ext}`, indexTemplate(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
 }
 
-function styleSheetPromise(name: string, lang: StyleLangNames): Promise<PromiseReturnStatus> {
+function styleSheetPromise(name: string, lang: StyleLangs): Promise<PromiseReturnStatus> {
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${lang}`, (lang === StyleLangNames.SASS ? sassTemplate : cssTemplate)(name))
+    writeData(`${name}/${name}.${lang}`, (lang === StyleLangs.SASS ? sassTemplate : cssTemplate)(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
 }
 
-function testLibPromise(
-  name: string,
-  lang: ProgLangNames,
-  lib: TestLibNames,
-  quotes: Quotes,
-): Promise<PromiseReturnStatus> {
+function testPromise(name: string, lang: ProgLangNames, lib: TestLibs, type: TestTypes): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
-  const [testExt, template] = switchTestLib(lib);
+  const testExt = switchTestExt(type);
+  const template = switchTestLib(lib);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${testExt}.${ext}x`, template(name, quotes))
+    writeData(`${name}/${name}.${testExt}.${ext}x`, template(name, type))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
 }
 
 async function getComponentConfig(): Promise<ComponentConfig> {
-  const { name, prog, style, testLib, skipStyles, skipTests } = config.get(Configs.Component);
+  const { name, prog, style, testLib, testType, skipStyles, skipTests } = config.get(Configs.Component);
 
   let newProg = '';
   if (!prog) {
@@ -79,6 +66,11 @@ async function getComponentConfig(): Promise<ComponentConfig> {
   let newStyle = '';
   if (!skipStyles && !style) {
     newStyle = await askStyleLang();
+  }
+
+  let newTestType = '';
+  if (!skipTests && !testType) {
+    newTestType = await askTestType();
   }
 
   let newTestLib = '';
@@ -95,9 +87,10 @@ async function getComponentConfig(): Promise<ComponentConfig> {
     prog: prog || newProg,
     style: style || newStyle,
     testLib: testLib || newTestLib,
+    testType: testType || newTestType,
     name: name || newName,
-    skipStyles: skipStyles || newStyle === StyleLangNames.Skip,
-    skipTests: skipTests || newTestLib === TestLibNames.Skip,
+    skipStyles: skipStyles || newStyle === StyleLangs.Skip,
+    skipTests: skipTests || newTestLib === TestLibs.Skip,
   };
 
   config.set(Configs.Component, options);
@@ -106,19 +99,19 @@ async function getComponentConfig(): Promise<ComponentConfig> {
 }
 
 export async function generateComponent(): Promise<PromiseReturnStatus[]> {
-  const { name, prog, style, testLib, skipStyles, skipTests } = await getComponentConfig();
+  const { name, prog, style, testLib, testType, skipStyles, skipTests } = await getComponentConfig();
   const { quotes } = config.get(Configs.Global);
 
   fs.mkdirSync(name);
 
-  const promises = [componentPromise(name, prog, style, quotes), indexPromise(name, prog, quotes)];
+  const promises = [componentPromise(name, prog, style, quotes), indexPromise(name, prog)];
 
   if (!skipStyles) {
     promises.push(styleSheetPromise(name, style));
   }
 
   if (!skipTests) {
-    promises.push(testLibPromise(name, prog, testLib, quotes));
+    promises.push(testPromise(name, prog, testLib, testType));
   }
 
   return Promise.all(promises);
