@@ -3,7 +3,7 @@ import fs from 'fs';
 import { StatusMessages } from '../enums';
 import { PromiseReturnStatus } from '../interfaces';
 
-export function writeData(path: string, data: string): Promise<PromiseReturnStatus> {
+function writeData(path: string, data: string): Promise<PromiseReturnStatus> {
   return new Promise((resolve, reject) => {
     fs.writeFile(path, data, (error) => {
       if (error) {
@@ -15,3 +15,5 @@ export function writeData(path: string, data: string): Promise<PromiseReturnStat
     });
   });
 }
+
+export default writeData;

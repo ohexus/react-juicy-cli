@@ -1,8 +1,8 @@
-import { capitalizeFirstLetter } from './capitalizeFirstLetter';
+import capitalizeFirstLetter from './capitalizeFirstLetter';
 
 const contextRegex = /^(c?o?n?t?e?x?t?)/i;
 
-export function replaceWithContext(str: string): string {
+function replaceWithContext(str: string): string {
   if (!str.slice(-7).match(contextRegex)) {
     return capitalizeFirstLetter(str) + 'Context';
   }
@@ -11,3 +11,5 @@ export function replaceWithContext(str: string): string {
 
   return capitalizeFirstLetter(replaced);
 }
+
+export default replaceWithContext;
