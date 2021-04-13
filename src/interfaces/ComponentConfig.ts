@@ -1,9 +1,10 @@
-import { ProgLangNames, StyleLangNames, TestLibNames } from '../enums';
+import { ProgLangNames, StyleLangs, TestLibs, TestTypes } from '../enums';
 
 export interface ComponentConfigBasic {
   prog: ProgLangNames | null;
-  style: StyleLangNames | null;
-  testLib: TestLibNames | null;
+  style: StyleLangs | null;
+  testLib: TestLibs | null;
+  testType: TestTypes | null;
   name: string | null;
   skipStyles: boolean;
   skipTests: boolean;
@@ -11,8 +12,9 @@ export interface ComponentConfigBasic {
 
 export interface ComponentConfig {
   prog: ProgLangNames;
-  style: StyleLangNames;
-  testLib: TestLibNames;
+  style: StyleLangs;
+  testLib: TestLibs;
+  testType: TestTypes;
   name: string;
   skipStyles: boolean;
   skipTests: boolean;
