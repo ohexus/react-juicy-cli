@@ -19,7 +19,7 @@ function componentPromise(
   const template = switchComponentTemplate(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${ext}x`, template(name, (sslang as string) as StyleLangs, quotes))
+    writeData(`${name}/${name}.${ext}x`, template(name, sslang, quotes))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
