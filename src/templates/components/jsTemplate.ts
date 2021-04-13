@@ -1,13 +1,10 @@
-import { cssImportTemplate } from './cssImportTemplate';
-import { Quotes, StyleLangExts } from '../../enums';
+import cssImportTemplate from './cssImportTemplate';
 
-export const jsTemplate = (
-  name: string,
-  cssExt: StyleLangExts,
-  quotes: Quotes,
-): string => `import React from ${quotes}react${quotes};
-import PropTypes from ${quotes}prop-types${quotes};
-${cssImportTemplate(name, cssExt, quotes)}
+import { Quotes, StyleLangs } from '../../enums';
+
+const jsTemplate = (name: string, cssExt: StyleLangs, quotes: Quotes): string => `import React from 'react';
+import PropTypes from 'prop-types';
+${cssImportTemplate(name, cssExt)}
 const ${name}PropTypes = {}
 
 const ${name} = () => (
@@ -20,3 +17,5 @@ ${name}.propTypes = ${name}PropTypes;
 
 export default ${name};
 `;
+
+export default jsTemplate;
