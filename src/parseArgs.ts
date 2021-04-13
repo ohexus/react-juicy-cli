@@ -1,6 +1,6 @@
 import arg from 'arg';
+import config from './config';
 
-import { config } from './config';
 import { generateComponent, generateContext, generateHook, logHelp, logVersion } from './commands';
 import { capitalizeFirstLetter, replaceWithUse } from './utils';
 
@@ -23,7 +23,7 @@ function severalFlagsMessage(flags: string[]): string {
   return message + ' flags can only be used separately!';
 }
 
-export async function parseArgs(rawArgs: string[]): Promise<void> {
+async function parseArgs(rawArgs: string[]): Promise<void> {
   const args = arg(
     {
       // Flags
@@ -219,3 +219,5 @@ export async function parseArgs(rawArgs: string[]): Promise<void> {
     throw new Error('No entity specified!');
   }
 }
+
+export default parseArgs;

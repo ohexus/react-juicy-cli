@@ -1,4 +1,4 @@
-export function logHelp(): void {
+function logHelp(): void {
   console.log(`
   Usage: react-juicy-cli [flags <string?>]
 
@@ -30,3 +30,5 @@ export function logHelp(): void {
   --testing-library:                  --testing-lib, --testingLib, --testingLibrary
 `);
 }
+
+export default logHelp;

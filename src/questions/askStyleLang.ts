@@ -10,6 +10,8 @@ const styleLangQuestion = {
   choices: Object.values(StyleLangs),
 };
 
-export async function askStyleLang(): Promise<ComponentConfig['style']> {
+async function askStyleLang(): Promise<ComponentConfig['style']> {
   return (await inquirer.prompt([styleLangQuestion])).style;
 }
+
+export default askStyleLang;

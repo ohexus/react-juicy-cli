@@ -1,2 +1,2 @@
-export { hookJsTemplate } from './hookJsTemplate';
-export { hookTsTemplate } from './hookTsTemplate';
+export { default as hookJsTemplate } from './hookJsTemplate';
+export { default as hookTsTemplate } from './hookTsTemplate';

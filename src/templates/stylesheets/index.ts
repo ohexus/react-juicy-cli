@@ -1,2 +1,2 @@
-export { cssTemplate } from './cssTemplate';
-export { sassTemplate } from './sassTemplate';
+export { default as cssTemplate } from './cssTemplate';
+export { default as sassTemplate } from './sassTemplate';

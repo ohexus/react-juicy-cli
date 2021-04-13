@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { config } from '../config';
+import config from '../config';
 
 import { askProgLang, askStyleLang, askTestLib, askEntityName, askTestType } from '../questions';
 import { switchComponentTemplate, switchExt, switchTestExt, switchTestLib } from './switchHelpers';
@@ -98,7 +98,7 @@ async function getComponentConfig(): Promise<ComponentConfig> {
   return options;
 }
 
-export async function generateComponent(): Promise<PromiseReturnStatus[]> {
+async function generateComponent(): Promise<PromiseReturnStatus[]> {
   const { name, prog, style, testLib, testType, skipStyles, skipTests } = await getComponentConfig();
   const { quotes } = config.get(Configs.Global);
 
@@ -116,3 +116,5 @@ export async function generateComponent(): Promise<PromiseReturnStatus[]> {
 
   return Promise.all(promises);
 }
+
+export default generateComponent;

@@ -10,6 +10,8 @@ const testTypeQuestion = {
   choices: Object.values(TestTypes),
 };
 
-export async function askTestType(): Promise<ComponentConfig['testType']> {
+async function askTestType(): Promise<ComponentConfig['testType']> {
   return (await inquirer.prompt([testTypeQuestion])).testType;
 }
+
+export default askTestType;

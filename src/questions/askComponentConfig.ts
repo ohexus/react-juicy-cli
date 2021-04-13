@@ -1,15 +1,15 @@
-import { askEntityName } from './askEntityName';
-import { askProgLang } from './askProgLang';
-import { askStyleLang } from './askStyleLang';
-import { askTestLib } from './askTestLib';
-import { askTestType } from './askTestType';
+import askEntityName from './askEntityName';
+import askProgLang from './askProgLang';
+import askStyleLang from './askStyleLang';
+import askTestLib from './askTestLib';
+import askTestType from './askTestType';
 
 import { capitalizeFirstLetter } from '../utils';
 
-import { ComponentConfig } from '../interfaces';
 import { GenerationEntities, StyleLangs, TestLibs } from '../enums';
+import { ComponentConfig } from '../interfaces';
 
-export async function askComponentConfig(): Promise<ComponentConfig> {
+async function askComponentConfig(): Promise<ComponentConfig> {
   const prog = await askProgLang();
   const style = await askStyleLang();
   const testType = await askTestType();
@@ -26,3 +26,5 @@ export async function askComponentConfig(): Promise<ComponentConfig> {
     skipTests: testLib === TestLibs.Skip,
   };
 }
+
+export default askComponentConfig;

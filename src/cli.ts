@@ -1,5 +1,5 @@
-import { config } from './config';
-import { parseArgs } from './parseArgs';
+import config from './config';
+import parseArgs from './parseArgs';
 
 import { generateComponent, generateContext, generateHook } from './commands';
 import { askComponentConfig, askContextConfig, askHookConfig, askQuotes, askWhichEntity } from './questions';

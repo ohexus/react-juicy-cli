@@ -1,4 +1,6 @@
-export enum Quotes {
+enum Quotes {
   Double = '"',
   Single = "'",
 }
+
+export default Quotes;

@@ -1,6 +1,6 @@
 import { Quotes } from '../../enums';
 
-export const contextTsTemplate = (name: string, quotes: Quotes): string => `import React from ${quotes}react${quotes};
+const contextTsTemplate = (name: string, quotes: Quotes): string => `import React from ${quotes}react${quotes};
 import { ${name}State } from ${quotes}./${name}Types${quotes};
 
 export const initial${name}State: ${name}State = {
@@ -9,3 +9,5 @@ export const initial${name}State: ${name}State = {
 
 export const ${name} = React.createContext<${name}State>(initial${name}State);
 `;
+
+export default contextTsTemplate;

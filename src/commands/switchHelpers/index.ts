@@ -1,9 +1,9 @@
-export { switchComponentTemplate } from './switchComponentTemplate';
-export { switchContextProviderTemplate } from './switchContextProviderTemplate';
-export { switchContextReducerTemplate } from './switchContextReducerTemplate';
-export { switchContextTemplate } from './switchContextTemplate';
-export { switchContextTypesTemplate } from './switchContextTypesTemplate';
-export { switchHookTemplate } from './switchHookTemplate';
-export { switchExt } from './switchExt';
-export { switchTestLib } from './switchTestLib';
-export { switchTestExt } from './switchTestExt';
+export { default as switchComponentTemplate } from './switchComponentTemplate';
+export { default as switchContextProviderTemplate } from './switchContextProviderTemplate';
+export { default as switchContextReducerTemplate } from './switchContextReducerTemplate';
+export { default as switchContextTemplate } from './switchContextTemplate';
+export { default as switchContextTypesTemplate } from './switchContextTypesTemplate';
+export { default as switchHookTemplate } from './switchHookTemplate';
+export { default as switchExt } from './switchExt';
+export { default as switchTestLib } from './switchTestLib';
+export { default as switchTestExt } from './switchTestExt';

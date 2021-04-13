@@ -2,7 +2,7 @@ import { contextJsTypesTemplate, contextTsTypesTemplate } from '../../templates'
 
 import { ProgLangNames } from '../../enums';
 
-export function switchContextTypesTemplate(
+function switchContextTypesTemplate(
   lang: ProgLangNames,
 ): typeof contextJsTypesTemplate | typeof contextTsTypesTemplate {
   if (lang === ProgLangNames.JS) {
@@ -13,3 +13,5 @@ export function switchContextTypesTemplate(
     return contextJsTypesTemplate;
   }
 }
+
+export default switchContextTypesTemplate;

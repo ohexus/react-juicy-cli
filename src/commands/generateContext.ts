@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { config } from '../config';
+import config from '../config';
 
 import {
   switchExt,
@@ -82,7 +82,7 @@ async function getContextConfig(): Promise<ContextConfig> {
   return options;
 }
 
-export async function generateContext(): Promise<
+async function generateContext(): Promise<
   [PromiseReturnStatus, PromiseReturnStatus, PromiseReturnStatus, PromiseReturnStatus]
 > {
   const { name, prog } = await getContextConfig();
@@ -97,3 +97,5 @@ export async function generateContext(): Promise<
     reducerPromise(name, prog, quotes),
   ]);
 }
+
+export default generateContext;

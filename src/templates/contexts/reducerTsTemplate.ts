@@ -1,6 +1,6 @@
 import { Quotes } from '../../enums';
 
-export const reducerTsTemplate = (
+const reducerTsTemplate = (
   name: string,
   quotes: Quotes,
 ): string => `import { initial${name}State } from ${quotes}./${name}${quotes};
@@ -22,3 +22,5 @@ export const ${name}Reducer = (currentState = initial${name}State, action: ${nam
   }
 };
 `;
+
+export default reducerTsTemplate;
