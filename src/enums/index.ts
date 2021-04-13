@@ -4,5 +4,5 @@ export { GenerationEntities } from './GenerationEntities';
 export { ProgLangNames, ProgLangExts } from './ProgLangs';
 export { Quotes } from './Quotes';
 export { StatusMessages } from './StatusMessages';
-export { StyleLangNames, StyleLangExts } from './StyleLangs';
-export { TestLibNames, TestLibExts } from './TestLibs';
+export { StyleLangs } from './StyleLangs';
+export { TestExts, TestLibs, TestTypes } from './TestTypes';
