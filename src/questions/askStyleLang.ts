@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 
 import { StyleLangs } from '../enums';
-import { ComponentConfig } from '../interfaces';
+import { ComponentConfig, QuestionReply } from '../interfaces';
 
 const styleLangQuestion = {
   name: 'style',
@@ -11,7 +11,7 @@ const styleLangQuestion = {
 };
 
 async function askStyleLang(): Promise<ComponentConfig['style']> {
-  return (await inquirer.prompt([styleLangQuestion])).style;
+  return ((await inquirer.prompt([styleLangQuestion])) as QuestionReply<StyleLangs>).style;
 }
 
 export default askStyleLang;

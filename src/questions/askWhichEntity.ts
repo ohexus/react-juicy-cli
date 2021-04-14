@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
 
 import { GenerationEntities } from '../enums';
+import { QuestionReply } from '../interfaces';
 
 const entityQuestion = {
   name: 'entity',
@@ -10,7 +11,7 @@ const entityQuestion = {
 };
 
 async function askWhichEntity(): Promise<GenerationEntities> {
-  return (await inquirer.prompt([entityQuestion])).entity;
+  return ((await inquirer.prompt([entityQuestion])) as QuestionReply<GenerationEntities>).entity;
 }
 
 export default askWhichEntity;

@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 
 import { Quotes } from '../enums';
-import { GlobalConfig } from '../interfaces';
+import { GlobalConfig, QuestionReply } from '../interfaces';
 
 const quotesQuestion = {
   name: 'quotes',
@@ -10,8 +10,10 @@ const quotesQuestion = {
   choices: Object.keys(Quotes),
 };
 
+type QuotesKeys = keyof typeof Quotes;
+
 async function askQuotes(): Promise<GlobalConfig['quotes']> {
-  const quotesKey = (await inquirer.prompt([quotesQuestion])).quotes as keyof typeof Quotes;
+  const quotesKey = ((await inquirer.prompt([quotesQuestion])) as QuestionReply<QuotesKeys>).quotes;
 
   return Quotes[quotesKey];
 }
