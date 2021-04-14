@@ -11,6 +11,8 @@ function logHelp(): void {
   --hk, --hook <string>               specify hook name and tell CLI to generate a hook
   --js, --javascript                  generate JavaScript component
   --ts, --typescript                  generate TypeScript component
+  -u, --unit                          generate unit test
+  -i, --integration                   generate integration test
   --css                               generate CSS file
   --scss                              generate SCSS file
   --sass                              generate SASS file
