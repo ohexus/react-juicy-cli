@@ -1,7 +1,7 @@
 import figlet from 'figlet';
 import chalkColored from './chalkColored';
 
-function juicyFiglet() {
+function juicyFiglet(): Promise<string | Error> {
   return new Promise((resolve, reject) => {
     figlet.text('Juicy CLI', { font: 'Cyberlarge' }, (err: Error | null, result?: string) => {
       if (err) {
