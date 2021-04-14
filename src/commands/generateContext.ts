@@ -13,7 +13,7 @@ import { askProgLang, askEntityName } from '../questions';
 import { replaceWithContext, writeData } from '../utils';
 
 import { Configs, GenerationEntities, ProgLangNames, Quotes } from '../enums';
-import { ContextConfig, PromiseReturnStatus } from '../interfaces';
+import { ContextConfig, GlobalConfig, PromiseReturnStatus } from '../interfaces';
 
 function contextPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
@@ -60,7 +60,7 @@ function reducerPromise(name: string, lang: ProgLangNames, quotes: Quotes): Prom
 }
 
 async function getContextConfig(): Promise<ContextConfig> {
-  const { name, prog } = config.get(Configs.Context);
+  const { name, prog } = config.get(Configs.Context) as ContextConfig;
 
   let newProg = '';
   if (!prog) {
@@ -82,11 +82,9 @@ async function getContextConfig(): Promise<ContextConfig> {
   return options;
 }
 
-async function generateContext(): Promise<
-  [PromiseReturnStatus, PromiseReturnStatus, PromiseReturnStatus, PromiseReturnStatus]
-> {
+async function generateContext(): Promise<PromiseReturnStatus[]> {
   const { name, prog } = await getContextConfig();
-  const { quotes } = config.get(Configs.Global);
+  const { quotes } = config.get(Configs.Global) as GlobalConfig;
 
   fs.mkdirSync(name);
 

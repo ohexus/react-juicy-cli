@@ -7,7 +7,7 @@ import { indexTemplate, sassTemplate, cssTemplate } from '../templates';
 import { capitalizeFirstLetter, writeData } from '../utils';
 
 import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../enums';
-import { ComponentConfig, PromiseReturnStatus } from '../interfaces';
+import { ComponentConfig, GlobalConfig, PromiseReturnStatus } from '../interfaces';
 
 function componentPromise(
   name: string,
@@ -56,7 +56,9 @@ function testPromise(name: string, lang: ProgLangNames, lib: TestLibs, type: Tes
 }
 
 async function getComponentConfig(): Promise<ComponentConfig> {
-  const { name, prog, style, testLib, testType, skipStyles, skipTests } = config.get(Configs.Component);
+  const { name, prog, style, testLib, testType, skipStyles, skipTests } = config.get(
+    Configs.Component,
+  ) as ComponentConfig;
 
   let newProg = '';
   if (!prog) {
@@ -100,7 +102,7 @@ async function getComponentConfig(): Promise<ComponentConfig> {
 
 async function generateComponent(): Promise<PromiseReturnStatus[]> {
   const { name, prog, style, testLib, testType, skipStyles, skipTests } = await getComponentConfig();
-  const { quotes } = config.get(Configs.Global);
+  const { quotes } = config.get(Configs.Global) as GlobalConfig;
 
   fs.mkdirSync(name);
 

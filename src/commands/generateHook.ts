@@ -8,7 +8,7 @@ import { askProgLang, askEntityName } from '../questions';
 import { replaceWithUse, writeData } from '../utils';
 
 import { Configs, GenerationEntities, ProgLangNames, Quotes } from '../enums';
-import { HookConfig, PromiseReturnStatus } from '../interfaces';
+import { GlobalConfig, HookConfig, PromiseReturnStatus } from '../interfaces';
 
 function hookPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
@@ -21,7 +21,7 @@ function hookPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promise
   });
 }
 
-function indexPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promise<PromiseReturnStatus> {
+function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
 
   return new Promise((resolve, reject) => {
@@ -32,7 +32,7 @@ function indexPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promis
 }
 
 async function getHookConfig(): Promise<HookConfig> {
-  const { name, prog } = config.get(Configs.Hook);
+  const { name, prog } = config.get(Configs.Hook) as HookConfig;
 
   let newProg = '';
   if (!prog) {
@@ -56,11 +56,11 @@ async function getHookConfig(): Promise<HookConfig> {
 
 async function generateHook(): Promise<[PromiseReturnStatus, PromiseReturnStatus]> {
   const { name, prog } = await getHookConfig();
-  const { quotes } = config.get(Configs.Global);
+  const { quotes } = config.get(Configs.Global) as GlobalConfig;
 
   fs.mkdirSync(name);
 
-  return Promise.all([hookPromise(name, prog, quotes), indexPromise(name, prog, quotes)]);
+  return Promise.all([hookPromise(name, prog, quotes), indexPromise(name, prog)]);
 }
 
 export default generateHook;
