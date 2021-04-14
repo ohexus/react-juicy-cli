@@ -3,7 +3,7 @@ import capitalizeFirstLetter from './capitalizeFirstLetter';
 const useRegex = /^(u?s?e?)/i;
 
 function replaceWithUse(str: string): string {
-  if (str.length <= 3 || !str.slice(0, 3).match(useRegex)) {
+  if (str.length <= 3 || !useRegex.exec(str.slice(0, 3))) {
     return 'use' + capitalizeFirstLetter(str);
   }
 
