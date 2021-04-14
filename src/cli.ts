@@ -47,7 +47,7 @@ export default async function cli(argv: string[]): Promise<void> {
       await parseArgs(args);
     }
 
-    const globalConfig: GlobalConfig = config.get(Configs.Global);
+    const globalConfig = config.get(Configs.Global) as GlobalConfig;
 
     if (globalConfig) {
       const { entity, name } = globalConfig;
@@ -57,7 +57,7 @@ export default async function cli(argv: string[]): Promise<void> {
 
     process.exit(0);
   } catch (error) {
-    console.log(chalkColored(`\n${error.message}\n`, 'Red'));
+    console.log(chalkColored(`\n${(error as Error).message}\n`, 'Red'));
 
     process.exit(1);
   }
