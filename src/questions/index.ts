@@ -1,6 +1,7 @@
 export { default as askComponentConfig } from './askComponentConfig';
 export { default as askContextConfig } from './askContextConfig';
 export { default as askEntityName } from './askEntityName';
+export { default as askGlobalConfig } from './askGlobalConfig';
 export { default as askHookConfig } from './askHookConfig';
 export { default as askProgLang } from './askProgLang';
 export { default as askQuotes } from './askQuotes';
