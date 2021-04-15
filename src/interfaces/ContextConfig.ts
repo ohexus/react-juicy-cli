@@ -1,7 +1,5 @@
-export interface ContextConfigBasic {
-  name: string | null;
-}
-
-export interface ContextConfig {
+interface ContextConfig {
   name: string;
 }
+
+export default ContextConfig;

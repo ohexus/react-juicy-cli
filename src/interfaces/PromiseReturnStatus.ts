@@ -1,3 +1,5 @@
 import { StatusMessages } from '../enums';
 
-export type PromiseReturnStatus = StatusMessages | Error;
+type PromiseReturnStatus = StatusMessages | Error;
+
+export default PromiseReturnStatus;

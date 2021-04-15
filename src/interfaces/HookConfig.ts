@@ -1,7 +1,5 @@
-export interface HookConfigBasic {
-  name: string | null;
-}
-
-export interface HookConfig {
+interface HookConfig {
   name: string;
 }
+
+export default HookConfig;
