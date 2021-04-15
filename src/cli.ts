@@ -39,11 +39,21 @@ export default async function cli(argv: string[]): Promise<void> {
 
     const globalConfig = config.get(Configs.Global) as GlobalConfig;
 
-    if (globalConfig) {
-      const { entity } = globalConfig;
+    if (globalConfig.entity) {
+      const { entity, skipStyles, skipTests } = globalConfig;
       const { name } = config.get(Configs[entity]) as ComponentConfig | ContextConfig | HookConfig | TestConfig;
 
-      console.log(chalkColored(`\n${entity} ${name} generated successfully!\n`, 'Green'));
+      if (skipStyles) {
+        console.log(chalkColored('\nStyles generation skipped.\n', 'Yellow'));
+      }
+
+      if (skipTests) {
+        console.log(chalkColored('\nTests generation skipped.\n', 'Yellow'));
+      }
+
+      if (!(entity === GenerationEntities.Test && skipTests)) {
+        console.log(chalkColored(`\n${entity} ${name} generated successfully!\n`, 'Green'));
+      }
     }
 
     process.exit(0);
