@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 
 import { TestTypes } from '../enums';
-import { ComponentConfig } from '../interfaces';
+import { ComponentConfig, QuestionReply } from '../interfaces';
 
 const testTypeQuestion = {
   name: 'testType',
@@ -11,7 +11,7 @@ const testTypeQuestion = {
 };
 
 async function askTestType(): Promise<ComponentConfig['testType']> {
-  return (await inquirer.prompt([testTypeQuestion])).testType;
+  return ((await inquirer.prompt([testTypeQuestion])) as QuestionReply<TestTypes>).testType;
 }
 
 export default askTestType;

@@ -3,7 +3,7 @@ import capitalizeFirstLetter from './capitalizeFirstLetter';
 const contextRegex = /^(c?o?n?t?e?x?t?)/i;
 
 function replaceWithContext(str: string): string {
-  if (!str.slice(-7).match(contextRegex)) {
+  if (!contextRegex.exec(str.slice(-7))) {
     return capitalizeFirstLetter(str) + 'Context';
   }
 
