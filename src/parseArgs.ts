@@ -5,7 +5,8 @@ import { generateComponent, generateContext, generateHook, logHelp, logVersion }
 import { capitalizeFirstLetter, replaceWithUse } from './utils';
 
 import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from './enums';
-import { ComponentConfigBasic, ContextConfigBasic, GlobalConfig, HookConfigBasic } from './interfaces';
+import { ComponentConfigBasic, ContextConfigBasic, GlobalConfig, HookConfigBasic, TestConfigBasic } from './interfaces';
+import generateTest from './commands/generateTest';
 
 function severalFlagsMessage(flags: string[]): string {
   const message = flags.reduce((acc, next, index) => {
@@ -32,6 +33,7 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
       '--component': String,
       '--context': String,
       '--hook': String,
+      '--test': String,
       '--javascript': Boolean,
       '--typescript': Boolean,
       '--css': Boolean,
@@ -215,6 +217,20 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
     } as HookConfigBasic);
 
     await generateHook();
+  } else if (args['--test']) {
+    const name = capitalizeFirstLetter(args['--test']);
+
+    config.set(`${Configs.Global}.entity`, GenerationEntities.Test);
+    config.set(`${Configs.Global}.name`, name);
+    config.set(`${Configs.Global}.prog`, prog);
+
+    config.set(Configs.Test, {
+      lib: testLib,
+      type: testType,
+      name,
+    } as TestConfigBasic);
+
+    await generateTest();
   } else {
     throw new Error('No entity specified!');
   }
