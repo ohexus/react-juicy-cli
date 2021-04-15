@@ -4,7 +4,7 @@ import askEntityName from './askEntityName';
 import askTestLib from './askTestLib';
 import askTestType from './askTestType';
 
-import { Configs, GenerationEntities } from '../enums';
+import { Configs, GenerationEntities, TestLibs } from '../enums';
 import { GlobalConfig, TestConfig } from '../interfaces';
 
 async function askTestConfig(): Promise<void> {
@@ -16,7 +16,14 @@ async function askTestConfig(): Promise<void> {
   }
 
   if (!testConfig.lib) {
-    testConfig.lib = await askTestLib();
+    const lib = await askTestLib();
+
+    if (lib === TestLibs.Skip) {
+      config.set(`${Configs.Global}.skipTests`, true);
+      return;
+    }
+
+    testConfig.lib = lib;
   }
 
   if (!testConfig.type) {
