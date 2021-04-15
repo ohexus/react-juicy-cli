@@ -19,6 +19,7 @@ async function askComponentConfig(): Promise<void> {
   }
 
   config.set(Configs.Component, componentConfig);
+  config.set(`${Configs.Test}.name`, componentConfig.name);
 }
 
 export default askComponentConfig;
