@@ -16,12 +16,12 @@ async function askTestConfig(): Promise<void> {
     return;
   }
 
-  if (!testConfig.type) {
-    testConfig.type = await askTestType();
-  }
-
   if (!testConfig.lib) {
     testConfig.lib = await askTestLib();
+  }
+
+  if (!testConfig.type) {
+    testConfig.type = await askTestType();
   }
 
   if (!testConfig.name) {
