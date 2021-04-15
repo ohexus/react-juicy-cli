@@ -5,6 +5,7 @@ export { default as askHookConfig } from './askHookConfig';
 export { default as askProgLang } from './askProgLang';
 export { default as askQuotes } from './askQuotes';
 export { default as askStyleLang } from './askStyleLang';
+export { default as askTestConfig } from './askTestConfig';
 export { default as askTestLib } from './askTestLib';
 export { default as askTestType } from './askTestType';
 export { default as askWhichEntity } from './askWhichEntity';
