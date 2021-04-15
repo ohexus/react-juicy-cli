@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 
 import { TestLibs } from '../enums';
-import { ComponentConfig, QuestionReply } from '../interfaces';
+import { QuestionReply, TestConfig } from '../interfaces';
 
 const testLibQuestion = {
   name: 'testLib',
@@ -10,7 +10,7 @@ const testLibQuestion = {
   choices: Object.values(TestLibs),
 };
 
-async function askTestLib(): Promise<ComponentConfig['testLib']> {
+async function askTestLib(): Promise<TestConfig['lib']> {
   return ((await inquirer.prompt([testLibQuestion])) as QuestionReply<TestLibs>).testLib;
 }
 

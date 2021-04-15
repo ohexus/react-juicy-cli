@@ -1,7 +1,11 @@
-import { GenerationEntities, Quotes } from '../enums';
+import { GenerationEntities, ProgLangNames, Quotes } from '../enums';
 
-export interface GlobalConfig {
+interface GlobalConfig {
   entity: GenerationEntities;
-  name: string;
+  prog: ProgLangNames;
+  skipStyles: boolean;
+  skipTests: boolean;
   quotes: Quotes;
 }
+
+export default GlobalConfig;

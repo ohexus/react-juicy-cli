@@ -1,11 +1,12 @@
 import arg from 'arg';
 import config from './config';
 
-import { generateComponent, generateContext, generateHook, logHelp, logVersion } from './commands';
+import { generateComponent, generateContext, generateHook, generateTest, logHelp, logVersion } from './commands';
+import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from './questions';
 import { capitalizeFirstLetter, replaceWithUse } from './utils';
 
 import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from './enums';
-import { ComponentConfigBasic, ContextConfigBasic, GlobalConfig, HookConfigBasic } from './interfaces';
+import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from './interfaces';
 
 function severalFlagsMessage(flags: string[]): string {
   const message = flags.reduce((acc, next, index) => {
@@ -32,6 +33,7 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
       '--component': String,
       '--context': String,
       '--hook': String,
+      '--test': String,
       '--javascript': Boolean,
       '--typescript': Boolean,
       '--css': Boolean,
@@ -126,10 +128,6 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
     throw new Error(severalFlagsMessage(['--single-quotes', '--double-quotes']));
   }
 
-  config.set(Configs.Global, {
-    quotes: args['--double-quotes'] ? Quotes.Double : Quotes.Single,
-  } as GlobalConfig);
-
   const prog = (() => {
     if (args['--javascript']) {
       return ProgLangNames.JS;
@@ -174,50 +172,79 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
     }
   })();
 
+  config.set(Configs.Global, {
+    prog,
+    quotes: args['--double-quotes'] ? Quotes.Double : Quotes.Single,
+    skipStyles: args['--skip'] || args['--skip-styles'] || false,
+    skipTests: args['--skip'] || args['--skip-tests'] || false,
+  } as GlobalConfig);
+
   if (args['--component']) {
     const name = capitalizeFirstLetter(args['--component']);
 
     config.set(`${Configs.Global}.entity`, GenerationEntities.Component);
-    config.set(`${Configs.Global}.name`, name);
-
     config.set(Configs.Component, {
       name,
-      prog,
       style,
-      testLib,
-      testType,
-      skipStyles: args['--skip'] || args['--skip-styles'] || false,
-      skipTests: args['--skip'] || args['--skip-tests'] || false,
-    } as ComponentConfigBasic);
+    } as ComponentConfig);
+
+    await askGlobalConfig();
+    await askComponentConfig();
+    await askTestConfig();
 
     await generateComponent();
-  } else if (args['--context']) {
+    await generateTest();
+    return;
+  }
+
+  if (args['--context']) {
     const name = capitalizeFirstLetter(args['--context']);
 
     config.set(`${Configs.Global}.entity`, GenerationEntities.Context);
-    config.set(`${Configs.Global}.name`, name);
-
     config.set(Configs.Context, {
       name,
-      prog,
-    } as ContextConfigBasic);
+    } as ContextConfig);
+
+    await askGlobalConfig();
+    await askContextConfig();
 
     await generateContext();
-  } else if (args['--hook']) {
+    return;
+  }
+
+  if (args['--hook']) {
     const name = replaceWithUse(args['--hook']);
 
     config.set(`${Configs.Global}.entity`, GenerationEntities.Hook);
-    config.set(`${Configs.Global}.name`, name);
-
     config.set(Configs.Hook, {
       name,
-      prog,
-    } as HookConfigBasic);
+    } as HookConfig);
+
+    await askGlobalConfig();
+    await askHookConfig();
 
     await generateHook();
-  } else {
-    throw new Error('No entity specified!');
+    return;
   }
+
+  if (args['--test']) {
+    const name = capitalizeFirstLetter(args['--test']);
+
+    config.set(`${Configs.Global}.entity`, GenerationEntities.Test);
+    config.set(Configs.Test, {
+      lib: testLib,
+      type: testType,
+      name,
+    } as TestConfig);
+
+    await askGlobalConfig();
+    await askTestConfig();
+
+    await generateTest();
+    return;
+  }
+
+  throw new Error('No entity specified!');
 }
 
 export default parseArgs;

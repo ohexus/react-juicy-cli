@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 
 import { ProgLangNames } from '../enums';
-import { ComponentConfig, QuestionReply } from '../interfaces';
+import { GlobalConfig, QuestionReply } from '../interfaces';
 
 const progLangQuestion = {
   name: 'prog',
@@ -10,7 +10,7 @@ const progLangQuestion = {
   choices: Object.values(ProgLangNames),
 };
 
-async function askProgLang(): Promise<ComponentConfig['prog']> {
+async function askProgLang(): Promise<GlobalConfig['prog']> {
   return ((await inquirer.prompt([progLangQuestion])) as QuestionReply<ProgLangNames>).prog;
 }
 

@@ -2,12 +2,10 @@ import fs from 'fs';
 import config from '../config';
 
 import { switchExt, switchHookTemplate } from './switchHelpers';
-
 import { indexTemplate } from '../templates';
-import { askProgLang, askEntityName } from '../questions';
-import { replaceWithUse, writeData } from '../utils';
+import { writeData } from '../utils';
 
-import { Configs, GenerationEntities, ProgLangNames, Quotes } from '../enums';
+import { Configs, ProgLangNames, Quotes } from '../enums';
 import { GlobalConfig, HookConfig, PromiseReturnStatus } from '../interfaces';
 
 function hookPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promise<PromiseReturnStatus> {
@@ -31,34 +29,17 @@ function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnS
   });
 }
 
-async function getHookConfig(): Promise<HookConfig> {
-  const { name, prog } = config.get(Configs.Hook) as HookConfig;
+const getHookConfig = (): HookConfig & { prog: GlobalConfig['prog']; quotes: GlobalConfig['quotes'] } => {
+  const { prog, quotes } = config.get(Configs.Global) as GlobalConfig;
+  const { name } = config.get(Configs.Hook) as HookConfig;
 
-  let newProg = '';
-  if (!prog) {
-    newProg = await askProgLang();
-  }
+  return { name, prog, quotes };
+};
 
-  let newName = '';
-  if (!name) {
-    newName = replaceWithUse(await askEntityName(GenerationEntities.Hook));
-  }
+async function generateHook(): Promise<PromiseReturnStatus[]> {
+  const { name, prog, quotes } = getHookConfig();
 
-  const options = {
-    prog: prog || newProg,
-    name: name || newName,
-  };
-
-  config.set(Configs.Hook, options);
-
-  return options;
-}
-
-async function generateHook(): Promise<[PromiseReturnStatus, PromiseReturnStatus]> {
-  const { name, prog } = await getHookConfig();
-  const { quotes } = config.get(Configs.Global) as GlobalConfig;
-
-  fs.mkdirSync(name);
+  fs.mkdirSync(name, { recursive: true });
 
   return Promise.all([hookPromise(name, prog, quotes), indexPromise(name, prog)]);
 }

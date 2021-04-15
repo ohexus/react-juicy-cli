@@ -1,19 +1,19 @@
-import askEntityName from './askEntityName';
-import askProgLang from './askProgLang';
-
+import config from '../config';
 import { replaceWithContext } from '../utils';
 
-import { GenerationEntities } from '../enums';
+import askEntityName from './askEntityName';
+
+import { Configs, GenerationEntities } from '../enums';
 import { ContextConfig } from '../interfaces';
 
-async function askContextConfig(): Promise<ContextConfig> {
-  const prog = await askProgLang();
-  const name = replaceWithContext(await askEntityName(GenerationEntities.Context));
+async function askContextConfig(): Promise<void> {
+  const contextConfig = config.get(Configs.Hook) as ContextConfig;
 
-  return {
-    prog,
-    name,
-  };
+  if (!contextConfig.name) {
+    contextConfig.name = replaceWithContext(await askEntityName(GenerationEntities.Context));
+  }
+
+  config.set(Configs.Context, contextConfig);
 }
 
 export default askContextConfig;

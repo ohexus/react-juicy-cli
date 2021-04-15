@@ -1,30 +1,31 @@
-import askEntityName from './askEntityName';
-import askProgLang from './askProgLang';
-import askStyleLang from './askStyleLang';
-import askTestLib from './askTestLib';
-import askTestType from './askTestType';
-
+import config from '../config';
 import { capitalizeFirstLetter } from '../utils';
 
-import { GenerationEntities, StyleLangs, TestLibs } from '../enums';
+import askEntityName from './askEntityName';
+import askStyleLang from './askStyleLang';
+
+import { Configs, GenerationEntities, StyleLangs } from '../enums';
 import { ComponentConfig } from '../interfaces';
 
-async function askComponentConfig(): Promise<ComponentConfig> {
-  const prog = await askProgLang();
-  const style = await askStyleLang();
-  const testType = await askTestType();
-  const testLib = await askTestLib();
-  const name = capitalizeFirstLetter(await askEntityName(GenerationEntities.Component));
+async function askComponentConfig(): Promise<void> {
+  const componentConfig = config.get(Configs.Component) as ComponentConfig;
 
-  return {
-    prog,
-    style,
-    testLib,
-    testType,
-    name,
-    skipStyles: style === StyleLangs.Skip,
-    skipTests: testLib === TestLibs.Skip,
-  };
+  if (!componentConfig.name) {
+    componentConfig.name = capitalizeFirstLetter(await askEntityName(GenerationEntities.Component));
+  }
+
+  if (!componentConfig.style) {
+    const styleLang = await askStyleLang();
+
+    if (styleLang === StyleLangs.Skip) {
+      config.set(`${Configs.Global}.skipStyles`, true);
+    }
+
+    componentConfig.style = styleLang;
+  }
+
+  config.set(Configs.Component, componentConfig);
+  config.set(`${Configs.Test}.name`, componentConfig.name);
 }
 
 export default askComponentConfig;

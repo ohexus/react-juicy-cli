@@ -8,11 +8,9 @@ import {
   switchContextTemplate,
   switchContextTypesTemplate,
 } from './switchHelpers';
+import { writeData } from '../utils';
 
-import { askProgLang, askEntityName } from '../questions';
-import { replaceWithContext, writeData } from '../utils';
-
-import { Configs, GenerationEntities, ProgLangNames, Quotes } from '../enums';
+import { Configs, ProgLangNames, Quotes } from '../enums';
 import { ContextConfig, GlobalConfig, PromiseReturnStatus } from '../interfaces';
 
 function contextPromise(name: string, lang: ProgLangNames, quotes: Quotes): Promise<PromiseReturnStatus> {
@@ -59,34 +57,17 @@ function reducerPromise(name: string, lang: ProgLangNames, quotes: Quotes): Prom
   });
 }
 
-async function getContextConfig(): Promise<ContextConfig> {
-  const { name, prog } = config.get(Configs.Context) as ContextConfig;
+const getContextConfig = (): ContextConfig & { prog: GlobalConfig['prog']; quotes: GlobalConfig['quotes'] } => {
+  const { prog, quotes } = config.get(Configs.Global) as GlobalConfig;
+  const { name } = config.get(Configs.Context) as ContextConfig;
 
-  let newProg = '';
-  if (!prog) {
-    newProg = await askProgLang();
-  }
-
-  let newName = '';
-  if (!name) {
-    newName = replaceWithContext(await askEntityName(GenerationEntities.Context));
-  }
-
-  const options = {
-    prog: prog || newProg,
-    name: name || newName,
-  };
-
-  config.set(Configs.Context, options);
-
-  return options;
-}
+  return { name, prog, quotes };
+};
 
 async function generateContext(): Promise<PromiseReturnStatus[]> {
-  const { name, prog } = await getContextConfig();
-  const { quotes } = config.get(Configs.Global) as GlobalConfig;
+  const { name, prog, quotes } = getContextConfig();
 
-  fs.mkdirSync(name);
+  fs.mkdirSync(name, { recursive: true });
 
   return Promise.all([
     contextPromise(name, prog, quotes),

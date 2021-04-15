@@ -1,12 +1,11 @@
 import fs from 'fs';
 import config from '../config';
 
-import { askProgLang, askStyleLang, askTestLib, askEntityName, askTestType } from '../questions';
-import { switchComponentTemplate, switchExt, switchTestExt, switchTestLib } from './switchHelpers';
+import { switchComponentTemplate, switchExt } from './switchHelpers';
 import { indexTemplate, sassTemplate, cssTemplate } from '../templates';
-import { capitalizeFirstLetter, writeData } from '../utils';
+import { writeData } from '../utils';
 
-import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../enums';
+import { Configs, ProgLangNames, Quotes, StyleLangs } from '../enums';
 import { ComponentConfig, GlobalConfig, PromiseReturnStatus } from '../interfaces';
 
 function componentPromise(
@@ -43,77 +42,33 @@ function styleSheetPromise(name: string, lang: StyleLangs): Promise<PromiseRetur
   });
 }
 
-function testPromise(name: string, lang: ProgLangNames, lib: TestLibs, type: TestTypes): Promise<PromiseReturnStatus> {
-  const ext = switchExt(lang);
-  const testExt = switchTestExt(type);
-  const template = switchTestLib(lib);
+const getComponentConfig = (): ComponentConfig & {
+  prog: GlobalConfig['prog'];
+  quotes: GlobalConfig['quotes'];
+  skipStyles: GlobalConfig['skipStyles'];
+} => {
+  const { prog, quotes, skipStyles } = config.get(Configs.Global) as GlobalConfig;
+  const { name, style } = config.get(Configs.Component) as ComponentConfig;
 
-  return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${testExt}.${ext}x`, template(name, type))
-      .then((status) => resolve(status))
-      .catch((error) => reject(error));
-  });
-}
-
-async function getComponentConfig(): Promise<ComponentConfig> {
-  const { name, prog, style, testLib, testType, skipStyles, skipTests } = config.get(
-    Configs.Component,
-  ) as ComponentConfig;
-
-  let newProg = '';
-  if (!prog) {
-    newProg = await askProgLang();
-  }
-
-  let newStyle = '';
-  if (!skipStyles && !style) {
-    newStyle = await askStyleLang();
-  }
-
-  let newTestType = '';
-  if (!skipTests && !testType) {
-    newTestType = await askTestType();
-  }
-
-  let newTestLib = '';
-  if (!skipTests && !testLib) {
-    newTestLib = await askTestLib();
-  }
-
-  let newName = '';
-  if (!name) {
-    newName = capitalizeFirstLetter(await askEntityName(GenerationEntities.Component));
-  }
-
-  const options: ComponentConfig = {
-    prog: prog || newProg,
-    style: style || newStyle,
-    testLib: testLib || newTestLib,
-    testType: testType || newTestType,
-    name: name || newName,
-    skipStyles: skipStyles || newStyle === StyleLangs.Skip,
-    skipTests: skipTests || newTestLib === TestLibs.Skip,
+  return {
+    name,
+    prog,
+    quotes,
+    style,
+    skipStyles,
   };
-
-  config.set(Configs.Component, options);
-
-  return options;
-}
+};
 
 async function generateComponent(): Promise<PromiseReturnStatus[]> {
-  const { name, prog, style, testLib, testType, skipStyles, skipTests } = await getComponentConfig();
+  const { name, prog, style, skipStyles } = getComponentConfig();
   const { quotes } = config.get(Configs.Global) as GlobalConfig;
 
-  fs.mkdirSync(name);
+  fs.mkdirSync(name, { recursive: true });
 
   const promises = [componentPromise(name, prog, style, quotes), indexPromise(name, prog)];
 
   if (!skipStyles) {
     promises.push(styleSheetPromise(name, style));
-  }
-
-  if (!skipTests) {
-    promises.push(testPromise(name, prog, testLib, testType));
   }
 
   return Promise.all(promises);

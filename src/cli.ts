@@ -1,47 +1,37 @@
 import config from './config';
 import parseArgs from './parseArgs';
 
-import { generateComponent, generateContext, generateHook } from './commands';
-import { askComponentConfig, askContextConfig, askHookConfig, askQuotes, askWhichEntity } from './questions';
+import { generateComponent, generateContext, generateHook, generateTest } from './commands';
+import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from './questions';
 import { chalkColored } from './utils';
 
 import { Configs, GenerationEntities } from './enums';
-import { GlobalConfig } from './interfaces';
+import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from './interfaces';
 
 export default async function cli(argv: string[]): Promise<void> {
   try {
-    config.clear();
-
     const args = argv.slice(2);
 
     if (!args.length) {
-      const quotes = await askQuotes();
+      await askGlobalConfig();
 
-      const entity = await askWhichEntity();
-
-      config.set(Configs.Global, { entity, quotes });
+      const { entity } = config.get(Configs.Global) as GlobalConfig;
 
       if (entity === GenerationEntities.Component) {
-        const componentConfig = await askComponentConfig();
-
-        config.set(Configs.Component, componentConfig);
-        config.set(`${Configs.Global}.name`, { name: componentConfig.name });
+        await askComponentConfig();
+        await askTestConfig();
 
         await generateComponent();
+        await generateTest();
       } else if (entity === GenerationEntities.Context) {
-        const contextConfig = await askContextConfig();
-
-        config.set(Configs.Context, contextConfig);
-        config.set(`${Configs.Global}.name`, { name: contextConfig.name });
-
+        await askContextConfig();
         await generateContext();
       } else if (entity === GenerationEntities.Hook) {
-        const hookConfig = await askHookConfig();
-
-        config.set(Configs.Hook, hookConfig);
-        config.set(`${Configs.Global}.name`, hookConfig.name);
-
+        await askHookConfig();
         await generateHook();
+      } else if (entity === GenerationEntities.Test) {
+        await askTestConfig();
+        await generateTest();
       }
     } else {
       await parseArgs(args);
@@ -49,10 +39,27 @@ export default async function cli(argv: string[]): Promise<void> {
 
     const globalConfig = config.get(Configs.Global) as GlobalConfig;
 
-    if (globalConfig) {
-      const { entity, name } = globalConfig;
+    if (globalConfig.entity) {
+      const { entity, skipStyles, skipTests } = globalConfig;
+      const { name } = config.get(Configs[entity]) as ComponentConfig | ContextConfig | HookConfig | TestConfig;
 
-      console.log(chalkColored(`\n${entity} ${name} generated successfully!\n`, 'Green'));
+      console.log(); // for empty line
+
+      if (skipStyles) {
+        console.log(chalkColored('Styles generation skipped.', 'Yellow'));
+      }
+
+      if (skipTests) {
+        console.log(chalkColored('Tests generation skipped.', 'Yellow'));
+      }
+
+      if (!(entity === GenerationEntities.Test && skipTests)) {
+        if (skipTests || skipStyles) {
+          console.log(); // for empty line
+        }
+
+        console.log(chalkColored(`${entity} ${name} generated successfully!\n`, 'Green'));
+      }
     }
 
     process.exit(0);
