@@ -9,7 +9,7 @@ import { capitalizeFirstLetter } from '../utils';
 import { Configs, GenerationEntities } from '../enums';
 import { GlobalConfig, TestConfig } from '../interfaces';
 
-async function askTestConfig(): Promise<TestConfig> {
+async function askTestConfig(): Promise<void> {
   let { prog } = config.get(Configs.Global) as GlobalConfig;
   let { name, lib, type } = config.get(Configs.Test) as TestConfig;
 
@@ -37,8 +37,6 @@ async function askTestConfig(): Promise<TestConfig> {
 
   config.set(`${Configs.Global}.prog`, prog);
   config.set(Configs.Test, testConfig);
-
-  return testConfig;
 }
 
 export default askTestConfig;
