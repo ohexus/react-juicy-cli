@@ -1,9 +1,8 @@
 import fs from 'fs';
 import config from '../config';
 
-import { askTestConfig } from '../questions';
-import { writeData } from '../utils';
 import { switchExt, switchTestExt, switchTestLib } from './switchHelpers';
+import { writeData } from '../utils';
 
 import { Configs, ProgLangNames, TestLibs, TestTypes } from '../enums';
 import { GlobalConfig, TestConfig, PromiseReturnStatus } from '../interfaces';
@@ -20,20 +19,15 @@ function testPromise(name: string, lang: ProgLangNames, lib: TestLibs, type: Tes
   });
 }
 
-async function getTestConfig(): Promise<TestConfig & { prog: GlobalConfig['prog'] }> {
+const getTestConfig = (): TestConfig & { prog: GlobalConfig['prog'] } => {
   const { prog } = config.get(Configs.Global) as GlobalConfig;
   const { name, lib, type } = config.get(Configs.Test) as TestConfig;
 
-  if (!prog || !name || !lib || !type) {
-    await askTestConfig();
-    return await getTestConfig();
-  }
-
-  return { prog, name, lib, type };
-}
+  return { name, lib, prog, type };
+};
 
 async function generateTest(): Promise<PromiseReturnStatus[]> {
-  const { name, prog, lib, type } = await getTestConfig();
+  const { name, prog, lib, type } = getTestConfig();
 
   fs.mkdirSync(name);
 
