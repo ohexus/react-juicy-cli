@@ -181,10 +181,10 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
 
     config.set(`${Configs.Global}.entity`, GenerationEntities.Component);
     config.set(`${Configs.Global}.name`, name);
+    config.set(`${Configs.Global}.prog`, prog);
 
     config.set(Configs.Component, {
       name,
-      prog,
       style,
       testLib,
       testType,
@@ -198,10 +198,10 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
 
     config.set(`${Configs.Global}.entity`, GenerationEntities.Context);
     config.set(`${Configs.Global}.name`, name);
+    config.set(`${Configs.Global}.prog`, prog);
 
     config.set(Configs.Context, {
       name,
-      prog,
     } as ContextConfigBasic);
 
     await generateContext();
@@ -210,10 +210,10 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
 
     config.set(`${Configs.Global}.entity`, GenerationEntities.Hook);
     config.set(`${Configs.Global}.name`, name);
+    config.set(`${Configs.Global}.prog`, prog);
 
     config.set(Configs.Hook, {
       name,
-      prog,
     } as HookConfigBasic);
 
     await generateHook();

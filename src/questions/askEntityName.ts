@@ -17,7 +17,7 @@ const entityNameQuestion = (entity: GenerationEntities) => ({
 });
 
 async function askEntityName(entity: GenerationEntities): Promise<string> {
-  return ((await inquirer.prompt([entityNameQuestion(entity)])) as QuestionReply<GenerationEntities>).name;
+  return ((await inquirer.prompt([entityNameQuestion(entity)])) as QuestionReply<string>).name;
 }
 
 export default askEntityName;

@@ -1,19 +1,30 @@
+import config from '../config';
+import { replaceWithContext } from '../utils';
+
 import askEntityName from './askEntityName';
 import askProgLang from './askProgLang';
 
-import { replaceWithContext } from '../utils';
+import { Configs, GenerationEntities } from '../enums';
+import { ContextConfig, GlobalConfig } from '../interfaces';
 
-import { GenerationEntities } from '../enums';
-import { ContextConfig } from '../interfaces';
+async function askContextConfig(): Promise<void> {
+  let { prog } = config.get(Configs.Global) as GlobalConfig;
+  let { name } = config.get(Configs.Hook) as ContextConfig;
 
-async function askContextConfig(): Promise<ContextConfig> {
-  const prog = await askProgLang();
-  const name = replaceWithContext(await askEntityName(GenerationEntities.Context));
+  if (!prog) {
+    prog = await askProgLang();
+  }
 
-  return {
-    prog,
+  if (!name) {
+    name = replaceWithContext(await askEntityName(GenerationEntities.Context));
+  }
+
+  const contextConfig = {
     name,
   };
+
+  config.set(`${Configs.Global}.prog`, prog);
+  config.set(Configs.Context, contextConfig);
 }
 
 export default askContextConfig;

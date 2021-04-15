@@ -10,8 +10,15 @@ import { Configs, GenerationEntities } from '../enums';
 import { GlobalConfig, TestConfig } from '../interfaces';
 
 async function askTestConfig(): Promise<void> {
-  let { prog } = config.get(Configs.Global) as GlobalConfig;
   let { name, lib, type } = config.get(Configs.Test) as TestConfig;
+
+  const globalConfig = config.get(Configs.Global) as GlobalConfig;
+  const { skipTests } = globalConfig;
+  let { prog } = globalConfig;
+
+  if (skipTests) {
+    return;
+  }
 
   if (!prog) {
     prog = await askProgLang();
