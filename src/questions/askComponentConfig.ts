@@ -4,7 +4,7 @@ import { capitalizeFirstLetter } from '../utils';
 import askEntityName from './askEntityName';
 import askStyleLang from './askStyleLang';
 
-import { Configs, GenerationEntities } from '../enums';
+import { Configs, GenerationEntities, StyleLangs } from '../enums';
 import { ComponentConfig } from '../interfaces';
 
 async function askComponentConfig(): Promise<void> {
@@ -15,7 +15,13 @@ async function askComponentConfig(): Promise<void> {
   }
 
   if (!componentConfig.style) {
-    componentConfig.style = await askStyleLang();
+    const styleLang = await askStyleLang();
+
+    if (styleLang === StyleLangs.Skip) {
+      config.set(`${Configs.Global}.skipStyles`, true);
+    }
+
+    componentConfig.style = styleLang;
   }
 
   config.set(Configs.Component, componentConfig);
