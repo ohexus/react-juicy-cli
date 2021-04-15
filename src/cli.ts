@@ -43,16 +43,22 @@ export default async function cli(argv: string[]): Promise<void> {
       const { entity, skipStyles, skipTests } = globalConfig;
       const { name } = config.get(Configs[entity]) as ComponentConfig | ContextConfig | HookConfig | TestConfig;
 
+      console.log(); // for empty line
+
       if (skipStyles) {
-        console.log(chalkColored('\nStyles generation skipped.\n', 'Yellow'));
+        console.log(chalkColored('Styles generation skipped.', 'Yellow'));
       }
 
       if (skipTests) {
-        console.log(chalkColored('\nTests generation skipped.\n', 'Yellow'));
+        console.log(chalkColored('Tests generation skipped.', 'Yellow'));
       }
 
       if (!(entity === GenerationEntities.Test && skipTests)) {
-        console.log(chalkColored(`\n${entity} ${name} generated successfully!\n`, 'Green'));
+        if (skipTests || skipStyles) {
+          console.log(); // for empty line
+        }
+
+        console.log(chalkColored(`${entity} ${name} generated successfully!\n`, 'Green'));
       }
     }
 
