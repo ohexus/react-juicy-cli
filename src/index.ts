@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import reactJuicyCLI from './cli';
 import config from './config';
 import { chalkColored, clearTerminal, juicyFiglet } from './utils';
