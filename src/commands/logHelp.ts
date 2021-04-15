@@ -9,6 +9,7 @@ function logHelp(): void {
   --cmp, --component <string>         specify component name and tell CLI to generate a component
   --ctx, --context <string>           specify context name and tell CLI to generate a context
   --hk, --hook <string>               specify hook name and tell CLI to generate a hook
+  --test                              specify test name and tell CLI to generate a test
   --js, --javascript                  generate JavaScript component
   --ts, --typescript                  generate TypeScript component
   -u, --unit                          generate unit test

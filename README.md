@@ -57,6 +57,7 @@ If you use arguments and want to swap quotes, use the --single-quotes (--sq) or 
 | --component       | String    | specify component name and tell CLI to generate a component                   |
 | --context         | String    | specify context name and tell CLI to generate a context                       |
 | --hook            | String    | specify hook name and tell CLI to generate a hook                             |
+| --test            | String    | specify test name and tell CLI to generate a test                             |
 | --javascript      | Boolean   | generate JavaScript component                                                 |
 | --typescript      | Boolean   | generate TypeScript component                                                 |
 | --css             | Boolean   | generate CSS file                                                             |
