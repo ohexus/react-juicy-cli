@@ -8,7 +8,7 @@ config.set(Configs.Global, {
   prog: null,
   skipStyles: false,
   skipTests: false,
-  quotes: null,
+  quotes: "'",
 });
 
 config.set(Configs.Component, {
