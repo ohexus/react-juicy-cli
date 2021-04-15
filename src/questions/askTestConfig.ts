@@ -1,5 +1,4 @@
 import config from '../config';
-import { capitalizeFirstLetter } from '../utils';
 
 import askEntityName from './askEntityName';
 import askTestLib from './askTestLib';
@@ -25,7 +24,7 @@ async function askTestConfig(): Promise<void> {
   }
 
   if (!testConfig.name) {
-    testConfig.name = capitalizeFirstLetter(await askEntityName(GenerationEntities.Test));
+    testConfig.name = await askEntityName(GenerationEntities.Test);
   }
 
   config.set(Configs.Test, testConfig);
