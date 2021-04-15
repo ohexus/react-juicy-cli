@@ -4,3 +4,4 @@ export type { GlobalConfig } from './GlobalConfig';
 export type { HookConfig, HookConfigBasic } from './HookConfig';
 export type { PromiseReturnStatus } from './PromiseReturnStatus';
 export type { QuestionReply } from './QuestionReply';
+export type { TestConfig, TestConfigBasic } from './TestConfig';
