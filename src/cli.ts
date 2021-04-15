@@ -10,8 +10,6 @@ import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } 
 
 export default async function cli(argv: string[]): Promise<void> {
   try {
-    config.clear();
-
     const args = argv.slice(2);
 
     if (!args.length) {
@@ -21,7 +19,10 @@ export default async function cli(argv: string[]): Promise<void> {
 
       if (entity === GenerationEntities.Component) {
         await askComponentConfig();
+        await askTestConfig();
+
         await generateComponent();
+        await generateTest();
       } else if (entity === GenerationEntities.Context) {
         await askContextConfig();
         await generateContext();
