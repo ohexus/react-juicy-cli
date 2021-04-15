@@ -63,7 +63,7 @@ async function generateComponent(): Promise<PromiseReturnStatus[]> {
   const { name, prog, style, skipStyles } = getComponentConfig();
   const { quotes } = config.get(Configs.Global) as GlobalConfig;
 
-  fs.mkdirSync(name);
+  fs.mkdirSync(name, { recursive: true });
 
   const promises = [componentPromise(name, prog, style, quotes), indexPromise(name, prog)];
 

@@ -19,19 +19,24 @@ function testPromise(name: string, lang: ProgLangNames, lib: TestLibs, type: Tes
   });
 }
 
-const getTestConfig = (): TestConfig & { prog: GlobalConfig['prog'] } => {
-  const { prog } = config.get(Configs.Global) as GlobalConfig;
+const getTestConfig = (): TestConfig & {
+  prog: GlobalConfig['prog'];
+  skipTests: GlobalConfig['skipTests'];
+} => {
+  const { prog, skipTests } = config.get(Configs.Global) as GlobalConfig;
   const { name, lib, type } = config.get(Configs.Test) as TestConfig;
 
-  return { name, lib, prog, type };
+  return { name, lib, prog, skipTests, type };
 };
 
-async function generateTest(): Promise<PromiseReturnStatus[]> {
-  const { name, prog, lib, type } = getTestConfig();
+async function generateTest(): Promise<PromiseReturnStatus[] | void> {
+  const { name, prog, lib, skipTests, type } = getTestConfig();
 
-  fs.mkdirSync(name);
+  if (!skipTests) {
+    fs.mkdirSync(name, { recursive: true });
 
-  return Promise.all([testPromise(name, prog, lib, type)]);
+    return Promise.all([testPromise(name, prog, lib, type)]);
+  }
 }
 
 export default generateTest;

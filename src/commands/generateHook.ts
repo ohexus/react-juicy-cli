@@ -39,7 +39,7 @@ const getHookConfig = (): HookConfig & { prog: GlobalConfig['prog']; quotes: Glo
 async function generateHook(): Promise<PromiseReturnStatus[]> {
   const { name, prog, quotes } = getHookConfig();
 
-  fs.mkdirSync(name);
+  fs.mkdirSync(name, { recursive: true });
 
   return Promise.all([hookPromise(name, prog, quotes), indexPromise(name, prog)]);
 }

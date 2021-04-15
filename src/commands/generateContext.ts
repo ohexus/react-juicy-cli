@@ -67,7 +67,7 @@ const getContextConfig = (): ContextConfig & { prog: GlobalConfig['prog']; quote
 async function generateContext(): Promise<PromiseReturnStatus[]> {
   const { name, prog, quotes } = getContextConfig();
 
-  fs.mkdirSync(name);
+  fs.mkdirSync(name, { recursive: true });
 
   return Promise.all([
     contextPromise(name, prog, quotes),
