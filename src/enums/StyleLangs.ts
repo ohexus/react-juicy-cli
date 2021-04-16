@@ -1,7 +1,7 @@
 enum StyleLangs {
   CSS = 'css',
-  SCSS = 'scss',
   SASS = 'sass',
+  SCSS = 'scss',
   LESS = 'less',
   Skip = 'skip',
 }
