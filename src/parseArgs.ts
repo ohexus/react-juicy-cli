@@ -3,26 +3,10 @@ import config from './config';
 
 import { generateComponent, generateContext, generateHook, generateTest, logHelp, logVersion } from './commands';
 import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from './questions';
-import { capitalizeFirstLetter, replaceWithUse } from './utils';
+import { capitalizeFirstLetter, isSeveralFlags, replaceWithUse, switchEntity } from './utils';
 
 import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from './enums';
 import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from './interfaces';
-
-function severalFlagsMessage(flags: string[]): string {
-  const message = flags.reduce((acc, next, index) => {
-    if (index !== 0) {
-      if (index < flags.length - 1) {
-        acc += ', ';
-      } else {
-        acc += ' and ';
-      }
-    }
-
-    return (acc += next);
-  }, '');
-
-  return message + ' flags can only be used separately!';
-}
 
 async function parseArgs(rawArgs: string[]): Promise<void> {
   const args = arg(
@@ -89,88 +73,21 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
     return;
   }
 
-  const isSeveralEntities =
-    (args['--component'] && args['--hook']) ||
-    (args['--component'] && args['--context']) ||
-    (args['--hook'] && args['--context']);
-  if (isSeveralEntities) {
-    throw new Error(severalFlagsMessage(['--component', '--context', '--hook']));
+  if (!args['--component'] && !args['--context'] && !args['--hook'] && !args['--test']) {
+    throw new Error('No entity specified!');
   }
 
-  const isSeveralProgLangs = args['--javascript'] && args['--typescript'];
-  if (isSeveralProgLangs) {
-    throw new Error(severalFlagsMessage(['--javascript', '--typescript']));
-  }
+  isSeveralFlags(args, ['--component', '--context', '--hook']);
+  isSeveralFlags(args, ['--javascript', '--typescript']);
+  isSeveralFlags(args, ['--css', '--sass', '--scss', '--less']);
+  isSeveralFlags(args, ['--enzyme', '--testing-library']);
+  isSeveralFlags(args, ['--integration', '--unit']);
+  isSeveralFlags(args, ['--single-quotes', '--double-quotes']);
 
-  const isSeveralStyleLangs =
-    (args['--css'] && args['--scss']) ||
-    (args['--css'] && args['--sass']) ||
-    (args['--css'] && args['--less']) ||
-    (args['--scss'] && args['--sass']) ||
-    (args['--scss'] && args['--less']) ||
-    (args['--sass'] && args['--less']);
-  if (isSeveralStyleLangs) {
-    throw new Error(severalFlagsMessage(['--css', '--scss', '--sass', '--less']));
-  }
-
-  const isSeveralTestLibs = args['--enzyme'] && args['--testing-library'];
-  if (isSeveralTestLibs) {
-    throw new Error(severalFlagsMessage(['--enzyme', '--testing-library']));
-  }
-
-  const isSeveralTestTypes = args['--unit'] && args['--integration'];
-  if (isSeveralTestTypes) {
-    throw new Error(severalFlagsMessage(['--unit', '--integration']));
-  }
-
-  const isSeveralQuotes = args['--single-quotes'] && args['--double-quotes'];
-  if (isSeveralQuotes) {
-    throw new Error(severalFlagsMessage(['--single-quotes', '--double-quotes']));
-  }
-
-  const prog = (() => {
-    if (args['--javascript']) {
-      return ProgLangNames.JS;
-    } else if (args['--typescript']) {
-      return ProgLangNames.TS;
-    } else {
-      return null;
-    }
-  })();
-
-  const style = (() => {
-    if (args['--css']) {
-      return StyleLangs.CSS;
-    } else if (args['--scss']) {
-      return StyleLangs.SCSS;
-    } else if (args['--sass']) {
-      return StyleLangs.SASS;
-    } else if (args['--less']) {
-      return StyleLangs.LESS;
-    } else {
-      return null;
-    }
-  })();
-
-  const testLib = (() => {
-    if (args['--enzyme']) {
-      return TestLibs.Enzyme;
-    } else if (args['--testing-library']) {
-      return TestLibs.TestingLibrary;
-    } else {
-      return null;
-    }
-  })();
-
-  const testType = (() => {
-    if (args['--unit']) {
-      return TestTypes.Unit;
-    } else if (args['--integration']) {
-      return TestTypes.Integration;
-    } else {
-      return null;
-    }
-  })();
+  const prog = switchEntity(args, ['--javascript', '--typescript'], ProgLangNames);
+  const style = switchEntity(args, ['--css', '--sass', '--scss', '--less'], StyleLangs);
+  const testLib = switchEntity(args, ['--enzyme', '--testing-library'], TestLibs);
+  const testType = switchEntity(args, ['--integration', '--unit'], TestTypes);
 
   config.set(Configs.Global, {
     prog,
@@ -190,10 +107,8 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
 
     await askGlobalConfig();
     await askComponentConfig();
-    await askTestConfig();
 
     await generateComponent();
-    await generateTest();
     return;
   }
 
@@ -244,7 +159,10 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
     return;
   }
 
-  throw new Error('No entity specified!');
+  if (args['--component'] || args['--hook']) {
+    await askTestConfig();
+    await generateTest();
+  }
 }
 
 export default parseArgs;
