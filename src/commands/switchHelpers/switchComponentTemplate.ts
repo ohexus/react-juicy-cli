@@ -1,15 +1,16 @@
-import { jsTemplate, tsTemplate } from '../../templates';
+import { componentJsTemplate, componentTsTemplate } from '../../templates';
 
 import { ProgLangNames } from '../../enums';
 
-function switchComponentTemplate(lang: ProgLangNames): typeof jsTemplate | typeof tsTemplate {
+type ComponentTemplates = typeof componentJsTemplate | typeof componentTsTemplate;
+
+function switchComponentTemplate(lang: ProgLangNames): ComponentTemplates {
   if (lang === ProgLangNames.JS) {
-    return jsTemplate;
+    return componentJsTemplate;
   } else if (lang === ProgLangNames.TS) {
-    return tsTemplate;
-  } else {
-    return jsTemplate;
+    return componentTsTemplate;
   }
+  return componentJsTemplate;
 }
 
 export default switchComponentTemplate;

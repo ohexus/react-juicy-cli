@@ -1,5 +1,5 @@
 export { default as basicIndexTemplate } from './basicIndexTemplate';
-export { jsTemplate, tsTemplate } from './components';
+export { componentJsTemplate, componentTsTemplate } from './components';
 export {
   contextIndexJsTemplate,
   contextIndexTsTemplate,

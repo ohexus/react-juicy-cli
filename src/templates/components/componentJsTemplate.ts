@@ -2,7 +2,7 @@ import cssImportTemplate from './cssImportTemplate';
 
 import { Quotes, StyleLangs } from '../../enums';
 
-const jsTemplate = (name: string, cssExt: StyleLangs, quotes: Quotes): string => `import React from 'react';
+const componentJsTemplate = (name: string, cssExt: StyleLangs, quotes: Quotes): string => `import React from 'react';
 import PropTypes from 'prop-types';
 ${cssImportTemplate(name, cssExt)}
 const ${name}PropTypes = {}
@@ -18,4 +18,4 @@ ${name}.propTypes = ${name}PropTypes;
 export default ${name};
 `;
 
-export default jsTemplate;
+export default componentJsTemplate;
