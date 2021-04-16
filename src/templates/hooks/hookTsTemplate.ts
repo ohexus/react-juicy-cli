@@ -1,9 +1,4 @@
-import { Quotes } from '../../enums';
-
-const hookTsTemplate = (
-  name: string,
-  quotes: Quotes,
-): string => `import { useRef, useEffect } from ${quotes}react${quotes};
+const hookTsTemplate = (name: string): string => `import { useRef, useEffect } from 'react';
 
 export default function ${name}<T>(value: T): T | undefined {
   const ref = useRef<T>();
