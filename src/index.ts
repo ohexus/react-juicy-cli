@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import reactJuicyCLI from './cli';
 import config from './config';
-import { chalkColored, clearTerminal, juicyFiglet } from './utils';
+import { clearTerminal, juicyFiglet, redStr } from './utils';
 
 (async () => {
   clearTerminal();
@@ -10,6 +10,6 @@ import { chalkColored, clearTerminal, juicyFiglet } from './utils';
   config.clear();
 })().catch((err: Error) => {
   config.clear();
-  console.log(chalkColored(`\n${err.message}\n`, 'Red'));
+  console.log(redStr(`\n${err.message}\n`));
   process.exit(1);
 });
