@@ -1,7 +1,8 @@
 export { default as basicIndexTemplate } from './basicIndexTemplate';
 export { jsTemplate, tsTemplate } from './components';
 export {
-  contextIndexTemplate,
+  contextIndexJsTemplate,
+  contextIndexTsTemplate,
   contextJsTemplate,
   contextTsTemplate,
   contextJsTypesTemplate,
