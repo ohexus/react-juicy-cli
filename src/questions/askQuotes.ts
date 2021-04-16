@@ -6,7 +6,7 @@ import { GlobalConfig, QuestionReply } from '../interfaces';
 const quotesQuestion = {
   name: 'quotes',
   type: 'list',
-  message: 'Which quotes do you want to use?',
+  message: 'Which quotes do you prefer in tsx | jsx?',
   choices: Object.keys(Quotes),
 };
 

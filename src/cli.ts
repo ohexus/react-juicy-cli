@@ -5,7 +5,7 @@ import { generateComponent, generateContext, generateHook, generateTest } from '
 import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from './questions';
 import { greenStr, redStr, yellowStr } from './utils';
 
-import { Configs, GenerationEntities } from './enums';
+import { Configs, GenerationEntities, Quotes } from './enums';
 import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from './interfaces';
 
 export default async function cli(argv: string[]): Promise<void> {
@@ -34,6 +34,7 @@ export default async function cli(argv: string[]): Promise<void> {
         await generateTest();
       }
     } else {
+      config.set(`${Configs.Global}.quotes`, Quotes.Single);
       await parseArgs(args);
     }
 
