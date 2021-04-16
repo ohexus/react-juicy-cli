@@ -1,33 +1,10 @@
-import fs from 'fs';
 import config from '../config';
+import { makeDir } from '../utils';
 
-import { switchExt, switchHookTemplate } from './switchHelpers';
-import { basicIndexTemplate } from '../templates';
-import { writeData } from '../utils';
+import { hookPromise, hookIndexPromise } from './generationPromises';
 
-import { Configs, ProgLangNames } from '../enums';
+import { Configs } from '../enums';
 import { GlobalConfig, HookConfig, PromiseReturnStatus } from '../interfaces';
-
-function hookPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
-  const ext = switchExt(lang);
-  const template = switchHookTemplate(lang);
-
-  return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${ext}`, template(name))
-      .then((status) => resolve(status))
-      .catch((error) => reject(error));
-  });
-}
-
-function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
-  const ext = switchExt(lang);
-
-  return new Promise((resolve, reject) => {
-    writeData(`${name}/index.${ext}`, basicIndexTemplate(name))
-      .then((status) => resolve(status))
-      .catch((error) => reject(error));
-  });
-}
 
 const getHookConfig = (): HookConfig & { prog: GlobalConfig['prog'] } => {
   const { prog } = config.get(Configs.Global) as GlobalConfig;
@@ -39,9 +16,9 @@ const getHookConfig = (): HookConfig & { prog: GlobalConfig['prog'] } => {
 async function generateHook(): Promise<PromiseReturnStatus[]> {
   const { name, prog } = getHookConfig();
 
-  fs.mkdirSync(name, { recursive: true });
+  makeDir(name);
 
-  return Promise.all([hookPromise(name, prog), indexPromise(name, prog)]);
+  return Promise.all([hookPromise(name, prog), hookIndexPromise(name, prog)]);
 }
 
 export default generateHook;
