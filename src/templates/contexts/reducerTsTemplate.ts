@@ -1,24 +1,19 @@
-import { Quotes } from '../../enums';
+const reducerTsTemplate = (name: string): string => `import { initial${name}State } from './${name}';
+import { ${name}Actions, ${name}ActionTypes } from './${name}Types';
 
-const reducerTsTemplate = (
-  name: string,
-  quotes: Quotes,
-): string => `import { initial${name}State } from ${quotes}./${name}${quotes};
-import { ${name}Actions, ${name}ActionTypes } from ${quotes}./${name}Types${quotes};
-
-export const ${name}Reducer = (currentState = initial${name}State, action: ${name}Actions) => {
+export const ${name}Reducer = (currentState = initial${name}State, action: ${name}Actions): ${name}State => {
   switch (action.type) {
     case ${name}ActionTypes.ClearState:
       return initial${name}State;
 
-    case TestContextActionTypes.SetStatus:
+    case ${name}ActionTypes.SetStatus:
       return { status: action.payload.status };
   
-    case TestContextActionTypes.ToggleStatus:
+    case ${name}ActionTypes.ToggleStatus:
       return { status: !currentState.status };
 
     default:
-      throw new Error(${quotes}Should not come here, something went wrong!${quotes});
+      throw new Error('Should not come here, something went wrong!');
   }
 };
 `;

@@ -1,14 +1,9 @@
-import { Quotes } from '../../enums';
+const providerJsTemplate = (name: string): string => `import React, { useReducer } from 'react';
+import PropTypes from 'prop-types';
 
-const providerJsTemplate = (
-  name: string,
-  quotes: Quotes,
-): string => `import React, { useReducer } from ${quotes}react${quotes};
-import PropTypes from ${quotes}prop-types${quotes};
-
-import { ${name}, initial${name}State } from ${quotes}./${name}${quotes};
-import { ${name}Reducer } from ${quotes}./${name}Reducer${quotes};
-import { CLEAR_STATE, SET_STATUS, TOGGLE_STATUS } from ${quotes}./${name}Types${quotes};
+import { ${name}, initial${name}State } from './${name}';
+import { ${name}Reducer } from './${name}Reducer';
+import { CLEAR_STATE, SET_STATUS, TOGGLE_STATUS } from './${name}Types';
 
 const ${name}ProviderPropsTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired;
