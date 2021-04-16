@@ -31,9 +31,9 @@ function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnS
 
 const getHookConfig = (): HookConfig & { prog: GlobalConfig['prog'] } => {
   const { prog } = config.get(Configs.Global) as GlobalConfig;
-  const { name } = config.get(Configs.Hook) as HookConfig;
+  const hookConfig = config.get(Configs.Hook) as HookConfig;
 
-  return { name, prog };
+  return { prog, ...hookConfig };
 };
 
 async function generateHook(): Promise<PromiseReturnStatus[]> {
