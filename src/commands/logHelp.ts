@@ -1,37 +1,38 @@
+import { ALTERNATIVE_FLAGS, FLAG_INFO } from '../constants';
+import { blueStr, cyanStr, indigoStr, yellowStr, TableBody, TableHeader } from '../utils';
+
+const joinFlags = (flags: string[]) => flags.map((flag) => blueStr(flag)).join(cyanStr(', '));
+
+const mainTableHeader = TableHeader();
+mainTableHeader.push([cyanStr('flag'), cyanStr('description')]);
+
+const mainTableBody = TableBody();
+mainTableBody.push(...FLAG_INFO.map(({ flags, desc }) => [joinFlags(flags), desc]));
+
+const altTableHeader = TableHeader();
+altTableHeader.push([cyanStr('flag'), cyanStr('alternatives')]);
+
+const altTableBody = TableBody();
+altTableBody.push(...ALTERNATIVE_FLAGS.map(({ flag, alts }) => [blueStr(flag), joinFlags(alts)]));
+
 function logHelp(): void {
   console.log(`
-  Usage: react-juicy-cli [flags <string?>]
+  Usage: ${indigoStr('react-juicy-cli')} [${blueStr('flags')} <${yellowStr('string?')}>]
 
   Available flags:
+  `);
 
-  -h, --help                          display help for react-juicy-cli
-  -v, --version                       display current version
-  --cmp, --component <string>         specify component name and tell CLI to generate a component
-  --ctx, --context <string>           specify context name and tell CLI to generate a context
-  --hk, --hook <string>               specify hook name and tell CLI to generate a hook
-  --test                              specify test name and tell CLI to generate a test
-  --js, --javascript                  generate JavaScript component
-  --ts, --typescript                  generate TypeScript component
-  -u, --unit                          generate unit test
-  -i, --integration                   generate integration test
-  --css                               generate CSS file
-  --scss                              generate SCSS file
-  --sass                              generate SASS file
-  --less                              generate LESS file
-  --enz, --enzyme                     generate .spec file according to your component extension (tsx \| jsx)
-  --test-lib, --testing-library       generate .test file according to your component extension (tsx \| jsx)
-  --skipS, --skip-styles              skip styles step and generate component with tests
-  --skipT, --skip-tests               skip tests step and generate component with styles
-  --skip                              skip styles and tests and generate only component
-  --sq, --single-quotes               show the generator that you prefer single quotes
-  --dq, --double-quotes               show the generator that you prefer double quotes
+  console.log(mainTableHeader.toString());
+  console.log(mainTableBody.toString());
 
+  console.log(`
   Alternative flags:
+  `);
 
-  --skip-styles:                      --skip-style, --skipStyle, --skipStyles,
-  --skip-tests:                       --skip-test, --skipTest, --skipTests,
-  --testing-library:                  --testing-lib, --testingLib, --testingLibrary
-`);
+  console.log(altTableHeader.toString());
+  console.log(altTableBody.toString());
+
+  console.log(); // empty line at the end
 }
 
 export default logHelp;

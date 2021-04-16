@@ -60,19 +60,19 @@ If you use arguments and want to swap quotes, use the --single-quotes (--sq) or 
 | --test            | String    | specify test name and tell CLI to generate a test                             |
 | --javascript      | Boolean   | generate JavaScript component                                                 |
 | --typescript      | Boolean   | generate TypeScript component                                                 |
-| --css             | Boolean   | generate CSS file                                                             |
-| --scss            | Boolean   | generate SCSS file                                                            |
-| --sass            | Boolean   | generate SASS file                                                            |
-| --less            | Boolean   | generate LESS file                                                            |
-| --enzyme          | Boolean   | use enzyme library                                                            |
+| --css             | Boolean   | generate CSS                                                                  |
+| --scss            | Boolean   | generate SCSS                                                                 |
+| --sass            | Boolean   | generate SASS                                                                 |
+| --less            | Boolean   | generate LESS                                                                 |
+| --enzyme          | Boolean   | use enzyme                                                                    |
 | --testing-library | Boolean   | use React Testing Library                                                     |
 | --unit            | Boolean   | generate .spec file according to the extension of your component (tsx or jsx) |
 | --integration     | Boolean   | generate .test file according to the extension of your component (tsx or jsx) |
 | --skip-styles     | Boolean   | skip styles step and generate component with tests                            |
 | --skip-tests      | Boolean   | skip tests step and generate component with styles                            |
 | --skip            | Boolean   | skip styles and tests and generate only component                             |
-| --single-quotes   | Boolean   | show the generator that you prefer single quotes                              |
-| --double-quotes   | Boolean   | show the generator that you prefer double quotes                              |
+| --single-quotes   | Boolean   | tell generator that you prefer single quotes                                  |
+| --double-quotes   | Boolean   | tell generator that you prefer double quotes                                  |
 
 ### Aliases
 
@@ -96,17 +96,11 @@ If you use arguments and want to swap quotes, use the --single-quotes (--sq) or 
 
 ### Alternatives
 
-| alternative flag | flag              |
-| ---------------- | ----------------- |
-| --skip-style     | --skip-styles     |
-| --skipStyle      | --skip-styles     |
-| --skipStyles     | --skip-styles     |
-| --skip-test      | --skip-tests      |
-| --skipTest       | --skip-tests      |
-| --skipTests      | --skip-tests      |
-| --testing-lib    | --testing-library |
-| --testingLib     | --testing-library |
-| --testingLibrary | --testing-library |
+| flag              | alternatives                                  |
+| ----------------- | --------------------------------------------- |
+| --skip-styles     | --skip-style, --skipStyle, --skipStyles       |
+| --skip-tests      | --skip-test, --skipTest, --skipTests          |
+| --testing-library | --testing-lib, --testingLib, --testingLibrary |
 
 ## License
 

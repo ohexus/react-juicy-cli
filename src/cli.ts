@@ -3,7 +3,7 @@ import parseArgs from './parseArgs';
 
 import { generateComponent, generateContext, generateHook, generateTest } from './commands';
 import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from './questions';
-import { chalkColored } from './utils';
+import { greenStr, redStr, yellowStr } from './utils';
 
 import { Configs, GenerationEntities } from './enums';
 import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from './interfaces';
@@ -46,11 +46,11 @@ export default async function cli(argv: string[]): Promise<void> {
       console.log(); // for empty line
 
       if (skipStyles) {
-        console.log(chalkColored('Styles generation skipped.', 'Yellow'));
+        console.log(yellowStr('Styles generation skipped.'));
       }
 
       if (skipTests) {
-        console.log(chalkColored('Tests generation skipped.', 'Yellow'));
+        console.log(yellowStr('Tests generation skipped.'));
       }
 
       if (!(entity === GenerationEntities.Test && skipTests)) {
@@ -58,13 +58,13 @@ export default async function cli(argv: string[]): Promise<void> {
           console.log(); // for empty line
         }
 
-        console.log(chalkColored(`${entity} ${name} generated successfully!\n`, 'Green'));
+        console.log(greenStr(`${entity} ${name} generated successfully!\n`));
       }
     }
 
     process.exit(0);
   } catch (error) {
-    console.log(chalkColored(`\n${(error as Error).message}\n`, 'Red'));
+    console.log(redStr(`\n${(error as Error).message}\n`));
 
     process.exit(1);
   }

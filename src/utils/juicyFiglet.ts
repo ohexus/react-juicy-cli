@@ -1,17 +1,17 @@
 import figlet from 'figlet';
-import chalkColored from './chalkColored';
+import { cyanStr, redStr } from './chalkColored';
 
 function juicyFiglet(): Promise<string | Error> {
   return new Promise((resolve, reject) => {
     figlet.text('Juicy CLI', { font: 'Cyberlarge' }, (err: Error | null, result?: string) => {
       if (err) {
-        console.log(chalkColored('Something went wrong...', 'Red'));
+        console.log(redStr('Something went wrong...'));
         console.dir(err);
         reject(err);
         return;
       }
       if (result) {
-        console.log(chalkColored(result, 'Cyan'));
+        console.log(cyanStr(result));
         resolve(result);
         return;
       }
