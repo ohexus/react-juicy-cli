@@ -2,7 +2,7 @@ import fs from 'fs';
 import config from '../config';
 
 import { switchExt, switchHookTemplate } from './switchHelpers';
-import { indexTemplate } from '../templates';
+import { basicIndexTemplate } from '../templates';
 import { writeData } from '../utils';
 
 import { Configs, ProgLangNames } from '../enums';
@@ -23,7 +23,7 @@ function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnS
   const ext = switchExt(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/index.${ext}`, indexTemplate(name))
+    writeData(`${name}/index.${ext}`, basicIndexTemplate(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });

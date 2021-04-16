@@ -59,9 +59,9 @@ function reducerPromise(name: string, lang: ProgLangNames): Promise<PromiseRetur
 
 const getContextConfig = (): ContextConfig & { prog: GlobalConfig['prog'] } => {
   const { prog } = config.get(Configs.Global) as GlobalConfig;
-  const { name } = config.get(Configs.Context) as ContextConfig;
+  const contextConfig = config.get(Configs.Context) as ContextConfig;
 
-  return { name, prog };
+  return { prog, ...contextConfig };
 };
 
 async function generateContext(): Promise<PromiseReturnStatus[]> {

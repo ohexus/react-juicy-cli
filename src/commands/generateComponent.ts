@@ -2,7 +2,7 @@ import fs from 'fs';
 import config from '../config';
 
 import { switchComponentTemplate, switchExt } from './switchHelpers';
-import { indexTemplate, sassTemplate, cssTemplate } from '../templates';
+import { basicIndexTemplate, sassTemplate, cssTemplate } from '../templates';
 import { writeData } from '../utils';
 
 import { Configs, ProgLangNames, Quotes, StyleLangs } from '../enums';
@@ -28,7 +28,7 @@ function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnS
   const ext = switchExt(lang);
 
   return new Promise((resolve, reject) => {
-    writeData(`${name}/index.${ext}`, indexTemplate(name))
+    writeData(`${name}/index.${ext}`, basicIndexTemplate(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
@@ -48,20 +48,18 @@ const getComponentConfig = (): ComponentConfig & {
   skipStyles: GlobalConfig['skipStyles'];
 } => {
   const { prog, quotes, skipStyles } = config.get(Configs.Global) as GlobalConfig;
-  const { name, style } = config.get(Configs.Component) as ComponentConfig;
+  const componentConfig = config.get(Configs.Component) as ComponentConfig;
 
   return {
-    name,
     prog,
     quotes,
-    style,
     skipStyles,
+    ...componentConfig,
   };
 };
 
 async function generateComponent(): Promise<PromiseReturnStatus[]> {
-  const { name, prog, style, skipStyles } = getComponentConfig();
-  const { quotes } = config.get(Configs.Global) as GlobalConfig;
+  const { name, prog, quotes, style, skipStyles } = getComponentConfig();
 
   fs.mkdirSync(name, { recursive: true });
 
