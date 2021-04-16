@@ -1,4 +1,5 @@
 export { default as switchComponentTemplate } from './switchComponentTemplate';
+export { default as switchContextIndexTemplate } from './switchContextIndexTemplate';
 export { default as switchContextProviderTemplate } from './switchContextProviderTemplate';
 export { default as switchContextReducerTemplate } from './switchContextReducerTemplate';
 export { default as switchContextTemplate } from './switchContextTemplate';

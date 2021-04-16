@@ -1,14 +1,57 @@
-import { enzymeTemplate, testingLibraryTemplate } from '../../templates';
+import {
+  enzymeComponentTemplate,
+  testingLibraryComponentTemplate,
+  enzymeHookJsTemplate,
+  enzymeHookTsTemplate,
+  testingLibraryHookTemplate,
+} from '../../templates';
 
-import { TestLibs } from '../../enums';
+import { GenerationEntities, ProgLangNames, TestLibs } from '../../enums';
 
-function switchTestLib(lib: TestLibs): typeof enzymeTemplate | typeof testingLibraryTemplate {
-  if (lib === TestLibs.Enzyme) {
-    return enzymeTemplate;
-  } else if (lib === TestLibs.TestingLibrary) {
-    return testingLibraryTemplate;
+type ComponentTemplate = typeof enzymeComponentTemplate | typeof testingLibraryComponentTemplate;
+type HookTemplate = typeof enzymeHookJsTemplate | typeof enzymeHookTsTemplate | typeof testingLibraryHookTemplate;
+
+function switchTemplateForComponent(lib: TestLibs): ComponentTemplate {
+  switch (lib) {
+    case TestLibs.TestingLibrary:
+      return testingLibraryComponentTemplate;
+
+    case TestLibs.Enzyme:
+      return enzymeComponentTemplate;
+
+    default:
+      return enzymeComponentTemplate;
   }
-  return enzymeTemplate;
+}
+
+function switchTemplateForHook(lib: TestLibs, lang: ProgLangNames): HookTemplate {
+  switch (lib) {
+    case TestLibs.TestingLibrary:
+      return testingLibraryHookTemplate;
+
+    case TestLibs.Enzyme:
+      return lang === ProgLangNames.TS ? enzymeHookTsTemplate : enzymeHookJsTemplate;
+
+    default:
+      return enzymeHookTsTemplate;
+  }
+}
+
+function switchTestLib(
+  lib: TestLibs,
+  entity: GenerationEntities,
+  lang: ProgLangNames,
+): ComponentTemplate | HookTemplate {
+  switch (entity) {
+    case GenerationEntities.Component:
+      return switchTemplateForComponent(lib);
+
+    case GenerationEntities.Hook:
+      return switchTemplateForHook(lib, lang);
+
+    default:
+      return enzymeComponentTemplate;
+  }
 }
 
 export default switchTestLib;

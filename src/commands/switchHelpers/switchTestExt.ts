@@ -1,12 +1,16 @@
 import { TestExts, TestTypes } from '../../enums';
 
 function switchTestExt(type: TestTypes): TestExts {
-  if (type === TestTypes.Unit) {
-    return TestExts.Unit;
-  } else if (type === TestTypes.Integration) {
-    return TestExts.Integration;
+  switch (type) {
+    case TestTypes.Integration:
+      return TestExts.Integration;
+
+    case TestTypes.Unit:
+      return TestExts.Unit;
+
+    default:
+      return TestExts.Unit;
   }
-  return TestExts.Unit;
 }
 
 export default switchTestExt;

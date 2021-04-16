@@ -2,13 +2,18 @@ import { reducerJsTemplate, reducerTsTemplate } from '../../templates';
 
 import { ProgLangNames } from '../../enums';
 
-function switchContextReducerTemplate(lang: ProgLangNames): typeof reducerJsTemplate | typeof reducerTsTemplate {
-  if (lang === ProgLangNames.JS) {
-    return reducerJsTemplate;
-  } else if (lang === ProgLangNames.TS) {
-    return reducerTsTemplate;
-  } else {
-    return reducerJsTemplate;
+type ReducerTemplate = typeof reducerJsTemplate | typeof reducerTsTemplate;
+
+function switchContextReducerTemplate(lang: ProgLangNames): ReducerTemplate {
+  switch (lang) {
+    case ProgLangNames.JS:
+      return reducerJsTemplate;
+
+    case ProgLangNames.TS:
+      return reducerTsTemplate;
+
+    default:
+      return reducerTsTemplate;
   }
 }
 

@@ -17,19 +17,32 @@ export default async function cli(argv: string[]): Promise<void> {
 
       const { entity } = config.get(Configs.Global) as GlobalConfig;
 
-      if (entity === GenerationEntities.Component) {
-        await askComponentConfig();
-        await askTestConfig();
+      switch (entity) {
+        case GenerationEntities.Component:
+          await askComponentConfig();
+          await generateComponent();
+          break;
 
-        await generateComponent();
-        await generateTest();
-      } else if (entity === GenerationEntities.Context) {
-        await askContextConfig();
-        await generateContext();
-      } else if (entity === GenerationEntities.Hook) {
-        await askHookConfig();
-        await generateHook();
-      } else if (entity === GenerationEntities.Test) {
+        case GenerationEntities.Context:
+          await askContextConfig();
+          await generateContext();
+          break;
+
+        case GenerationEntities.Hook:
+          await askHookConfig();
+          await generateHook();
+          break;
+
+        case GenerationEntities.Test:
+          await askTestConfig();
+          await generateTest();
+          break;
+
+        default:
+          break;
+      }
+
+      if (entity === GenerationEntities.Component || entity === GenerationEntities.Test) {
         await askTestConfig();
         await generateTest();
       }

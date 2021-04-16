@@ -1,5 +1,8 @@
-export { indexTemplate, jsTemplate, tsTemplate } from './components';
+export { default as basicIndexTemplate } from './basicIndexTemplate';
+export { componentJsTemplate, componentTsTemplate } from './components';
 export {
+  contextIndexJsTemplate,
+  contextIndexTsTemplate,
   contextJsTemplate,
   contextTsTemplate,
   contextJsTypesTemplate,
@@ -11,4 +14,10 @@ export {
 } from './contexts';
 export { hookJsTemplate, hookTsTemplate } from './hooks';
 export { cssTemplate, sassTemplate } from './stylesheets';
-export { enzymeTemplate, testingLibraryTemplate } from './testLibs';
+export {
+  enzymeComponentTemplate,
+  testingLibraryComponentTemplate,
+  enzymeHookJsTemplate,
+  enzymeHookTsTemplate,
+  testingLibraryHookTemplate,
+} from './testLibs';

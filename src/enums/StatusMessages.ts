@@ -1,7 +1,7 @@
 enum StatusMessages {
-  Success = 'Success',
-  Skip = 'Skip',
   Error = 'Something went wrong!',
+  Skip = 'Skip',
+  Success = 'Success',
 }
 
 export default StatusMessages;

@@ -2,15 +2,18 @@ import { contextJsTypesTemplate, contextTsTypesTemplate } from '../../templates'
 
 import { ProgLangNames } from '../../enums';
 
-function switchContextTypesTemplate(
-  lang: ProgLangNames,
-): typeof contextJsTypesTemplate | typeof contextTsTypesTemplate {
-  if (lang === ProgLangNames.JS) {
-    return contextJsTypesTemplate;
-  } else if (lang === ProgLangNames.TS) {
-    return contextTsTypesTemplate;
-  } else {
-    return contextJsTypesTemplate;
+type ContextTypesTemplate = typeof contextJsTypesTemplate | typeof contextTsTypesTemplate;
+
+function switchContextTypesTemplate(lang: ProgLangNames): ContextTypesTemplate {
+  switch (lang) {
+    case ProgLangNames.JS:
+      return contextJsTypesTemplate;
+
+    case ProgLangNames.TS:
+      return contextTsTypesTemplate;
+
+    default:
+      return contextTsTypesTemplate;
   }
 }
 

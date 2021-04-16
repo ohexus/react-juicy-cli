@@ -2,13 +2,18 @@ import { providerJsTemplate, providerTsTemplate } from '../../templates';
 
 import { ProgLangNames } from '../../enums';
 
-function switchContextProviderTemplate(lang: ProgLangNames): typeof providerJsTemplate | typeof providerTsTemplate {
-  if (lang === ProgLangNames.JS) {
-    return providerJsTemplate;
-  } else if (lang === ProgLangNames.TS) {
-    return providerTsTemplate;
-  } else {
-    return providerJsTemplate;
+type ProviderTemplate = typeof providerJsTemplate | typeof providerTsTemplate;
+
+function switchContextProviderTemplate(lang: ProgLangNames): ProviderTemplate {
+  switch (lang) {
+    case ProgLangNames.JS:
+      return providerJsTemplate;
+
+    case ProgLangNames.TS:
+      return providerTsTemplate;
+
+    default:
+      return providerTsTemplate;
   }
 }
 

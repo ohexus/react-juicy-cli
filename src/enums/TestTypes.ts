@@ -1,11 +1,11 @@
 export enum TestTypes {
-  Unit = 'Unit',
   Integration = 'Integration',
+  Unit = 'Unit',
 }
 
 export enum TestExts {
-  Unit = 'spec',
   Integration = 'test',
+  Unit = 'spec',
 }
 
 export enum TestLibs {

@@ -1,6 +1,6 @@
-import { TestTypes } from '../../enums';
+import { TestTypes } from '../../../enums';
 
-const enzymeTemplate = (name: string, testType: TestTypes): string => {
+const enzymeComponentTemplate = (name: string, testType: TestTypes): string => {
   const testMethod = testType === TestTypes.Unit ? 'shallow' : 'mount';
 
   return `import React from 'react';
@@ -18,4 +18,4 @@ describe('${name}', () => {
 `;
 };
 
-export default enzymeTemplate;
+export default enzymeComponentTemplate;

@@ -1,3 +1,2 @@
-export { default as indexTemplate } from './indexTemplate';
-export { default as jsTemplate } from './jsTemplate';
-export { default as tsTemplate } from './tsTemplate';
+export { default as componentJsTemplate } from './componentJsTemplate';
+export { default as componentTsTemplate } from './componentTsTemplate';
