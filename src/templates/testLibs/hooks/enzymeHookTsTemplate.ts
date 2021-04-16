@@ -1,4 +1,4 @@
-const enzymeHookTemplateTS = (name: string): string => `import React, { FC } from 'react';
+const enzymeHookTsTemplate = (name: string): string => `import React, { FC } from 'react';
 import { mount } from 'enzyme';
 
 import ${name} from './${name}';
@@ -37,4 +37,4 @@ describe('${name}', () => {
 });
 `;
 
-export default enzymeHookTemplateTS;
+export default enzymeHookTsTemplate;

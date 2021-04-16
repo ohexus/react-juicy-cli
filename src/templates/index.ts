@@ -17,7 +17,7 @@ export { cssTemplate, sassTemplate } from './stylesheets';
 export {
   enzymeComponentTemplate,
   testingLibraryComponentTemplate,
-  enzymeHookTemplateJS,
-  enzymeHookTemplateTS,
+  enzymeHookJsTemplate,
+  enzymeHookTsTemplate,
   testingLibraryHookTemplate,
 } from './testLibs';

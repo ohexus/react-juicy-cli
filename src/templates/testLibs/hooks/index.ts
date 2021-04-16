@@ -1,3 +1,3 @@
-export { default as enzymeHookTemplateJS } from './enzymeHookTemplateJS';
-export { default as enzymeHookTemplateTS } from './enzymeHookTemplateTS';
+export { default as enzymeHookJsTemplate } from './enzymeHookJsTemplate';
+export { default as enzymeHookTsTemplate } from './enzymeHookTsTemplate';
 export { default as testingLibraryHookTemplate } from './testingLibraryHookTemplate';
