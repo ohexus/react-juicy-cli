@@ -4,7 +4,7 @@ import askProgLang from './askProgLang';
 import askQuotes from './askQuotes';
 import askWhichEntity from './askWhichEntity';
 
-import { Configs } from '../enums';
+import { Configs, GenerationEntities } from '../enums';
 import { GlobalConfig } from '../interfaces';
 
 async function askGlobalConfig(): Promise<void> {
@@ -18,7 +18,7 @@ async function askGlobalConfig(): Promise<void> {
     globalConfig.prog = await askProgLang();
   }
 
-  if (!globalConfig.quotes) {
+  if (globalConfig.entity === GenerationEntities.Component && !globalConfig.quotes) {
     globalConfig.quotes = await askQuotes();
   }
 
