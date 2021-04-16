@@ -8,6 +8,7 @@ import {
   switchContextTemplate,
   switchContextTypesTemplate,
 } from './switchHelpers';
+import { contextIndexTemplate } from '../templates';
 import { writeData } from '../utils';
 
 import { Configs, ProgLangNames } from '../enums';
@@ -30,6 +31,16 @@ function contextTypesPromise(name: string, lang: ProgLangNames): Promise<Promise
 
   return new Promise((resolve, reject) => {
     writeData(`${name}/${name}Types.${ext}`, template(name))
+      .then((status) => resolve(status))
+      .catch((error) => reject(error));
+  });
+}
+
+function indexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
+  const ext = switchExt(lang);
+
+  return new Promise((resolve, reject) => {
+    writeData(`${name}/index.${ext}`, contextIndexTemplate(name))
       .then((status) => resolve(status))
       .catch((error) => reject(error));
   });
@@ -72,6 +83,7 @@ async function generateContext(): Promise<PromiseReturnStatus[]> {
   return Promise.all([
     contextPromise(name, prog),
     contextTypesPromise(name, prog),
+    indexPromise(name, prog),
     providerPromise(name, prog),
     reducerPromise(name, prog),
   ]);
