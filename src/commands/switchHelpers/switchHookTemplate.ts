@@ -2,13 +2,18 @@ import { hookJsTemplate, hookTsTemplate } from '../../templates';
 
 import { ProgLangNames } from '../../enums';
 
-function switchHookTemplate(lang: ProgLangNames): typeof hookJsTemplate | typeof hookTsTemplate {
-  if (lang === ProgLangNames.JS) {
-    return hookJsTemplate;
-  } else if (lang === ProgLangNames.TS) {
-    return hookTsTemplate;
-  } else {
-    return hookJsTemplate;
+type HookTemplate = typeof hookJsTemplate | typeof hookTsTemplate;
+
+function switchHookTemplate(lang: ProgLangNames): HookTemplate {
+  switch (lang) {
+    case ProgLangNames.JS:
+      return hookJsTemplate;
+
+    case ProgLangNames.TS:
+      return hookTsTemplate;
+
+    default:
+      return hookTsTemplate;
   }
 }
 

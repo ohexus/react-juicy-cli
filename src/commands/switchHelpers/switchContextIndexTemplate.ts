@@ -2,15 +2,19 @@ import { contextIndexJsTemplate, contextIndexTsTemplate } from '../../templates'
 
 import { ProgLangNames } from '../../enums';
 
-type ContextIndexTemplates = typeof contextIndexJsTemplate | typeof contextIndexTsTemplate;
+type ContextIndexTemplate = typeof contextIndexJsTemplate | typeof contextIndexTsTemplate;
 
-function switchContextIndexTemplate(lang: ProgLangNames): ContextIndexTemplates {
-  if (lang === ProgLangNames.JS) {
-    return contextIndexJsTemplate;
-  } else if (lang === ProgLangNames.TS) {
-    return contextIndexTsTemplate;
+function switchContextIndexTemplate(lang: ProgLangNames): ContextIndexTemplate {
+  switch (lang) {
+    case ProgLangNames.JS:
+      return contextIndexJsTemplate;
+
+    case ProgLangNames.TS:
+      return contextIndexTsTemplate;
+
+    default:
+      return contextIndexTsTemplate;
   }
-  return contextIndexJsTemplate;
 }
 
 export default switchContextIndexTemplate;
