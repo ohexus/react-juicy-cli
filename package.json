@@ -11,7 +11,8 @@
     "build": "tsc -build ./src/tsconfig.json",
     "prepublishOnly": "rm -rf lib/ && yarn build",
     "lint": "eslint --ext ts --max-warnings 0 src/",
-    "test": "jest \"src/.+\\.spec\\..+\" --coverage"
+    "test:unit": "jest",
+    "test:unit:total": "jest --collectCoverageFrom=src/**/*.ts"
   },
   "files": [
     "lib/**/*"
