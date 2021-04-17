@@ -4,7 +4,6 @@
     "esModuleInterop": true,
     "lib": ["es6", "es2015"],
     "module": "commonjs",
-    "outDir": "lib",
     "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
