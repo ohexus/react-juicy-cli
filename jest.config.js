@@ -35,6 +35,10 @@ module.exports = {
 
   moduleDirectories: ['<rootDir>', 'node_modules', 'src'],
 
+  moduleNameMapper: {
+    'package.json': '<rootDir>/__mocks__/mock.package.json',
+  },
+
   modulePaths: ['<rootDir>'],
 
   preset: 'ts-jest',
