@@ -1,6 +1,6 @@
 import arg from 'arg';
 
-function severalFlagsMessage(flags: string[]): string {
+export function severalFlagsMessage(flags: string[]): string {
   const message = flags.reduce((acc, next, index) => {
     if (index !== 0) {
       if (index < flags.length - 1) {
