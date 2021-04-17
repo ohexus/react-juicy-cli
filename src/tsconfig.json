@@ -3,6 +3,8 @@
     "outDir": "../lib",
     "rootDir": "."
   },
+  "exclude": ["*.spec.ts"],
   "extends": "../tsconfig.base.json",
+  "include": ["./**/*.ts"],
   "references": [{ "path": "../" }]
 }
