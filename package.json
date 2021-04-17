@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "ts-node src/index.ts",
-    "build": "tsc -p .",
+    "build": "tsc --build src",
     "prepublishOnly": "rm -rf lib/ && yarn build",
     "lint": "eslint --ext ts --max-warnings 0 src/",
     "test": "jest \"src/.+\\.spec\\..+\" --coverage"
