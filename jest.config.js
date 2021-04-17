@@ -4,6 +4,8 @@
 module.exports = {
   cacheDirectory: '<rootDir>/.jestcache',
 
+  collectCoverage: true,
+
   coverageDirectory: 'coverage',
 
   coveragePathIgnorePatterns: ['/node_modules/'],
