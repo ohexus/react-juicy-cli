@@ -1,1 +1,1 @@
-export { default } from './replaceWithUse';
+export { default } from './addUseWord';
