@@ -1,4 +1,4 @@
-import { ProgLangNames, ProgLangExts } from '../../enums';
+import { ProgLangNames, ProgLangExts } from '../../../enums';
 
 function switchExt(lang: ProgLangNames): ProgLangExts {
   switch (lang) {
