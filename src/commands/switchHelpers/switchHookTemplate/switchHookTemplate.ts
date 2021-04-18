@@ -1,6 +1,6 @@
-import { hookJsTemplate, hookTsTemplate } from '../../templates';
+import { hookJsTemplate, hookTsTemplate } from '../../../templates';
 
-import { ProgLangNames } from '../../enums';
+import { ProgLangNames } from '../../../enums';
 
 type HookTemplate = typeof hookJsTemplate | typeof hookTsTemplate;
 
