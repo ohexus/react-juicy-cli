@@ -1,6 +1,6 @@
-import { reducerJsTemplate, reducerTsTemplate } from '../../templates';
+import { reducerJsTemplate, reducerTsTemplate } from '../../../templates';
 
-import { ProgLangNames } from '../../enums';
+import { ProgLangNames } from '../../../enums';
 
 type ReducerTemplate = typeof reducerJsTemplate | typeof reducerTsTemplate;
 
