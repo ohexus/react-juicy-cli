@@ -1,6 +1,6 @@
-import { componentJsTemplate, componentTsTemplate } from '../../templates';
+import { componentJsTemplate, componentTsTemplate } from '../../../templates';
 
-import { ProgLangNames } from '../../enums';
+import { ProgLangNames } from '../../../enums';
 
 type ComponentTemplate = typeof componentJsTemplate | typeof componentTsTemplate;
 
