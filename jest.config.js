@@ -8,7 +8,7 @@ module.exports = {
 
   coverageDirectory: 'coverage',
 
-  coveragePathIgnorePatterns: ['/node_modules/', 'index.ts'],
+  coveragePathIgnorePatterns: ['/node_modules/', 'index.ts', '/enums/'],
 
   coverageReporters: [
     // 'json',
