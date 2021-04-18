@@ -1,5 +1,5 @@
 import config from '../config';
-import { replaceWithContext } from '../utils';
+import { addContextWord } from '../utils';
 
 import askEntityName from './askEntityName';
 
@@ -10,7 +10,7 @@ async function askContextConfig(): Promise<void> {
   const contextConfig = config.get(Configs.Hook) as ContextConfig;
 
   if (!contextConfig.name) {
-    contextConfig.name = replaceWithContext(await askEntityName(GenerationEntities.Context));
+    contextConfig.name = addContextWord(await askEntityName(GenerationEntities.Context));
   }
 
   config.set(Configs.Context, contextConfig);
