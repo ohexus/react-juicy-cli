@@ -1,6 +1,6 @@
 import { ProgLangNames, ProgLangExts } from '../../../enums';
 
-function switchExt(lang: ProgLangNames): ProgLangExts {
+export default function switchExt(lang: ProgLangNames): ProgLangExts {
   switch (lang) {
     case ProgLangNames.JS:
       return ProgLangExts.JS;
@@ -12,5 +12,3 @@ function switchExt(lang: ProgLangNames): ProgLangExts {
       return ProgLangExts.TS;
   }
 }
-
-export default switchExt;

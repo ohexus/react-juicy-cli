@@ -4,7 +4,7 @@ import { ProgLangNames } from '../../../enums';
 
 type ComponentTemplate = typeof componentJsTemplate | typeof componentTsTemplate;
 
-function switchComponentTemplate(lang: ProgLangNames): ComponentTemplate {
+export default function switchComponentTemplate(lang: ProgLangNames): ComponentTemplate {
   switch (lang) {
     case ProgLangNames.JS:
       return componentJsTemplate;
@@ -16,5 +16,3 @@ function switchComponentTemplate(lang: ProgLangNames): ComponentTemplate {
       return componentTsTemplate;
   }
 }
-
-export default switchComponentTemplate;

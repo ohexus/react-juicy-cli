@@ -4,7 +4,7 @@ import { ProgLangNames } from '../../../enums';
 
 type HookTemplate = typeof hookJsTemplate | typeof hookTsTemplate;
 
-function switchHookTemplate(lang: ProgLangNames): HookTemplate {
+export default function switchHookTemplate(lang: ProgLangNames): HookTemplate {
   switch (lang) {
     case ProgLangNames.JS:
       return hookJsTemplate;
@@ -16,5 +16,3 @@ function switchHookTemplate(lang: ProgLangNames): HookTemplate {
       return hookTsTemplate;
   }
 }
-
-export default switchHookTemplate;

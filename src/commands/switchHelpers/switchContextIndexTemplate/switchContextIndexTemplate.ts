@@ -4,7 +4,7 @@ import { ProgLangNames } from '../../../enums';
 
 type ContextIndexTemplate = typeof contextIndexJsTemplate | typeof contextIndexTsTemplate;
 
-function switchContextIndexTemplate(lang: ProgLangNames): ContextIndexTemplate {
+export default function switchContextIndexTemplate(lang: ProgLangNames): ContextIndexTemplate {
   switch (lang) {
     case ProgLangNames.JS:
       return contextIndexJsTemplate;
@@ -16,5 +16,3 @@ function switchContextIndexTemplate(lang: ProgLangNames): ContextIndexTemplate {
       return contextIndexTsTemplate;
   }
 }
-
-export default switchContextIndexTemplate;

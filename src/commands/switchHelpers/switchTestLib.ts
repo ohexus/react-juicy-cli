@@ -11,7 +11,7 @@ import { GenerationEntities, ProgLangNames, TestLibs } from '../../enums';
 type ComponentTemplate = typeof enzymeComponentTemplate | typeof testingLibraryComponentTemplate;
 type HookTemplate = typeof enzymeHookJsTemplate | typeof enzymeHookTsTemplate | typeof testingLibraryHookTemplate;
 
-function switchTemplateForComponent(lib: TestLibs): ComponentTemplate {
+export function switchTemplateForComponent(lib: TestLibs): ComponentTemplate {
   switch (lib) {
     case TestLibs.TestingLibrary:
       return testingLibraryComponentTemplate;
@@ -24,7 +24,7 @@ function switchTemplateForComponent(lib: TestLibs): ComponentTemplate {
   }
 }
 
-function switchTemplateForHook(lib: TestLibs, lang: ProgLangNames): HookTemplate {
+export function switchTemplateForHook(lib: TestLibs, lang: ProgLangNames): HookTemplate {
   switch (lib) {
     case TestLibs.TestingLibrary:
       return testingLibraryHookTemplate;
@@ -37,7 +37,7 @@ function switchTemplateForHook(lib: TestLibs, lang: ProgLangNames): HookTemplate
   }
 }
 
-function switchTestLib(
+export default function switchTestLib(
   lib: TestLibs,
   entity: GenerationEntities,
   lang: ProgLangNames,
@@ -53,5 +53,3 @@ function switchTestLib(
       return enzymeComponentTemplate;
   }
 }
-
-export default switchTestLib;

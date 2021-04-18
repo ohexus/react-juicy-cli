@@ -4,7 +4,7 @@ import { ProgLangNames } from '../../../enums';
 
 type ProviderTemplate = typeof providerJsTemplate | typeof providerTsTemplate;
 
-function switchContextProviderTemplate(lang: ProgLangNames): ProviderTemplate {
+export default function switchContextProviderTemplate(lang: ProgLangNames): ProviderTemplate {
   switch (lang) {
     case ProgLangNames.JS:
       return providerJsTemplate;
@@ -16,5 +16,3 @@ function switchContextProviderTemplate(lang: ProgLangNames): ProviderTemplate {
       return providerTsTemplate;
   }
 }
-
-export default switchContextProviderTemplate;

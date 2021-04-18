@@ -4,7 +4,7 @@ import { ProgLangNames } from '../../../enums';
 
 type ReducerTemplate = typeof reducerJsTemplate | typeof reducerTsTemplate;
 
-function switchContextReducerTemplate(lang: ProgLangNames): ReducerTemplate {
+export default function switchContextReducerTemplate(lang: ProgLangNames): ReducerTemplate {
   switch (lang) {
     case ProgLangNames.JS:
       return reducerJsTemplate;
@@ -16,5 +16,3 @@ function switchContextReducerTemplate(lang: ProgLangNames): ReducerTemplate {
       return reducerTsTemplate;
   }
 }
-
-export default switchContextReducerTemplate;

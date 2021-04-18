@@ -4,7 +4,7 @@ import { ProgLangNames } from '../../../enums';
 
 type ContextTypesTemplate = typeof contextJsTypesTemplate | typeof contextTsTypesTemplate;
 
-function switchContextTypesTemplate(lang: ProgLangNames): ContextTypesTemplate {
+export default function switchContextTypesTemplate(lang: ProgLangNames): ContextTypesTemplate {
   switch (lang) {
     case ProgLangNames.JS:
       return contextJsTypesTemplate;
@@ -16,5 +16,3 @@ function switchContextTypesTemplate(lang: ProgLangNames): ContextTypesTemplate {
       return contextTsTypesTemplate;
   }
 }
-
-export default switchContextTypesTemplate;
