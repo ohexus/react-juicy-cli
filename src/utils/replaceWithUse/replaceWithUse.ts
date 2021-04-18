@@ -1,4 +1,4 @@
-import capitalizeFirstLetter from './capitalizeFirstLetter';
+import capitalizeFirstLetter from '../capitalizeFirstLetter';
 
 const useRegex = /^(u?s?e?)/i;
 

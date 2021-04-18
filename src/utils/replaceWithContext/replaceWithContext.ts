@@ -1,4 +1,4 @@
-import capitalizeFirstLetter from './capitalizeFirstLetter';
+import capitalizeFirstLetter from '../capitalizeFirstLetter';
 
 const contextRegex = /^(c?o?n?t?e?x?t?)/i;
 
