@@ -1,6 +1,6 @@
-import { contextJsTypesTemplate, contextTsTypesTemplate } from '../../templates';
+import { contextJsTypesTemplate, contextTsTypesTemplate } from '../../../templates';
 
-import { ProgLangNames } from '../../enums';
+import { ProgLangNames } from '../../../enums';
 
 type ContextTypesTemplate = typeof contextJsTypesTemplate | typeof contextTsTypesTemplate;
 
