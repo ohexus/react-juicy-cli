@@ -1,6 +1,6 @@
-import { providerJsTemplate, providerTsTemplate } from '../../templates';
+import { providerJsTemplate, providerTsTemplate } from '../../../templates';
 
-import { ProgLangNames } from '../../enums';
+import { ProgLangNames } from '../../../enums';
 
 type ProviderTemplate = typeof providerJsTemplate | typeof providerTsTemplate;
 
