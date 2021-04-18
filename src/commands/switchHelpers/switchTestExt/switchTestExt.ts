@@ -1,4 +1,4 @@
-import { TestExts, TestTypes } from '../../enums';
+import { TestExts, TestTypes } from '../../../enums';
 
 function switchTestExt(type: TestTypes): TestExts {
   switch (type) {
