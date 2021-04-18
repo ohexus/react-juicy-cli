@@ -1,8 +1,8 @@
-import { contextJsTemplate, contextTsTemplate } from '../../templates';
+import { contextJsTemplate, contextTsTemplate } from '../../../templates';
 
-import { ProgLangNames } from '../../enums';
+import { ProgLangNames } from '../../../enums';
 
-type ContextTemplate = typeof contextJsTemplate | typeof contextTsTemplate
+type ContextTemplate = typeof contextJsTemplate | typeof contextTsTemplate;
 
 function switchContextTemplate(lang: ProgLangNames): ContextTemplate {
   switch (lang) {
