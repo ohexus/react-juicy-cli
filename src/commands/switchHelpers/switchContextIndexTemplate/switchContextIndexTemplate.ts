@@ -1,6 +1,6 @@
-import { contextIndexJsTemplate, contextIndexTsTemplate } from '../../templates';
+import { contextIndexJsTemplate, contextIndexTsTemplate } from '../../../templates';
 
-import { ProgLangNames } from '../../enums';
+import { ProgLangNames } from '../../../enums';
 
 type ContextIndexTemplate = typeof contextIndexJsTemplate | typeof contextIndexTsTemplate;
 
