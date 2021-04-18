@@ -4,9 +4,9 @@ import {
   enzymeHookJsTemplate,
   enzymeHookTsTemplate,
   testingLibraryHookTemplate,
-} from '../../templates';
+} from '../../../templates';
 
-import { GenerationEntities, ProgLangNames, TestLibs } from '../../enums';
+import { GenerationEntities, ProgLangNames, TestLibs } from '../../../enums';
 
 type ComponentTemplate = typeof enzymeComponentTemplate | typeof testingLibraryComponentTemplate;
 type HookTemplate = typeof enzymeHookJsTemplate | typeof enzymeHookTsTemplate | typeof testingLibraryHookTemplate;
