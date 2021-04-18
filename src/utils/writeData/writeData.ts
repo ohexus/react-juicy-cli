@@ -1,7 +1,7 @@
 import fs from 'fs';
 
-import { StatusMessages } from '../enums';
-import { PromiseReturnStatus } from '../interfaces';
+import { StatusMessages } from '../../enums';
+import { PromiseReturnStatus } from '../../interfaces';
 
 function writeData(path: string, data: string): Promise<PromiseReturnStatus> {
   return new Promise((resolve, reject) => {
