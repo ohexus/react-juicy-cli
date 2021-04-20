@@ -7,7 +7,7 @@ import {
   contextIndexPromise,
   providerPromise,
   reducerPromise,
-} from './generationPromises';
+} from './promises';
 
 import { Configs } from '../enums';
 import { ContextConfig, GlobalConfig, PromiseReturnStatus } from '../interfaces';
