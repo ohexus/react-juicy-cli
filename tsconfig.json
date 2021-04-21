@@ -5,6 +5,11 @@
     "rootDir": "."
   },
   "extends": "./tsconfig.base.json",
-  "files": ["package.json", "__mocks__/mock.package.json"],
+  "files": [
+    "package.json",
+    "__mocks__/mock.package.json",
+    "__mocks__/mockWriteDataSuccess.ts",
+    "__mocks__/mockWriteDataError.ts"
+  ],
   "include": ["./src"]
 }
