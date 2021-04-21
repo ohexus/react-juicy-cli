@@ -49,5 +49,5 @@ module.exports = {
 
   roots: ['<rootDir>'],
 
-  testMatch: ['**/*.spec.ts?(x)', '**/*.test.ts?(x)'],
+  testMatch: ['**/*.spec.ts', '**/*.test.ts'],
 };
