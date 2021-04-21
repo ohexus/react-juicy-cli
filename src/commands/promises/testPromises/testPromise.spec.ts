@@ -1,5 +1,5 @@
-import mockWriteDataError from '../../../../__mocks__/mockWriteDataError';
-import mockWriteDataSuccess from '../../../../__mocks__/mockWriteDataSuccess';
+import { mockWriteDataError, ERROR } from '../../../../__mocks__/mockWriteDataError';
+import { mockWriteDataSuccess, SUCCESS } from '../../../../__mocks__/mockWriteDataSuccess';
 
 import testPromise from './testPromise';
 
@@ -35,12 +35,12 @@ describe('testPromise', () => {
   it('returns test template promise', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
-    await expect(testPromise(name, lang, lib, type, entity)).resolves.toEqual('foo');
+    await expect(testPromise(name, lang, lib, type, entity)).resolves.toEqual(SUCCESS);
   });
 
   it('throws an error', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataError);
 
-    await expect(testPromise(name, lang, lib, type, entity)).rejects.toEqual(new Error('bar'));
+    await expect(testPromise(name, lang, lib, type, entity)).rejects.toEqual(ERROR);
   });
 });
