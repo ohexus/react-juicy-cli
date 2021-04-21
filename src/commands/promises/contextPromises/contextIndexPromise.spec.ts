@@ -27,7 +27,7 @@ describe('contextIndexPromise', () => {
     (switchExt as jest.Mock).mockReturnValue('qux');
   });
 
-  it('returns test template promise', async () => {
+  it('creates a file with context index template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
     await expect(contextIndexPromise(name, lang)).resolves.toEqual(SUCCESS);

@@ -27,7 +27,7 @@ describe('hookIndexPromise', () => {
     (switchHookTemplate as jest.Mock).mockReturnValue(jest.fn());
   });
 
-  it('returns test template promise', async () => {
+  it('creates a file with hook index template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
     await expect(hookIndexPromise(name, lang)).resolves.toEqual(SUCCESS);

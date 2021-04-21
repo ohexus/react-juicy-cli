@@ -27,7 +27,7 @@ describe('hookPromise', () => {
     (switchHookTemplate as jest.Mock).mockReturnValue(jest.fn());
   });
 
-  it('returns test template promise', async () => {
+  it('creates a file with hook template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
     await expect(hookPromise(name, lang)).resolves.toEqual(SUCCESS);

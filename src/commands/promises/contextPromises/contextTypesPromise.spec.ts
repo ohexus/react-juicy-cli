@@ -27,7 +27,7 @@ describe('contextTypesPromise', () => {
     (switchExt as jest.Mock).mockReturnValue('qux');
   });
 
-  it('returns test template promise', async () => {
+  it('creates a file with context types template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
     await expect(contextTypesPromise(name, lang)).resolves.toEqual(SUCCESS);

@@ -32,7 +32,7 @@ describe('testPromise', () => {
     (switchTestLibTemplate as jest.Mock).mockReturnValue(jest.fn());
   });
 
-  it('returns test template promise', async () => {
+  it('creates a file with test template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
     await expect(testPromise(name, lang, lib, type, entity)).resolves.toEqual(SUCCESS);

@@ -27,7 +27,7 @@ describe('providerPromise', () => {
     (switchExt as jest.Mock).mockReturnValue('qux');
   });
 
-  it('returns test template promise', async () => {
+  it('creates a file with context provider template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
     await expect(providerPromise(name, lang)).resolves.toEqual(SUCCESS);
