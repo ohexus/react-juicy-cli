@@ -37,7 +37,7 @@ export function switchTemplateForHook(lib: TestLibs, lang: ProgLangNames): HookT
   }
 }
 
-export default function switchTestLib(
+export default function switchTestLibTemplate(
   lib: TestLibs,
   entity: GenerationEntities,
   lang: ProgLangNames,

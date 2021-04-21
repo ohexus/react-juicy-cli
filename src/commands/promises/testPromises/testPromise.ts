@@ -1,4 +1,4 @@
-import { switchExt, switchTestExt, switchTestLib } from '../../switchHelpers';
+import { switchExt, switchTestExt, switchTestLibTemplate } from '../../switchHelpers';
 import { writeData } from '../../../utils';
 
 import { ProgLangNames, TestLibs, TestTypes, GenerationEntities } from '../../../enums';
@@ -13,7 +13,7 @@ export default function testPromise(
 ): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
   const testExt = switchTestExt(type);
-  const template = switchTestLib(lib, entity, lang);
+  const template = switchTestLibTemplate(lib, entity, lang);
 
   return new Promise((resolve, reject) => {
     writeData(`${name}/${name}.${testExt}.${ext}x`, template(name, type))

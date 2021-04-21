@@ -6,5 +6,5 @@ export { default as switchContextTemplate } from './switchContextTemplate';
 export { default as switchContextTypesTemplate } from './switchContextTypesTemplate';
 export { default as switchHookTemplate } from './switchHookTemplate';
 export { default as switchExt } from './switchExt';
-export { default as switchTestLib } from './switchTestLib';
+export { default as switchTestLibTemplate } from './switchTestLibTemplate';
 export { default as switchTestExt } from './switchTestExt';
