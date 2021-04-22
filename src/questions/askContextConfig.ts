@@ -7,7 +7,7 @@ import { Configs, GenerationEntities } from '../enums';
 import { ContextConfig } from '../interfaces';
 
 async function askContextConfig(): Promise<void> {
-  const contextConfig = config.get(Configs.Hook) as ContextConfig;
+  const contextConfig = config.get(Configs.Context) as ContextConfig;
 
   if (!contextConfig.name) {
     contextConfig.name = addContextWord(await askEntityName(GenerationEntities.Context));
