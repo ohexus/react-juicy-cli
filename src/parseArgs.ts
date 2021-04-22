@@ -3,7 +3,7 @@ import config from './config';
 
 import { generateComponent, generateContext, generateHook, generateTest, logHelp, logVersion } from './commands';
 import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from './questions';
-import { capitalizeFirstLetter, isSeveralFlags, addUseWord, switchEntity } from './utils';
+import { capitalizeFirstLetter, isSeveralFlags, switchEntity } from './utils';
 
 import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from './enums';
 import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from './interfaces';
@@ -128,7 +128,7 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
   }
 
   if (args['--hook']) {
-    const name = addUseWord(args['--hook']);
+    const name = args['--hook'];
 
     config.set(`${Configs.Global}.entity`, GenerationEntities.Hook);
     config.set(Configs.Hook, {
