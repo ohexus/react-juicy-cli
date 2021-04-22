@@ -1,5 +1,3 @@
-export { default as addContextWord } from './addContextWord';
-export { default as addUseWord } from './addUseWord';
 export { default as capitalizeFirstLetter } from './capitalizeFirstLetter';
 export { blueStr, cyanStr, greenStr, indigoStr, redStr, yellowStr } from './chalkColored';
 export { default as clearTerminal } from './clearTerminal';

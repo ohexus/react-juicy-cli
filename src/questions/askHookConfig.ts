@@ -1,5 +1,4 @@
 import config from '../config';
-import { addUseWord } from '../utils';
 
 import askEntityName from './askEntityName';
 
@@ -10,7 +9,7 @@ async function askHookConfig(): Promise<void> {
   const hookConfig = config.get(Configs.Hook) as HookConfig;
 
   if (!hookConfig.name) {
-    hookConfig.name = addUseWord(await askEntityName(GenerationEntities.Hook));
+    hookConfig.name = await askEntityName(GenerationEntities.Hook);
   }
 
   config.set(Configs.Hook, hookConfig);
