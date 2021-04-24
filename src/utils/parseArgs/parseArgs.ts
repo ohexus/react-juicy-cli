@@ -1,12 +1,12 @@
 import arg from 'arg';
-import config from './config';
+import config from '../../config';
 
-import { generateComponent, generateContext, generateHook, generateTest, logHelp, logVersion } from './commands';
-import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from './questions';
-import { capitalizeFirstLetter, isSeveralFlags, switchEntity } from './utils';
+import { generateComponent, generateContext, generateHook, generateTest, logHelp, logVersion } from '../../commands';
+import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from '../../questions';
+import { capitalizeFirstLetter, isSeveralFlags, switchEntity } from '../../utils';
 
-import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from './enums';
-import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from './interfaces';
+import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../enums';
+import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from '../../interfaces';
 
 async function parseArgs(rawArgs: string[]): Promise<void> {
   const args = arg(

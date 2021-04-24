@@ -1,9 +1,8 @@
 import config from './config';
-import parseArgs from './parseArgs';
 
 import { generateComponent, generateContext, generateHook, generateTest } from './commands';
 import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from './questions';
-import { greenStr, redStr, yellowStr } from './utils';
+import { parseArgs, greenStr, redStr, yellowStr } from './utils';
 
 import { Configs, GenerationEntities, Quotes } from './enums';
 import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from './interfaces';
