@@ -1,10 +1,10 @@
-import config from '../../config';
+import config from '../../../config';
 
-import capitalizeFirstLetter from '../capitalizeFirstLetter';
-import { askGlobalConfig } from '../../questions';
+import capitalizeFirstLetter from '../../capitalizeFirstLetter';
+import { askGlobalConfig } from '../../../questions';
 
-import { Configs, GenerationEntities } from '../../enums';
-import { ComponentConfig, ContextConfig, HookConfig, TestConfig } from '../../interfaces';
+import { Configs, GenerationEntities } from '../../../enums';
+import { ComponentConfig, ContextConfig, HookConfig, TestConfig } from '../../../interfaces';
 
 export default async function pregenerationSettings(
   entity: GenerationEntities,
