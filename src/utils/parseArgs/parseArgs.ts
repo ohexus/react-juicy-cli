@@ -2,11 +2,12 @@ import arg from 'arg';
 import config from '../../config';
 
 import { generateComponent, generateContext, generateHook, generateTest, logHelp, logVersion } from '../../commands';
-import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from '../../questions';
-import { capitalizeFirstLetter, isSeveralFlags, switchEntity } from '../../utils';
+import { askComponentConfig, askContextConfig, askHookConfig, askTestConfig } from '../../questions';
+import { isSeveralFlags, switchEntity } from '../../utils';
 
 import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../enums';
-import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from '../../interfaces';
+import { GlobalConfig } from '../../interfaces';
+import { pregenerationSettings } from './pregenerationSettings';
 
 async function parseArgs(rawArgs: string[]): Promise<void> {
   const args = arg(
@@ -97,64 +98,44 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
   } as GlobalConfig);
 
   if (args['--component']) {
-    const name = capitalizeFirstLetter(args['--component']);
+    await pregenerationSettings(GenerationEntities.Component, {
+      name: args['--component'],
+      style: style as StyleLangs,
+    });
 
-    config.set(`${Configs.Global}.entity`, GenerationEntities.Component);
-    config.set(Configs.Component, {
-      name,
-      style,
-    } as ComponentConfig);
-
-    await askGlobalConfig();
     await askComponentConfig();
-
     await generateComponent();
     return;
   }
 
   if (args['--context']) {
-    const name = capitalizeFirstLetter(args['--context']);
+    await pregenerationSettings(GenerationEntities.Context, {
+      name: args['--context'],
+    });
 
-    config.set(`${Configs.Global}.entity`, GenerationEntities.Context);
-    config.set(Configs.Context, {
-      name,
-    } as ContextConfig);
-
-    await askGlobalConfig();
     await askContextConfig();
-
     await generateContext();
     return;
   }
 
   if (args['--hook']) {
-    const name = args['--hook'];
+    await pregenerationSettings(GenerationEntities.Component, {
+      name: args['--hook'],
+    });
 
-    config.set(`${Configs.Global}.entity`, GenerationEntities.Hook);
-    config.set(Configs.Hook, {
-      name,
-    } as HookConfig);
-
-    await askGlobalConfig();
     await askHookConfig();
-
     await generateHook();
     return;
   }
 
   if (args['--test']) {
-    const name = capitalizeFirstLetter(args['--test']);
+    await pregenerationSettings(GenerationEntities.Component, {
+      lib: testLib as TestLibs,
+      type: testType as TestTypes,
+      name: args['--test'],
+    });
 
-    config.set(`${Configs.Global}.entity`, GenerationEntities.Test);
-    config.set(Configs.Test, {
-      lib: testLib,
-      type: testType,
-      name,
-    } as TestConfig);
-
-    await askGlobalConfig();
     await askTestConfig();
-
     await generateTest();
     return;
   }
@@ -162,6 +143,7 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
   if (args['--component'] || args['--hook']) {
     await askTestConfig();
     await generateTest();
+    return;
   }
 }
 
