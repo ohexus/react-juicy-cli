@@ -6,4 +6,5 @@ export { TableBody, TableHeader } from './cliTables';
 export { default as juicyFiglet } from './juicyFiglet';
 export { default as makeDir } from './makeDir';
 export { default as parseArgs } from './parseArgs';
+export { default as printAfterword } from './printAfterword';
 export { default as writeData } from './writeData';

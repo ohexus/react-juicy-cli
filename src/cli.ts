@@ -1,9 +1,8 @@
 import config from './config';
 
-import { askAndGenerate, parseArgs, greenStr, redStr, yellowStr } from './utils';
+import { askAndGenerate, parseArgs, redStr, printAfterword } from './utils';
 
-import { Configs, GenerationEntities, Quotes } from './enums';
-import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from './interfaces';
+import { Configs, Quotes } from './enums';
 
 export default async function cli(argv: string[]): Promise<void> {
   try {
@@ -16,30 +15,7 @@ export default async function cli(argv: string[]): Promise<void> {
       await parseArgs(args);
     }
 
-    const globalConfig = config.get(Configs.Global) as GlobalConfig;
-
-    if (globalConfig.entity) {
-      const { entity, skipStyles, skipTests } = globalConfig;
-      const { name } = config.get(Configs[entity]) as ComponentConfig | ContextConfig | HookConfig | TestConfig;
-
-      console.log(); // for empty line
-
-      if (skipStyles) {
-        console.log(yellowStr('Styles generation skipped.'));
-      }
-
-      if (skipTests) {
-        console.log(yellowStr('Tests generation skipped.'));
-      }
-
-      if (!(entity === GenerationEntities.Test && skipTests)) {
-        if (skipTests || skipStyles) {
-          console.log(); // for empty line
-        }
-
-        console.log(greenStr(`${entity} ${name} generated successfully!\n`));
-      }
-    }
+    printAfterword();
 
     process.exit(0);
   } catch (error) {
