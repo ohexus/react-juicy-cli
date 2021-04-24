@@ -14,7 +14,7 @@ export default function printAfterword(): void {
 
     console.log(); // for empty line
 
-    if (skipStyles) {
+    if (entity === GenerationEntities.Component && skipStyles) {
       console.log(yellowStr('Styles generation skipped.'));
     }
 
