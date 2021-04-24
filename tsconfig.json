@@ -1,14 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "lib": ["es6", "es2015"],
-    "declaration": true,
-    "outDir": "lib",
-    "rootDir": "src",
-    "strict": true,
-    "types": ["node"],
-    "esModuleInterop": true,
-    "resolveJsonModule": false
-  }
+    "composite": true,
+    "outDir": ".",
+    "rootDir": "."
+  },
+  "extends": "./tsconfig.base.json",
+  "files": ["package.json"],
+  "include": ["./src", "./__mocks__"]
 }

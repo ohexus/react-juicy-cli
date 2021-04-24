@@ -1,11 +1,10 @@
+export { default as askAndGenerate } from './askAndGenerate';
 export { default as capitalizeFirstLetter } from './capitalizeFirstLetter';
 export { blueStr, cyanStr, greenStr, indigoStr, redStr, yellowStr } from './chalkColored';
 export { default as clearTerminal } from './clearTerminal';
 export { TableBody, TableHeader } from './cliTables';
-export { default as isSeveralFlags } from './isSeveralFlags';
 export { default as juicyFiglet } from './juicyFiglet';
 export { default as makeDir } from './makeDir';
-export { default as replaceWithContext } from './replaceWithContext';
-export { default as replaceWithUse } from './replaceWithUse';
-export { default as switchEntity } from './switchEntity';
+export { default as parseArgs } from './parseArgs';
+export { default as printAfterword } from './printAfterword';
 export { default as writeData } from './writeData';

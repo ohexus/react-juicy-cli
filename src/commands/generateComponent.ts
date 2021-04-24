@@ -1,7 +1,7 @@
 import config from '../config';
 import { makeDir } from '../utils';
 
-import { componentIndexPromise, componentPromise, styleSheetPromise } from './generationPromises';
+import { componentIndexPromise, componentPromise, styleSheetPromise } from './promises';
 
 import { Configs } from '../enums';
 import { ComponentConfig, GlobalConfig, PromiseReturnStatus } from '../interfaces';

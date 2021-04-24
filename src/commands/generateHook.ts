@@ -1,7 +1,7 @@
 import config from '../config';
 import { makeDir } from '../utils';
 
-import { hookPromise, hookIndexPromise } from './generationPromises';
+import { hookPromise, hookIndexPromise } from './promises';
 
 import { Configs } from '../enums';
 import { GlobalConfig, HookConfig, PromiseReturnStatus } from '../interfaces';

@@ -1,6 +1,6 @@
 import config from '../config';
 
-import { testPromise } from './generationPromises';
+import { testPromise } from './promises';
 import { makeDir } from '../utils';
 
 import { Configs } from '../enums';
