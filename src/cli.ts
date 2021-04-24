@@ -1,8 +1,6 @@
 import config from './config';
 
-import { generateComponent, generateContext, generateHook, generateTest } from './commands';
-import { askComponentConfig, askContextConfig, askGlobalConfig, askHookConfig, askTestConfig } from './questions';
-import { parseArgs, greenStr, redStr, yellowStr } from './utils';
+import { askAndGenerate, parseArgs, greenStr, redStr, yellowStr } from './utils';
 
 import { Configs, GenerationEntities, Quotes } from './enums';
 import { ComponentConfig, ContextConfig, GlobalConfig, HookConfig, TestConfig } from './interfaces';
@@ -12,39 +10,7 @@ export default async function cli(argv: string[]): Promise<void> {
     const args = argv.slice(2);
 
     if (!args.length) {
-      await askGlobalConfig();
-
-      const { entity } = config.get(Configs.Global) as GlobalConfig;
-
-      switch (entity) {
-        case GenerationEntities.Component:
-          await askComponentConfig();
-          await generateComponent();
-          break;
-
-        case GenerationEntities.Context:
-          await askContextConfig();
-          await generateContext();
-          break;
-
-        case GenerationEntities.Hook:
-          await askHookConfig();
-          await generateHook();
-          break;
-
-        case GenerationEntities.Test:
-          await askTestConfig();
-          await generateTest();
-          break;
-
-        default:
-          break;
-      }
-
-      if (entity === GenerationEntities.Component || entity === GenerationEntities.Test) {
-        await askTestConfig();
-        await generateTest();
-      }
+      await askAndGenerate();
     } else {
       config.set(`${Configs.Global}.quotes`, Quotes.Single);
       await parseArgs(args);

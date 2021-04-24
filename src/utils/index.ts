@@ -1,3 +1,4 @@
+export { default as askAndGenerate } from './askAndGenerate';
 export { default as capitalizeFirstLetter } from './capitalizeFirstLetter';
 export { blueStr, cyanStr, greenStr, indigoStr, redStr, yellowStr } from './chalkColored';
 export { default as clearTerminal } from './clearTerminal';
