@@ -1,6 +1,6 @@
 import arg from 'arg';
 
-import { GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../enums';
+import { GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../../enums';
 
 type Entities =
   | typeof GenerationEntities

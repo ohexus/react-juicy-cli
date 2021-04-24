@@ -3,11 +3,13 @@ import config from '../../config';
 
 import { generateComponent, generateContext, generateHook, generateTest, logHelp, logVersion } from '../../commands';
 import { askComponentConfig, askContextConfig, askHookConfig, askTestConfig } from '../../questions';
-import { isSeveralFlags, switchEntity } from '../../utils';
 
 import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../enums';
 import { GlobalConfig } from '../../interfaces';
-import { pregenerationSettings } from './pregenerationSettings';
+
+import isSeveralFlags from './isSeveralFlags';
+import switchEntity from './switchEntity';
+import pregenerationSettings from './pregenerationSettings';
 
 async function parseArgs(rawArgs: string[]): Promise<void> {
   const args = arg(

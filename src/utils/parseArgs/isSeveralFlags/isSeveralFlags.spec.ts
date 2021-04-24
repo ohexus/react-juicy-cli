@@ -1,9 +1,9 @@
 import { Result, Spec } from 'arg';
 
 import isSeveralFlags from './isSeveralFlags';
-import severalFlagsMessage from '../severalFlagsMessage';
+import severalFlagsMessage from './severalFlagsMessage';
 
-jest.mock('../severalFlagsMessage', () => ({
+jest.mock('./severalFlagsMessage', () => ({
   __esModule: true,
   default: jest.fn(),
 }));

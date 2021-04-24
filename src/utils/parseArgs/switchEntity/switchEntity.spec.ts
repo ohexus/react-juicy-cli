@@ -1,4 +1,4 @@
-import { ProgLangNames, StyleLangs, TestLibs, TestTypes } from '../../enums';
+import { ProgLangNames, StyleLangs, TestLibs, TestTypes } from '../../../enums';
 import switchEntity from './switchEntity';
 
 describe('switchEntity', () => {
