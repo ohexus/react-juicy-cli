@@ -13,6 +13,7 @@ module.exports = {
     '/enums/',
     '/templates/',
     'index.ts',
+    'askAndGenerate.ts',
     'chalkColored.ts',
     'clearTerminal.ts',
     'cliTables.ts',
@@ -30,10 +31,10 @@ module.exports = {
 
   coverageThreshold: {
     global: {
-      statements: 60,
-      branches: 60,
-      functions: 60,
-      lines: 60,
+      statements: 86,
+      branches: 77,
+      functions: 94,
+      lines: 85,
     },
   },
 
