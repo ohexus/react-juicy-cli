@@ -33,7 +33,7 @@ export default async function askAndGenerate(): Promise<void> {
       break;
 
     default:
-      break;
+      return;
   }
 
   if (entity === GenerationEntities.Component || entity === GenerationEntities.Test) {
