@@ -2,6 +2,7 @@ import arg from 'arg';
 import config from '../../config';
 
 import { generateComponent, generateContext, generateHook, generateTest, logHelp, logVersion } from '../../commands';
+import { FLAGS } from '../../constants';
 import { askComponentConfig, askContextConfig, askHookConfig, askTestConfig } from '../../questions';
 
 import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../enums';
