@@ -9,63 +9,35 @@ import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLib
 import { GlobalConfig } from '../../interfaces';
 
 import isSeveralFlags from './isSeveralFlags';
-import switchEntity from './switchEntity';
 import pregenerationSettings from './pregenerationSettings';
+import switchEntity from './switchEntity';
 
-async function parseArgs(rawArgs: string[]): Promise<void> {
-  const args = arg(
-    {
-      // Flags
-      '--help': Boolean,
-      '--version': Boolean,
-      '--component': String,
-      '--context': String,
-      '--hook': String,
-      '--test': String,
-      '--javascript': Boolean,
-      '--typescript': Boolean,
-      '--css': Boolean,
-      '--scss': Boolean,
-      '--sass': Boolean,
-      '--less': Boolean,
-      '--enzyme': Boolean,
-      '--testing-library': Boolean,
-      '--unit': Boolean,
-      '--integration': Boolean,
-      '--skip': Boolean,
-      '--skip-styles': Boolean,
-      '--skip-tests': Boolean,
-      '--single-quotes': Boolean,
-      '--double-quotes': Boolean,
-      // Aliases
-      '-h': '--help',
-      '-v': '--version',
-      '--cmp': '--component',
-      '--ctx': '--context',
-      '--hk': '--hook',
-      '--js': '--javascript',
-      '--ts': '--typescript',
-      '--enz': '--enzyme',
-      '--test-lib': '--testing-library',
-      '-u': '--unit',
-      '-i': '--integration',
-      '--skipS': '--skip-styles',
-      '--skipT': '--skip-tests',
-      '--sq': '--single-quotes',
-      '--dq': '--double-quotes',
-      // Alternatives
-      '--skip-style': '--skip-styles',
-      '--skipStyle': '--skip-styles',
-      '--skipStyles': '--skip-styles',
-      '--skip-test': '--skip-tests',
-      '--skipTest': '--skip-tests',
-      '--skipTests': '--skip-tests',
-      '--testing-lib': '--testing-library',
-      '--testingLib': '--testing-library',
-      '--testingLibrary': '--testing-library',
-    },
-    { argv: rawArgs },
-  );
+function switchEntities<T extends arg.Spec>(args: arg.Result<T>) {
+  const prog = switchEntity(args, ['--javascript', '--typescript'], ProgLangNames);
+  const style = switchEntity(args, ['--css', '--sass', '--scss', '--less'], StyleLangs);
+  const testLib = switchEntity(args, ['--enzyme', '--testing-library'], TestLibs);
+  const testType = switchEntity(args, ['--integration', '--unit'], TestTypes);
+
+  return { prog, style, testLib, testType };
+}
+
+function checkForNoEntity<T extends arg.Spec>(args: arg.Result<T>) {
+  if (!args['--component'] && !args['--context'] && !args['--hook'] && !args['--test']) {
+    throw new Error('No entity specified!');
+  }
+}
+
+function checkForSeveralFlags<T extends arg.Spec>(args: arg.Result<T>) {
+  isSeveralFlags(args, ['--component', '--context', '--hook']);
+  isSeveralFlags(args, ['--javascript', '--typescript']);
+  isSeveralFlags(args, ['--css', '--sass', '--scss', '--less']);
+  isSeveralFlags(args, ['--enzyme', '--testing-library']);
+  isSeveralFlags(args, ['--integration', '--unit']);
+  isSeveralFlags(args, ['--single-quotes', '--double-quotes']);
+}
+
+export default async function parseArgs(rawArgs: string[]): Promise<void> {
+  const args = arg(FLAGS, { argv: rawArgs });
 
   if (args['--help']) {
     logHelp();
@@ -77,21 +49,10 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
     return;
   }
 
-  if (!args['--component'] && !args['--context'] && !args['--hook'] && !args['--test']) {
-    throw new Error('No entity specified!');
-  }
+  checkForNoEntity(args);
+  checkForSeveralFlags(args);
 
-  isSeveralFlags(args, ['--component', '--context', '--hook']);
-  isSeveralFlags(args, ['--javascript', '--typescript']);
-  isSeveralFlags(args, ['--css', '--sass', '--scss', '--less']);
-  isSeveralFlags(args, ['--enzyme', '--testing-library']);
-  isSeveralFlags(args, ['--integration', '--unit']);
-  isSeveralFlags(args, ['--single-quotes', '--double-quotes']);
-
-  const prog = switchEntity(args, ['--javascript', '--typescript'], ProgLangNames);
-  const style = switchEntity(args, ['--css', '--sass', '--scss', '--less'], StyleLangs);
-  const testLib = switchEntity(args, ['--enzyme', '--testing-library'], TestLibs);
-  const testType = switchEntity(args, ['--integration', '--unit'], TestTypes);
+  const { prog, style, testLib, testType } = switchEntities(args);
 
   config.set(Configs.Global, {
     prog,
@@ -149,5 +110,3 @@ async function parseArgs(rawArgs: string[]): Promise<void> {
     return;
   }
 }
-
-export default parseArgs;
