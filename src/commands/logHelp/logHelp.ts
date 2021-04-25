@@ -1,5 +1,6 @@
 import { ALTERNATIVE_FLAGS, FLAG_INFO } from '../../constants';
-import { blueStr, cyanStr, indigoStr, yellowStr, TableBody, TableHeader } from '../../utils';
+import { blueStr, cyanStr, indigoStr, yellowStr } from '../../utils/chalkColored';
+import { TableBody, TableHeader } from '../../utils/cliTables';
 
 const joinFlags = (flags: string[]) => flags.map((flag) => blueStr(flag)).join(cyanStr(', '));
 

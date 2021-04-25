@@ -1,4 +1,4 @@
-import { cyanStr } from '../utils';
+import { cyanStr } from '../utils/chalkColored';
 
 const FLAG_INFO = [
   {
