@@ -19,6 +19,7 @@ module.exports = {
     'cliTables.ts',
     'config.ts',
     'juicyFiglet.ts',
+    'logVersion.ts',
   ],
 
   coverageReporters: [
@@ -34,7 +35,7 @@ module.exports = {
       statements: 86,
       branches: 77,
       functions: 94,
-      lines: 85,
+      lines: 84.99,
     },
   },
 
@@ -47,10 +48,6 @@ module.exports = {
   },
 
   moduleDirectories: ['<rootDir>', 'node_modules', 'src'],
-
-  moduleNameMapper: {
-    'package.json': '<rootDir>/__mocks__/mock.package.json',
-  },
 
   modulePaths: ['<rootDir>'],
 
