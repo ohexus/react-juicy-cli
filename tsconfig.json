@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
     "composite": true,
-    "outDir": ".",
     "rootDir": "."
   },
   "extends": "./tsconfig.base.json",
   "files": ["package.json"],
-  "include": ["./src", "./__mocks__"]
+  "include": ["src"]
 }
