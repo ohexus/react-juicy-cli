@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "outDir": "../lib",
     "rootDir": "."
   },
-  "exclude": ["*.spec.ts"],
   "extends": "../tsconfig.base.json",
-  "include": ["./**/*.ts"],
+  "include": ["**/*.ts", "__mocks__/**/*"],
+  "files": ["__mocks__/mock.package.json"],
   "references": [{ "path": "../" }]
 }
