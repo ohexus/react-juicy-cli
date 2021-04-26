@@ -6,6 +6,7 @@
   },
   "exclude": ["**/*.spec.ts", "__mocks__"],
   "extends": "../tsconfig.base.json",
+  "files": ["config.ts"],
   "include": ["**/*.ts"],
   "references": [{ "path": "../" }]
 }
