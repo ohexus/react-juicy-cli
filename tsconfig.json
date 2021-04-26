@@ -5,5 +5,5 @@
   },
   "extends": "./tsconfig.base.json",
   "files": ["package.json"],
-  "include": ["src"]
+  "include": ["src/*"]
 }
