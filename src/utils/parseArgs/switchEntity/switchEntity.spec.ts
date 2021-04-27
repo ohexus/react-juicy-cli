@@ -1,5 +1,5 @@
-import { ProgLangNames, StyleLangs, TestLibs, TestTypes } from '../../../enums';
 import switchEntity from './switchEntity';
+import { ProgLangNames, StyleLangs, TestLibs, TestTypes } from '../../../enums';
 
 describe('switchEntity', () => {
   const emptyArgs = {};

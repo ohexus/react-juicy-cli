@@ -1,6 +1,6 @@
-import { switchExt } from '../../switchHelpers';
 import { basicIndexTemplate } from '../../../templates';
 import { writeData } from '../../../utils';
+import { switchExt } from '../../switchHelpers';
 
 import { ProgLangNames } from '../../../enums';
 import { PromiseReturnStatus } from '../../../interfaces';

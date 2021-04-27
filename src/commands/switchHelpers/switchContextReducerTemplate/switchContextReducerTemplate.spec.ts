@@ -1,7 +1,7 @@
+import { reducerJsTemplate, reducerTsTemplate } from '../../../templates';
 import switchContextReducerTemplate from './switchContextReducerTemplate';
 
 import { ProgLangNames } from '../../../enums';
-import { reducerJsTemplate, reducerTsTemplate } from '../../../templates';
 
 jest.mock('../../../templates', () => ({
   __esModule: true,

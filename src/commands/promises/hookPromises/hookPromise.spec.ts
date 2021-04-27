@@ -1,11 +1,11 @@
 import { mockWriteDataError, ERROR } from '../../../__mocks__/writeDataMocks/mockWriteDataError';
 import { mockWriteDataSuccess, SUCCESS } from '../../../__mocks__/writeDataMocks/mockWriteDataSuccess';
 
+import { writeData } from '../../../utils';
+import { switchExt, switchHookTemplate } from '../../switchHelpers';
 import hookPromise from './hookPromise';
 
 import { ProgLangNames } from '../../../enums';
-import { writeData } from '../../../utils';
-import { switchExt, switchHookTemplate } from '../../switchHelpers';
 
 jest.mock('../../switchHelpers', () => ({
   __esModule: true,

@@ -1,5 +1,5 @@
-import { switchExt, switchContextProviderTemplate } from '../../switchHelpers';
 import { writeData } from '../../../utils';
+import { switchExt, switchContextProviderTemplate } from '../../switchHelpers';
 
 import { ProgLangNames } from '../../../enums';
 import { PromiseReturnStatus } from '../../../interfaces';

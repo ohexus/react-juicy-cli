@@ -1,7 +1,7 @@
+import { contextIndexJsTemplate, contextIndexTsTemplate } from '../../../templates';
 import switchContextIndexTemplate from './switchContextIndexTemplate';
 
 import { ProgLangNames } from '../../../enums';
-import { contextIndexJsTemplate, contextIndexTsTemplate } from '../../../templates';
 
 jest.mock('../../../templates', () => ({
   __esModule: true,

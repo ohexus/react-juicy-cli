@@ -1,7 +1,7 @@
 import config from '../../../config';
 
-import capitalizeFirstLetter from '../../capitalizeFirstLetter';
 import { askGlobalConfig } from '../../../questions';
+import capitalizeFirstLetter from '../../capitalizeFirstLetter';
 
 import { Configs, GenerationEntities } from '../../../enums';
 import { ComponentConfig, ContextConfig, HookConfig, TestConfig } from '../../../interfaces';

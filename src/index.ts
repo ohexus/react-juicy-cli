@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import reactJuicyCLI from './cli';
 import config from './config';
+import reactJuicyCLI from './cli';
 import { clearTerminal, juicyFiglet, redStr } from './utils';
 
 (async () => {

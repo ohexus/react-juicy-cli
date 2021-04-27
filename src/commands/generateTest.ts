@@ -1,7 +1,7 @@
 import config from '../config';
 
-import { testPromise } from './promises';
 import { makeDir } from '../utils';
+import { testPromise } from './promises';
 
 import { Configs } from '../enums';
 import { GlobalConfig, TestConfig, PromiseReturnStatus } from '../interfaces';
