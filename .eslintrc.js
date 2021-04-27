@@ -71,6 +71,7 @@ module.exports = {
     'lines-between-class-members': 'off',
     'max-len': ['error', { code: 120, ignoreTemplateLiterals: true, tabWidth: 2 }],
     'no-console': 'off',
+    'no-multiple-empty-lines': 'error',
     'object-curly-newline': ['error', { consistent: true }],
     quotes: ['error', 'single', { avoidEscape: true }],
     semi: ['error', 'always'],
