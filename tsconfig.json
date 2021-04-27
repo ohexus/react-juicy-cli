@@ -3,7 +3,10 @@
     "composite": true,
     "rootDir": "."
   },
+  // excluded from build
+  "exclude": ["src/**/*.ts"],
   "extends": "./tsconfig.base.json",
   "files": ["package.json"],
-  "include": ["src/*"]
+  // included for IDE support
+  "include": ["src/**/*.ts"]
 }
