@@ -33,21 +33,31 @@ module.exports = {
       'error',
       {
         alphabetize: { order: 'asc', caseInsensitive: true },
-        groups: ['builtin', 'external', 'internal', 'index', ['parent', 'sibling'], 'object'],
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'],
         pathGroups: [
           {
-            pattern: `${relativePaths}/config`,
+            pattern: `${relativePaths}/__mocks__{,/*}`,
             group: 'internal',
             position: 'before',
           },
           {
-            pattern: `${relativePaths}/{commands,constants,questions,templates,utils}`,
-            group: 'index',
-            position: 'before',
+            pattern: `${relativePaths}/config`,
+            group: 'internal',
+            position: 'after',
           },
           {
             pattern: `${relativePaths}/{enums,interfaces}`,
             group: 'index',
+            position: 'after',
+          },
+          {
+            pattern: `./**`,
+            group: 'sibling',
+            position: 'after',
+          },
+          {
+            pattern: `${relativePaths}/**`,
+            group: 'parent',
             position: 'after',
           },
         ],
