@@ -33,7 +33,7 @@ module.exports = {
       'error',
       {
         alphabetize: { order: 'asc', caseInsensitive: true },
-        groups: ['builtin', 'external', 'internal', 'index', 'parent', 'sibling', 'object'],
+        groups: ['builtin', 'external', 'internal', 'index', ['parent', 'sibling'], 'object'],
         pathGroups: [
           {
             pattern: `${relativePaths}/config`,
