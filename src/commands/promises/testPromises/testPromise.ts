@@ -1,5 +1,5 @@
-import { switchExt, switchTestExt, switchTestLibTemplate } from '../../switchHelpers';
 import { writeData } from '../../../utils';
+import { switchExt, switchTestExt, switchTestLibTemplate } from '../../switchHelpers';
 
 import { ProgLangNames, TestLibs, TestTypes, GenerationEntities } from '../../../enums';
 import { PromiseReturnStatus } from '../../../interfaces';

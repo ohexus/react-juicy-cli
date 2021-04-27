@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import config from '../config';
-import { Configs, GenerationEntities } from '../enums';
 
 import askGlobalConfig from './askGlobalConfig';
 import askProgLang from './askProgLang';
 import askQuotes from './askQuotes';
 import askWhichEntity from './askWhichEntity';
+import { Configs, GenerationEntities } from '../enums';
 
 jest.mock('../config', () => ({
   __esModule: true,

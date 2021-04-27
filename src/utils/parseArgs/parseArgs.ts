@@ -5,12 +5,12 @@ import { generateComponent, generateContext, generateHook, generateTest, logHelp
 import { FLAGS } from '../../constants';
 import { askComponentConfig, askContextConfig, askHookConfig, askTestConfig } from '../../questions';
 
-import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../enums';
-import { GlobalConfig } from '../../interfaces';
 
 import isSeveralFlags from './isSeveralFlags';
 import pregenerationSettings from './pregenerationSettings';
 import switchEntity from './switchEntity';
+import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../enums';
+import { GlobalConfig } from '../../interfaces';
 
 function switchEntities<T extends arg.Spec>(args: arg.Result<T>) {
   const prog = switchEntity(args, ['--javascript', '--typescript'], ProgLangNames);

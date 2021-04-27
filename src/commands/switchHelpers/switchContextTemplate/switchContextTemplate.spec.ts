@@ -1,7 +1,7 @@
+import { contextJsTemplate, contextTsTemplate } from '../../../templates';
 import switchContextTemplate from './switchContextTemplate';
 
 import { ProgLangNames } from '../../../enums';
-import { contextJsTemplate, contextTsTemplate } from '../../../templates';
 
 jest.mock('../../../templates', () => ({
   __esModule: true,

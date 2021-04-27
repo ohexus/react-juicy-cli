@@ -1,7 +1,7 @@
+import { hookJsTemplate, hookTsTemplate } from '../../../templates';
 import switchHookTemplate from './switchHookTemplate';
 
 import { ProgLangNames } from '../../../enums';
-import { hookJsTemplate, hookTsTemplate } from '../../../templates';
 
 jest.mock('../../../templates', () => ({
   __esModule: true,

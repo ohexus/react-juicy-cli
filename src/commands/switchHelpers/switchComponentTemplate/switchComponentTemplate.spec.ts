@@ -1,7 +1,7 @@
+import { componentJsTemplate, componentTsTemplate } from '../../../templates';
 import switchComponentTemplate from './switchComponentTemplate';
 
 import { ProgLangNames, Quotes, StyleLangs } from '../../../enums';
-import { componentJsTemplate, componentTsTemplate } from '../../../templates';
 
 jest.mock('../../../templates', () => ({
   __esModule: true,

@@ -1,11 +1,11 @@
 import { mockWriteDataError, ERROR } from '../../../__mocks__/writeDataMocks/mockWriteDataError';
 import { mockWriteDataSuccess, SUCCESS } from '../../../__mocks__/writeDataMocks/mockWriteDataSuccess';
 
+import { cssTemplate, sassTemplate } from '../../../templates';
+import { writeData } from '../../../utils';
 import styleSheetPromise from './styleSheetPromise';
 
 import { StyleLangs } from '../../../enums';
-import { cssTemplate, sassTemplate } from '../../../templates';
-import { writeData } from '../../../utils';
 
 jest.mock('../../../templates', () => ({
   __esModule: true,

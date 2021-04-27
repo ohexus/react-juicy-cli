@@ -1,6 +1,3 @@
-import switchTestLibTemplate, { switchTemplateForComponent, switchTemplateForHook } from './switchTestLibTemplate';
-
-import { GenerationEntities, ProgLangNames, TestLibs, TestTypes } from '../../../enums';
 import {
   enzymeComponentTemplate,
   testingLibraryComponentTemplate,
@@ -8,6 +5,9 @@ import {
   enzymeHookTsTemplate,
   testingLibraryHookTemplate,
 } from '../../../templates';
+import switchTestLibTemplate, { switchTemplateForComponent, switchTemplateForHook } from './switchTestLibTemplate';
+
+import { GenerationEntities, ProgLangNames, TestLibs, TestTypes } from '../../../enums';
 
 jest.mock('../../../templates', () => ({
   __esModule: true,

@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 import config from '../config';
-import { Configs } from '../enums';
 import { capitalizeFirstLetter } from '../utils';
 
 import askContextConfig from './askContextConfig';
 import askEntityName from './askEntityName';
+import { Configs } from '../enums';
 
 jest.mock('../config', () => ({
   __esModule: true,
