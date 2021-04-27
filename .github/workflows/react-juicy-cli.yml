@@ -26,7 +26,7 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn lint
 
-  test:unit:
+  test&#58;unit:
     needs: lint
     runs-on: ubuntu-latest
     steps:
