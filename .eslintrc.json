@@ -12,7 +12,7 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2019,
-    "project": "./tsconfig.json",
+    "project": "./src/tsconfig.json",
     "sourceType": "module"
   },
   "plugins": ["import", "@typescript-eslint"],
@@ -44,7 +44,7 @@
     },
     "import/resolver": {
       "typescript": {
-        "project": "."
+        "project": "./src"
       }
     }
   }
