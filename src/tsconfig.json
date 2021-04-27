@@ -4,6 +4,5 @@
   },
   "extends": "../tsconfig.base.json",
   "include": ["**/*.ts", "__mocks__/**/*"],
-  "files": ["__mocks__/mock.package.json"],
   "references": [{ "path": "../" }]
 }
