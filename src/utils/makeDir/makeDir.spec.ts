@@ -6,11 +6,19 @@ jest.mock('fs');
 
 describe('makeDir', () => {
   it('creates new directory or does not create if one already exists', () => {
-    const NAME = 'foo';
+    const DIR = 'foo';
 
-    makeDir(NAME);
+    makeDir(DIR);
 
     expect(fs.mkdirSync).toHaveBeenCalledTimes(1);
-    expect(fs.mkdirSync).toHaveBeenCalledWith(NAME, { recursive: true });
+    expect(fs.mkdirSync).toHaveBeenCalledWith(DIR, { recursive: true });
+  });
+
+  it('does not create new directory', () => {
+    const DIR = '.';
+
+    makeDir(DIR);
+
+    expect(fs.mkdirSync).not.toHaveBeenCalled();
   });
 });
