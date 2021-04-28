@@ -13,12 +13,14 @@ const getHookConfig = (): HookConfig & { prog: GlobalConfig['prog'] } => {
   return { prog, ...hookConfig };
 };
 
-async function generateHook(): Promise<PromiseReturnStatus[]> {
+async function generateHook(dirPath?: string): Promise<PromiseReturnStatus[]> {
   const { name, prog } = getHookConfig();
 
-  makeDir(name);
+  const dir = dirPath ?? name;
 
-  return Promise.all([hookPromise(name, prog), hookIndexPromise(name, prog)]);
+  makeDir(dir);
+
+  return Promise.all([hookPromise(dir, name, prog), hookIndexPromise(dir, name, prog)]);
 }
 
 export default generateHook;

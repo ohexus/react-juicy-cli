@@ -17,13 +17,15 @@ const getTestConfig = (): TestConfig & {
   return { entity, prog, skipTests, ...testConfig };
 };
 
-async function generateTest(): Promise<PromiseReturnStatus[] | void> {
+async function generateTest(dirPath?: string): Promise<PromiseReturnStatus[] | void> {
   const { entity, lib, name, prog, skipTests, type } = getTestConfig();
 
   if (!skipTests) {
-    makeDir(name);
+    const dir = dirPath ?? name;
 
-    return Promise.all([testPromise(name, prog, lib, type, entity)]);
+    makeDir(dir);
+
+    return Promise.all([testPromise(dir, name, prog, lib, type, entity)]);
   }
 }
 

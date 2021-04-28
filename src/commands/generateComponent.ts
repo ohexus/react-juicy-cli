@@ -22,15 +22,17 @@ const getComponentConfig = (): ComponentConfig & {
   };
 };
 
-async function generateComponent(): Promise<PromiseReturnStatus[]> {
+async function generateComponent(dirPath?: string): Promise<PromiseReturnStatus[]> {
   const { name, prog, quotes, style, skipStyles } = getComponentConfig();
 
-  makeDir(name);
+  const dir = dirPath ?? name;
 
-  const promises = [componentPromise(name, prog, style, quotes), componentIndexPromise(name, prog)];
+  makeDir(dir);
+
+  const promises = [componentPromise(dir, name, prog, style, quotes), componentIndexPromise(dir, name, prog)];
 
   if (!skipStyles) {
-    promises.push(styleSheetPromise(name, style));
+    promises.push(styleSheetPromise(dir, name, style));
   }
 
   return Promise.all(promises);

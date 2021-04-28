@@ -25,6 +25,7 @@ jest.mock('../utils', () => ({
 const promises = [testPromise];
 
 describe('generateTest', () => {
+  const dir = 'corge';
   const entity = 'foo';
   const lib = 'bar';
   const name = 'baz';
@@ -46,7 +47,22 @@ describe('generateTest', () => {
     type,
   };
 
-  it('generates test', async () => {
+  it('generates test at the specified path', async () => {
+    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(testConfig);
+
+    mockResolvedPromises(promises, promiseSuccess);
+
+    await expect(generateTest(dir)).resolves.toEqual([promiseSuccess]);
+
+    expect(config.get).toHaveBeenCalledTimes(2);
+    expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
+    expect(config.get).toHaveBeenNthCalledWith(2, Configs.Test);
+
+    expect(testPromise).toHaveBeenCalledTimes(1);
+    expect(testPromise).toHaveBeenCalledWith(dir, name, prog, lib, type, entity);
+  });
+
+  it('generates test without path', async () => {
     (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(testConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
@@ -58,13 +74,11 @@ describe('generateTest', () => {
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Test);
 
     expect(testPromise).toHaveBeenCalledTimes(1);
-    expect(testPromise).toHaveBeenCalledWith(name, prog, lib, type, entity);
+    expect(testPromise).toHaveBeenCalledWith(name, name, prog, lib, type, entity);
   });
 
   it('does not generate test', async () => {
-    (config.get as jest.Mock)
-      .mockReturnValueOnce({ ...globalConfig, skipTests: true })
-      .mockReturnValueOnce(testConfig);
+    (config.get as jest.Mock).mockReturnValueOnce({ ...globalConfig, skipTests: true }).mockReturnValueOnce(testConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 
@@ -82,13 +96,13 @@ describe('generateTest', () => {
 
     mockRejectedPromises(promises, promiseError);
 
-    await expect(generateTest()).rejects.toEqual(promiseError);
+    await expect(generateTest(dir)).rejects.toEqual(promiseError);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Test);
 
     expect(testPromise).toHaveBeenCalledTimes(1);
-    expect(testPromise).toHaveBeenCalledWith(name, prog, lib, type, entity);
+    expect(testPromise).toHaveBeenCalledWith(dir, name, prog, lib, type, entity);
   });
 });

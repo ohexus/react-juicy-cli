@@ -26,7 +26,8 @@ jest.mock('../utils', () => ({
 const promises = [hookIndexPromise, hookPromise];
 
 describe('generateHook', () => {
-  const name = 'foo';
+  const dir = 'foo';
+  const name = 'bar';
   const prog = 'baz';
 
   const promiseSuccess = 'corge';
@@ -40,7 +41,25 @@ describe('generateHook', () => {
     name,
   };
 
-  it('generates hook', async () => {
+  it('generates hook at the specified path', async () => {
+    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(hookConfig);
+
+    mockResolvedPromises(promises, promiseSuccess);
+
+    await expect(generateHook(dir)).resolves.toEqual([promiseSuccess, promiseSuccess]);
+
+    expect(config.get).toHaveBeenCalledTimes(2);
+    expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
+    expect(config.get).toHaveBeenNthCalledWith(2, Configs.Hook);
+
+    expect(hookIndexPromise).toHaveBeenCalledTimes(1);
+    expect(hookIndexPromise).toHaveBeenCalledWith(dir, name, prog);
+
+    expect(hookPromise).toHaveBeenCalledTimes(1);
+    expect(hookPromise).toHaveBeenCalledWith(dir, name, prog);
+  });
+
+  it('generates hook without path', async () => {
     (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(hookConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
@@ -52,10 +71,10 @@ describe('generateHook', () => {
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Hook);
 
     expect(hookIndexPromise).toHaveBeenCalledTimes(1);
-    expect(hookIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(hookIndexPromise).toHaveBeenCalledWith(name, name, prog);
 
     expect(hookPromise).toHaveBeenCalledTimes(1);
-    expect(hookPromise).toHaveBeenCalledWith(name, prog);
+    expect(hookPromise).toHaveBeenCalledWith(name, name, prog);
   });
 
   it('rejects with error', async () => {
@@ -63,16 +82,16 @@ describe('generateHook', () => {
 
     mockRejectedPromises(promises, promiseError);
 
-    await expect(generateHook()).rejects.toEqual(promiseError);
+    await expect(generateHook(dir)).rejects.toEqual(promiseError);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Hook);
 
     expect(hookIndexPromise).toHaveBeenCalledTimes(1);
-    expect(hookIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(hookIndexPromise).toHaveBeenCalledWith(dir, name, prog);
 
     expect(hookPromise).toHaveBeenCalledTimes(1);
-    expect(hookPromise).toHaveBeenCalledWith(name, prog);
+    expect(hookPromise).toHaveBeenCalledWith(dir, name, prog);
   });
 });

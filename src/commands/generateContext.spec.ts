@@ -29,7 +29,8 @@ jest.mock('../utils', () => ({
 const promises = [contextIndexPromise, contextPromise, contextTypesPromise, providerPromise, reducerPromise];
 
 describe('generateContext', () => {
-  const name = 'foo';
+  const dir = 'foo';
+  const name = 'bar';
   const prog = 'baz';
 
   const promiseSuccess = 'corge';
@@ -43,7 +44,34 @@ describe('generateContext', () => {
     name,
   };
 
-  it('generates context', async () => {
+  it('generates context at the specified path', async () => {
+    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(contextConfig);
+
+    mockResolvedPromises(promises, promiseSuccess);
+
+    await expect(generateContext(dir)).resolves.toEqual(promises.map(() => promiseSuccess));
+
+    expect(config.get).toHaveBeenCalledTimes(2);
+    expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
+    expect(config.get).toHaveBeenNthCalledWith(2, Configs.Context);
+
+    expect(contextPromise).toHaveBeenCalledTimes(1);
+    expect(contextPromise).toHaveBeenCalledWith(dir, name, prog);
+
+    expect(contextIndexPromise).toHaveBeenCalledTimes(1);
+    expect(contextIndexPromise).toHaveBeenCalledWith(dir, name, prog);
+
+    expect(contextTypesPromise).toHaveBeenCalledTimes(1);
+    expect(contextTypesPromise).toHaveBeenCalledWith(dir, name, prog);
+
+    expect(providerPromise).toHaveBeenCalledTimes(1);
+    expect(providerPromise).toHaveBeenCalledWith(dir, name, prog);
+
+    expect(reducerPromise).toHaveBeenCalledTimes(1);
+    expect(reducerPromise).toHaveBeenCalledWith(dir, name, prog);
+  });
+
+  it('generates context without path', async () => {
     (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(contextConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
@@ -55,19 +83,19 @@ describe('generateContext', () => {
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Context);
 
     expect(contextPromise).toHaveBeenCalledTimes(1);
-    expect(contextPromise).toHaveBeenCalledWith(name, prog);
+    expect(contextPromise).toHaveBeenCalledWith(name, name, prog);
 
     expect(contextIndexPromise).toHaveBeenCalledTimes(1);
-    expect(contextIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(contextIndexPromise).toHaveBeenCalledWith(name, name, prog);
 
     expect(contextTypesPromise).toHaveBeenCalledTimes(1);
-    expect(contextTypesPromise).toHaveBeenCalledWith(name, prog);
+    expect(contextTypesPromise).toHaveBeenCalledWith(name, name, prog);
 
     expect(providerPromise).toHaveBeenCalledTimes(1);
-    expect(providerPromise).toHaveBeenCalledWith(name, prog);
+    expect(providerPromise).toHaveBeenCalledWith(name, name, prog);
 
     expect(reducerPromise).toHaveBeenCalledTimes(1);
-    expect(reducerPromise).toHaveBeenCalledWith(name, prog);
+    expect(reducerPromise).toHaveBeenCalledWith(name, name, prog);
   });
 
   it('rejects with error', async () => {
@@ -75,25 +103,25 @@ describe('generateContext', () => {
 
     mockRejectedPromises(promises, promiseError);
 
-    await expect(generateContext()).rejects.toEqual(promiseError);
+    await expect(generateContext(dir)).rejects.toEqual(promiseError);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Context);
 
     expect(contextPromise).toHaveBeenCalledTimes(1);
-    expect(contextPromise).toHaveBeenCalledWith(name, prog);
+    expect(contextPromise).toHaveBeenCalledWith(dir, name, prog);
 
     expect(contextIndexPromise).toHaveBeenCalledTimes(1);
-    expect(contextIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(contextIndexPromise).toHaveBeenCalledWith(dir, name, prog);
 
     expect(contextTypesPromise).toHaveBeenCalledTimes(1);
-    expect(contextTypesPromise).toHaveBeenCalledWith(name, prog);
+    expect(contextTypesPromise).toHaveBeenCalledWith(dir, name, prog);
 
     expect(providerPromise).toHaveBeenCalledTimes(1);
-    expect(providerPromise).toHaveBeenCalledWith(name, prog);
+    expect(providerPromise).toHaveBeenCalledWith(dir, name, prog);
 
     expect(reducerPromise).toHaveBeenCalledTimes(1);
-    expect(reducerPromise).toHaveBeenCalledWith(name, prog);
+    expect(reducerPromise).toHaveBeenCalledWith(dir, name, prog);
   });
 });

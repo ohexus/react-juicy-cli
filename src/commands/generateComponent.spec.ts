@@ -27,6 +27,7 @@ jest.mock('../utils', () => ({
 const promises = [componentIndexPromise, componentPromise, styleSheetPromise];
 
 describe('generateComponent', () => {
+  const dir = 'corge';
   const name = 'foo';
   const style = 'bar';
   const prog = 'baz';
@@ -51,20 +52,20 @@ describe('generateComponent', () => {
 
     mockResolvedPromises(promises, promiseSuccess);
 
-    await expect(generateComponent()).resolves.toEqual([promiseSuccess, promiseSuccess, promiseSuccess]);
+    await expect(generateComponent(dir)).resolves.toEqual([promiseSuccess, promiseSuccess, promiseSuccess]);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
 
     expect(componentIndexPromise).toHaveBeenCalledTimes(1);
-    expect(componentIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(componentIndexPromise).toHaveBeenCalledWith(dir, name, prog);
 
     expect(componentPromise).toHaveBeenCalledTimes(1);
-    expect(componentPromise).toHaveBeenCalledWith(name, prog, style, quotes);
+    expect(componentPromise).toHaveBeenCalledWith(dir, name, prog, style, quotes);
 
     expect(styleSheetPromise).toHaveBeenCalledTimes(1);
-    expect(styleSheetPromise).toHaveBeenCalledWith(name, style);
+    expect(styleSheetPromise).toHaveBeenCalledWith(dir, name, style);
   });
 
   it('generates component without styles', async () => {
@@ -74,19 +75,40 @@ describe('generateComponent', () => {
 
     mockResolvedPromises(promises, promiseSuccess);
 
-    await expect(generateComponent()).resolves.toEqual([promiseSuccess, promiseSuccess]);
+    await expect(generateComponent(dir)).resolves.toEqual([promiseSuccess, promiseSuccess]);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
 
     expect(componentIndexPromise).toHaveBeenCalledTimes(1);
-    expect(componentIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(componentIndexPromise).toHaveBeenCalledWith(dir, name, prog);
 
     expect(componentPromise).toHaveBeenCalledTimes(1);
-    expect(componentPromise).toHaveBeenCalledWith(name, prog, style, quotes);
+    expect(componentPromise).toHaveBeenCalledWith(dir, name, prog, style, quotes);
 
     expect(styleSheetPromise).not.toHaveBeenCalled();
+  });
+
+  it('generates component without path', async () => {
+    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(componentConfig);
+
+    mockResolvedPromises(promises, promiseSuccess);
+
+    await expect(generateComponent()).resolves.toEqual([promiseSuccess, promiseSuccess, promiseSuccess]);
+
+    expect(config.get).toHaveBeenCalledTimes(2);
+    expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
+    expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
+
+    expect(componentIndexPromise).toHaveBeenCalledTimes(1);
+    expect(componentIndexPromise).toHaveBeenCalledWith(name, name, prog);
+
+    expect(componentPromise).toHaveBeenCalledTimes(1);
+    expect(componentPromise).toHaveBeenCalledWith(name, name, prog, style, quotes);
+
+    expect(styleSheetPromise).toHaveBeenCalledTimes(1);
+    expect(styleSheetPromise).toHaveBeenCalledWith(name, name, style);
   });
 
   it('rejects with error', async () => {
@@ -94,19 +116,19 @@ describe('generateComponent', () => {
 
     mockRejectedPromises(promises, promiseError);
 
-    await expect(generateComponent()).rejects.toEqual(promiseError);
+    await expect(generateComponent(dir)).rejects.toEqual(promiseError);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
 
     expect(componentIndexPromise).toHaveBeenCalledTimes(1);
-    expect(componentIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(componentIndexPromise).toHaveBeenCalledWith(dir, name, prog);
 
     expect(componentPromise).toHaveBeenCalledTimes(1);
-    expect(componentPromise).toHaveBeenCalledWith(name, prog, style, quotes);
+    expect(componentPromise).toHaveBeenCalledWith(dir, name, prog, style, quotes);
 
     expect(styleSheetPromise).toHaveBeenCalledTimes(1);
-    expect(styleSheetPromise).toHaveBeenCalledWith(name, style);
+    expect(styleSheetPromise).toHaveBeenCalledWith(dir, name, style);
   });
 });

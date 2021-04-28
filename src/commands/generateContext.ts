@@ -1,13 +1,7 @@
 import config from '../config';
 import { makeDir } from '../utils';
 
-import {
-  contextPromise,
-  contextTypesPromise,
-  contextIndexPromise,
-  providerPromise,
-  reducerPromise,
-} from './promises';
+import { contextPromise, contextTypesPromise, contextIndexPromise, providerPromise, reducerPromise } from './promises';
 
 import { Configs } from '../enums';
 import { ContextConfig, GlobalConfig, PromiseReturnStatus } from '../interfaces';
@@ -19,17 +13,19 @@ const getContextConfig = (): ContextConfig & { prog: GlobalConfig['prog'] } => {
   return { prog, ...contextConfig };
 };
 
-async function generateContext(): Promise<PromiseReturnStatus[]> {
+async function generateContext(dirPath?: string): Promise<PromiseReturnStatus[]> {
   const { name, prog } = getContextConfig();
 
-  makeDir(name);
+  const dir = dirPath ?? name;
+
+  makeDir(dir);
 
   return Promise.all([
-    contextPromise(name, prog),
-    contextTypesPromise(name, prog),
-    contextIndexPromise(name, prog),
-    providerPromise(name, prog),
-    reducerPromise(name, prog),
+    contextPromise(dir, name, prog),
+    contextTypesPromise(dir, name, prog),
+    contextIndexPromise(dir, name, prog),
+    providerPromise(dir, name, prog),
+    reducerPromise(dir, name, prog),
   ]);
 }
 
