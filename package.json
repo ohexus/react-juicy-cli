@@ -11,7 +11,7 @@
     "build": "tsc -p src/tsconfig.prod.json",
     "prepublishOnly": "yarn build",
     "lint": "eslint --ext ts --max-warnings 0 src/",
-    "test": "yarn:lint && yarn test:unit",
+    "test": "yarn lint && yarn test:unit",
     "test:unit": "jest",
     "test:unit:total": "jest --collectCoverageFrom=src/**/*.ts"
   },
