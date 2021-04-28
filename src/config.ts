@@ -5,6 +5,7 @@ const config = new Configstore('react-juicy-cli');
 
 config.set(Configs.Global, {
   entity: null,
+  path: null,
   prog: null,
   skipStyles: false,
   skipTests: false,
