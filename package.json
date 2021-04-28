@@ -9,7 +9,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "build": "tsc -p src/tsconfig.prod.json",
-    "prepublishOnly": "rm -rf lib/ && yarn test && yarn build",
+    "prepublishOnly": "yarn build",
     "lint": "eslint --ext ts --max-warnings 0 src/",
     "test": "yarn:lint && yarn test:unit",
     "test:unit": "jest",
