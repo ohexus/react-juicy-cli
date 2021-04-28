@@ -19,6 +19,7 @@ jest.mock('../../../utils', () => ({
 }));
 
 describe('providerPromise', () => {
+  const dir = 'quuz';
   const name = 'baz';
   const lang = ProgLangNames.TS;
 
@@ -30,12 +31,12 @@ describe('providerPromise', () => {
   it('creates a file with context provider template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
-    await expect(providerPromise(name, lang)).resolves.toEqual(SUCCESS);
+    await expect(providerPromise(dir, name, lang)).resolves.toEqual(SUCCESS);
   });
 
   it('throws an error', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataError);
 
-    await expect(providerPromise(name, lang)).rejects.toEqual(ERROR);
+    await expect(providerPromise(dir, name, lang)).rejects.toEqual(ERROR);
   });
 });

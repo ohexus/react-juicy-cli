@@ -19,6 +19,7 @@ jest.mock('../../../utils', () => ({
 }));
 
 describe('hookPromise', () => {
+  const dir = 'quuz';
   const name = 'foo';
   const lang = ProgLangNames.TS;
 
@@ -30,12 +31,12 @@ describe('hookPromise', () => {
   it('creates a file with hook template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
-    await expect(hookPromise(name, lang)).resolves.toEqual(SUCCESS);
+    await expect(hookPromise(dir, name, lang)).resolves.toEqual(SUCCESS);
   });
 
   it('throws an error', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataError);
 
-    await expect(hookPromise(name, lang)).rejects.toEqual(ERROR);
+    await expect(hookPromise(dir, name, lang)).rejects.toEqual(ERROR);
   });
 });

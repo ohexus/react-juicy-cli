@@ -1,16 +1,16 @@
-import { writeData } from '../../../utils';
+import generateEntity from '../../generateEntity';
 import { switchExt, switchContextTypesTemplate } from '../../switchHelpers';
 
 import { ProgLangNames } from '../../../enums';
 import { PromiseReturnStatus } from '../../../interfaces';
 
-export default function contextTypesPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
+export default function contextTypesPromise(
+  dir: string,
+  name: string,
+  lang: ProgLangNames,
+): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
   const template = switchContextTypesTemplate(lang);
 
-  return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}Types.${ext}`, template(name))
-      .then((status) => resolve(status))
-      .catch((error) => reject(error));
-  });
+  return generateEntity(`${dir}/${name}Types.${ext}`, template(name));
 }

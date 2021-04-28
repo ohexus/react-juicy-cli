@@ -19,6 +19,7 @@ jest.mock('../../../utils', () => ({
 }));
 
 describe('contextIndexPromise', () => {
+  const dir = 'quuz';
   const name = 'baz';
   const lang = ProgLangNames.TS;
 
@@ -30,12 +31,12 @@ describe('contextIndexPromise', () => {
   it('creates a file with context index template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
-    await expect(contextIndexPromise(name, lang)).resolves.toEqual(SUCCESS);
+    await expect(contextIndexPromise(dir, name, lang)).resolves.toEqual(SUCCESS);
   });
 
   it('throws an error', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataError);
 
-    await expect(contextIndexPromise(name, lang)).rejects.toEqual(ERROR);
+    await expect(contextIndexPromise(dir, name, lang)).rejects.toEqual(ERROR);
   });
 });

@@ -19,6 +19,7 @@ jest.mock('../../../utils', () => ({
 }));
 
 describe('reducerPromise', () => {
+  const dir = 'quuz';
   const name = 'baz';
   const lang = ProgLangNames.TS;
 
@@ -30,12 +31,12 @@ describe('reducerPromise', () => {
   it('creates a file with context reducer template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
-    await expect(reducerPromise(name, lang)).resolves.toEqual(SUCCESS);
+    await expect(reducerPromise(dir, name, lang)).resolves.toEqual(SUCCESS);
   });
 
   it('throws an error', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataError);
 
-    await expect(reducerPromise(name, lang)).rejects.toEqual(ERROR);
+    await expect(reducerPromise(dir, name, lang)).rejects.toEqual(ERROR);
   });
 });

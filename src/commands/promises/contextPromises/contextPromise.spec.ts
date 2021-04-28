@@ -19,6 +19,7 @@ jest.mock('../../../utils', () => ({
 }));
 
 describe('contextPromise', () => {
+  const dir = 'quuz';
   const name = 'baz';
   const lang = ProgLangNames.TS;
 
@@ -30,12 +31,12 @@ describe('contextPromise', () => {
   it('creates a file with context template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
-    await expect(contextPromise(name, lang)).resolves.toEqual(SUCCESS);
+    await expect(contextPromise(dir, name, lang)).resolves.toEqual(SUCCESS);
   });
 
   it('throws an error', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataError);
 
-    await expect(contextPromise(name, lang)).rejects.toEqual(ERROR);
+    await expect(contextPromise(dir, name, lang)).rejects.toEqual(ERROR);
   });
 });

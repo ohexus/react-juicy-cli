@@ -1,10 +1,11 @@
-import { writeData } from '../../../utils';
+import generateEntity from '../../generateEntity';
 import { switchExt, switchComponentTemplate } from '../../switchHelpers';
 
 import { ProgLangNames, StyleLangs, Quotes } from '../../../enums';
 import { PromiseReturnStatus } from '../../../interfaces';
 
 export default function componentPromise(
+  dir: string,
   name: string,
   lang: ProgLangNames,
   sslang: StyleLangs,
@@ -13,9 +14,5 @@ export default function componentPromise(
   const ext = switchExt(lang);
   const template = switchComponentTemplate(lang);
 
-  return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${ext}x`, template(name, sslang, quotes))
-      .then((status) => resolve(status))
-      .catch((error) => reject(error));
-  });
+  return generateEntity(`${dir}/${name}.${ext}x`, template(name, sslang, quotes));
 }

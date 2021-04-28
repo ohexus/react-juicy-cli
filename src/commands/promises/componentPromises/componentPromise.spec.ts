@@ -19,7 +19,8 @@ jest.mock('../../../utils', () => ({
 }));
 
 describe('componentPromise', () => {
-  const name = 'quuz';
+  const dir = 'quuz';
+  const name = 'foo';
   const lang = ProgLangNames.TS;
   const sslang = StyleLangs.CSS;
   const quotes = Quotes.Single;
@@ -32,12 +33,12 @@ describe('componentPromise', () => {
   it('creates a file with component template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
-    await expect(componentPromise(name, lang, sslang, quotes)).resolves.toEqual(SUCCESS);
+    await expect(componentPromise(dir, name, lang, sslang, quotes)).resolves.toEqual(SUCCESS);
   });
 
   it('throws an error', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataError);
 
-    await expect(componentPromise(name, lang, sslang, quotes)).rejects.toEqual(ERROR);
+    await expect(componentPromise(dir, name, lang, sslang, quotes)).rejects.toEqual(ERROR);
   });
 });
