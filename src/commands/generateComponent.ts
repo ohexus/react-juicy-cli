@@ -31,7 +31,10 @@ async function generateComponent(): Promise<PromiseReturnStatus[]> {
 
   makeDir(dir);
 
-  const promises = [componentPromise(dir, name, prog, style, quotes), componentIndexPromise(dir, name, prog)];
+  const promises = [
+    componentPromise(dir, name, prog, style, quotes),
+    componentIndexPromise(dir, name, prog),
+  ];
 
   if (!skipStyles) {
     promises.push(styleSheetPromise(dir, name, style));

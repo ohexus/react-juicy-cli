@@ -1,6 +1,13 @@
 import arg from 'arg';
 
-import { GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../../enums';
+import {
+  GenerationEntities,
+  ProgLangNames,
+  Quotes,
+  StyleLangs,
+  TestLibs,
+  TestTypes,
+} from '../../../enums';
 
 type Entities =
   | typeof GenerationEntities
@@ -13,7 +20,9 @@ type Entities =
 type ValueOf<T> = T[keyof T];
 
 function parseValues<EntityType>(entities: EntityType): ValueOf<EntityType> {
-  return (Object.keys(entities).map((k) => entities[k as keyof EntityType]) as unknown) as ValueOf<EntityType>;
+  return (Object.keys(entities).map(
+    (k) => entities[k as keyof EntityType],
+  ) as unknown) as ValueOf<EntityType>;
 }
 
 export default function switchEntity<Args extends arg.Spec>(

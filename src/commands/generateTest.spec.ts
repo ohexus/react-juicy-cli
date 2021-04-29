@@ -64,7 +64,9 @@ describe('generateTest', () => {
   });
 
   it('generates test without path', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce({ ...globalConfig, path: null }).mockReturnValueOnce(testConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce({ ...globalConfig, path: null })
+      .mockReturnValueOnce(testConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 
@@ -79,7 +81,9 @@ describe('generateTest', () => {
   });
 
   it('does not generate test', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce({ ...globalConfig, skipTests: true }).mockReturnValueOnce(testConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce({ ...globalConfig, skipTests: true })
+      .mockReturnValueOnce(testConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 

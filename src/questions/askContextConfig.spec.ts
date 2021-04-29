@@ -58,6 +58,9 @@ describe('askContextConfig', () => {
     expect(config.get).toHaveBeenCalledWith(Configs.Context);
 
     expect(config.set).toHaveBeenCalledTimes(1);
-    expect(config.set).toHaveBeenCalledWith(Configs.Context, { ...contextConfig, name: capitalizedName });
+    expect(config.set).toHaveBeenCalledWith(Configs.Context, {
+      ...contextConfig,
+      name: capitalizedName,
+    });
   });
 });

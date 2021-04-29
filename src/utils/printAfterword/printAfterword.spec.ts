@@ -69,7 +69,11 @@ describe('printAfterword', () => {
 
   it('does not log anything', () => {
     const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
-    (config.get as jest.Mock).mockReturnValueOnce({ entity: null, skipStyles: true, skipTests: true });
+    (config.get as jest.Mock).mockReturnValueOnce({
+      entity: null,
+      skipStyles: true,
+      skipTests: true,
+    });
 
     printAfterword();
 

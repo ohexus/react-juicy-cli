@@ -6,7 +6,10 @@ import { hookPromise, hookIndexPromise } from './promises';
 import { Configs } from '../enums';
 import { GlobalConfig, HookConfig, PromiseReturnStatus } from '../interfaces';
 
-const getHookConfig = (): HookConfig & { path: GlobalConfig['path']; prog: GlobalConfig['prog'] } => {
+const getHookConfig = (): HookConfig & {
+  path: GlobalConfig['path'];
+  prog: GlobalConfig['prog'];
+} => {
   const { path, prog } = config.get(Configs.Global) as GlobalConfig;
   const hookConfig = config.get(Configs.Hook) as HookConfig;
 

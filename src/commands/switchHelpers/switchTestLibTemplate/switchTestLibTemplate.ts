@@ -9,7 +9,10 @@ import {
 import { GenerationEntities, ProgLangNames, TestLibs } from '../../../enums';
 
 type ComponentTemplate = typeof enzymeComponentTemplate | typeof testingLibraryComponentTemplate;
-type HookTemplate = typeof enzymeHookJsTemplate | typeof enzymeHookTsTemplate | typeof testingLibraryHookTemplate;
+type HookTemplate =
+  | typeof enzymeHookJsTemplate
+  | typeof enzymeHookTsTemplate
+  | typeof testingLibraryHookTemplate;
 
 export function switchTemplateForComponent(lib: TestLibs): ComponentTemplate {
   switch (lib) {

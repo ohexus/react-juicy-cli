@@ -78,7 +78,7 @@ module.exports = {
     'jest/valid-expect': 'error',
     'linebreak-style': ['error', 'unix'],
     'lines-between-class-members': 'off',
-    'max-len': ['error', { code: 120, ignoreTemplateLiterals: true, tabWidth: 2 }],
+    'max-len': ['error', { code: 100, ignoreTemplateLiterals: true, tabWidth: 2 }],
     'no-console': 'off',
     'no-multiple-empty-lines': 'error',
     'object-curly-newline': ['error', { consistent: true }],

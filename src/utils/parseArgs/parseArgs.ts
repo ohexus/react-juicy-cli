@@ -1,14 +1,34 @@
 import arg from 'arg';
 import config from '../../config';
 
-import { generateComponent, generateContext, generateHook, generateTest, logHelp, logVersion } from '../../commands';
+import {
+  generateComponent,
+  generateContext,
+  generateHook,
+  generateTest,
+  logHelp,
+  logVersion,
+} from '../../commands';
 import { FLAGS } from '../../constants';
-import { askComponentConfig, askContextConfig, askHookConfig, askTestConfig } from '../../questions';
+import {
+  askComponentConfig,
+  askContextConfig,
+  askHookConfig,
+  askTestConfig,
+} from '../../questions';
 
 import isSeveralFlags from './isSeveralFlags';
 import pregenerationSettings from './pregenerationSettings';
 import switchEntity from './switchEntity';
-import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../enums';
+import {
+  Configs,
+  GenerationEntities,
+  ProgLangNames,
+  Quotes,
+  StyleLangs,
+  TestLibs,
+  TestTypes,
+} from '../../enums';
 import { GlobalConfig } from '../../interfaces';
 
 function switchEntities<T extends arg.Spec>(args: arg.Result<T>) {

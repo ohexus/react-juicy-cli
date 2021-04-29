@@ -1,12 +1,21 @@
 import config from '../config';
 import { makeDir } from '../utils';
 
-import { contextPromise, contextTypesPromise, contextIndexPromise, providerPromise, reducerPromise } from './promises';
+import {
+  contextPromise,
+  contextTypesPromise,
+  contextIndexPromise,
+  providerPromise,
+  reducerPromise,
+} from './promises';
 
 import { Configs } from '../enums';
 import { ContextConfig, GlobalConfig, PromiseReturnStatus } from '../interfaces';
 
-const getContextConfig = (): ContextConfig & { path: GlobalConfig['path']; prog: GlobalConfig['prog'] } => {
+const getContextConfig = (): ContextConfig & {
+  path: GlobalConfig['path'];
+  prog: GlobalConfig['prog'];
+} => {
   const { path, prog } = config.get(Configs.Global) as GlobalConfig;
   const contextConfig = config.get(Configs.Context) as ContextConfig;
 

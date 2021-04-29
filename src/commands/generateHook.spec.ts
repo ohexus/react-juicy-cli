@@ -61,7 +61,9 @@ describe('generateHook', () => {
   });
 
   it('generates hook without path', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce({ ...globalConfig, path: null }).mockReturnValueOnce(hookConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce({ ...globalConfig, path: null })
+      .mockReturnValueOnce(hookConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 

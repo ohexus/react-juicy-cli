@@ -3,14 +3,22 @@ import config from '../../config';
 import { yellowStr, greenStr } from '../chalkColored';
 
 import { Configs, GenerationEntities } from '../../enums';
-import { GlobalConfig, ComponentConfig, ContextConfig, HookConfig, TestConfig } from '../../interfaces';
+import {
+  GlobalConfig,
+  ComponentConfig,
+  ContextConfig,
+  HookConfig,
+  TestConfig,
+} from '../../interfaces';
+
+type EntityConfig = ComponentConfig | ContextConfig | HookConfig | TestConfig;
 
 export default function printAfterword(): void {
   const globalConfig = config.get(Configs.Global) as GlobalConfig;
 
   if (globalConfig.entity) {
     const { entity, skipStyles, skipTests } = globalConfig;
-    const { name } = config.get(Configs[entity]) as ComponentConfig | ContextConfig | HookConfig | TestConfig;
+    const { name } = config.get(Configs[entity]) as EntityConfig;
 
     console.log(); // for empty line
 

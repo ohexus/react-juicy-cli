@@ -49,11 +49,17 @@ describe('generateComponent', () => {
   };
 
   it('generates component with styles', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(componentConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce(globalConfig)
+      .mockReturnValueOnce(componentConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 
-    await expect(generateComponent()).resolves.toEqual([promiseSuccess, promiseSuccess, promiseSuccess]);
+    await expect(generateComponent()).resolves.toEqual([
+      promiseSuccess,
+      promiseSuccess,
+      promiseSuccess,
+    ]);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
@@ -92,11 +98,17 @@ describe('generateComponent', () => {
   });
 
   it('generates component without path', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce({ ...globalConfig, path: null }).mockReturnValueOnce(componentConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce({ ...globalConfig, path: null })
+      .mockReturnValueOnce(componentConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 
-    await expect(generateComponent()).resolves.toEqual([promiseSuccess, promiseSuccess, promiseSuccess]);
+    await expect(generateComponent()).resolves.toEqual([
+      promiseSuccess,
+      promiseSuccess,
+      promiseSuccess,
+    ]);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
@@ -113,7 +125,9 @@ describe('generateComponent', () => {
   });
 
   it('rejects with error', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(componentConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce(globalConfig)
+      .mockReturnValueOnce(componentConfig);
 
     mockRejectedPromises(promises, promiseError);
 

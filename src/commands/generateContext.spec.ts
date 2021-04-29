@@ -3,7 +3,13 @@ import { mockRejectedPromises, mockResolvedPromises } from '../__mocks__/mockGen
 import config from '../config';
 
 import generateContext from './generateContext';
-import { contextIndexPromise, contextPromise, contextTypesPromise, providerPromise, reducerPromise } from './promises';
+import {
+  contextIndexPromise,
+  contextPromise,
+  contextTypesPromise,
+  providerPromise,
+  reducerPromise,
+} from './promises';
 
 import { Configs } from '../enums';
 
@@ -26,7 +32,13 @@ jest.mock('../utils', () => ({
   makeDir: jest.fn(),
 }));
 
-const promises = [contextIndexPromise, contextPromise, contextTypesPromise, providerPromise, reducerPromise];
+const promises = [
+  contextIndexPromise,
+  contextPromise,
+  contextTypesPromise,
+  providerPromise,
+  reducerPromise,
+];
 
 describe('generateContext', () => {
   const path = 'foo';
@@ -73,7 +85,9 @@ describe('generateContext', () => {
   });
 
   it('generates context without path', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce({ ...globalConfig, path: null }).mockReturnValueOnce(contextConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce({ ...globalConfig, path: null })
+      .mockReturnValueOnce(contextConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 

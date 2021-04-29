@@ -43,7 +43,11 @@ describe('pregenerationSettings', () => {
 
     expect(config.set).toHaveBeenCalledTimes(2);
     expect(config.set).toHaveBeenNthCalledWith(1, `${Configs.Global}.entity`, entity);
-    expect(config.set).toHaveBeenNthCalledWith(2, Configs[entity as GenerationEntities], expectedConfig);
+    expect(config.set).toHaveBeenNthCalledWith(
+      2,
+      Configs[entity as GenerationEntities],
+      expectedConfig,
+    );
 
     expect(askGlobalConfig).toHaveBeenCalledTimes(1);
   });
