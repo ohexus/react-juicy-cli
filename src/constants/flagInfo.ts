@@ -17,7 +17,7 @@ const FLAG_INFO = [
   },
   {
     flags: ['-p', '--path'],
-    desc: `relative path where to generate a ${component}/${context}/${hook}/${test} (creates a separate folder by default)`,
+    desc: `relative path where to generate a ${component}/${context}/${hook}/${test} (the current directory is used by default)`,
   },
   {
     flags: ['--cmp', '--component <string>'],
@@ -41,7 +41,7 @@ const FLAG_INFO = [
   },
   {
     flags: ['--ts', '--typescript'],
-    desc: `generate ${cyan('TypeScript')} component (default)`,
+    desc: `generate ${cyan('TypeScript')} component`,
   },
   {
     flags: ['--css'],
@@ -49,7 +49,7 @@ const FLAG_INFO = [
   },
   {
     flags: ['--scss'],
-    desc: `generate ${cyan('SCSS')} (default)`,
+    desc: `generate ${cyan('SCSS')}`,
   },
   {
     flags: ['--sass'],
@@ -61,7 +61,7 @@ const FLAG_INFO = [
   },
   {
     flags: ['--enz', '--enzyme'],
-    desc: `use ${cyan('enzyme')} (default)`,
+    desc: `use ${cyan('enzyme')}`,
   },
   {
     flags: ['--test-lib', '--testing-library'],
@@ -69,7 +69,7 @@ const FLAG_INFO = [
   },
   {
     flags: ['-u', '--unit'],
-    desc: `generate .spec file according to your component ${extension} (default)`,
+    desc: `generate .spec file according to your component ${extension}`,
   },
   {
     flags: ['-i', '--integration'],
@@ -89,11 +89,11 @@ const FLAG_INFO = [
   },
   {
     flags: ['--sq', '--single-quotes'],
-    desc: `tell generator that you prefer ${cyan('single')}`,
+    desc: `tell generator that you prefer ${cyan('single quotes')} (default)`,
   },
   {
     flags: ['--dq', '--double-quotes'],
-    desc: `tell generator that you prefer ${cyan('double')}`,
+    desc: `tell generator that you prefer ${cyan('double quotes')}`,
   },
 ];
 

@@ -24,7 +24,7 @@ async function askGlobalConfig(): Promise<void> {
   }
 
   if (!globalConfig.path) {
-    globalConfig.path = await askPath();
+    globalConfig.path = await askPath(globalConfig.entity);
   }
 
   config.set(Configs.Global, globalConfig);

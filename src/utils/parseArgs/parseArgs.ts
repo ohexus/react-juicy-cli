@@ -74,7 +74,7 @@ export default async function parseArgs(rawArgs: string[]): Promise<void> {
   const { prog, style, testLib, testType } = switchEntities(args);
 
   config.set(Configs.Global, {
-    path: args['--path'],
+    path: args['--path'] || '.',
     prog,
     quotes: args['--double-quotes'] ? Quotes.Double : Quotes.Single,
     skipStyles: args['--skip'] || args['--skip-styles'] || false,
