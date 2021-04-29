@@ -69,7 +69,6 @@ export default async function parseArgs(rawArgs: string[]): Promise<void> {
 
     await askComponentConfig();
     await generateComponent();
-    return;
   }
 
   if (args['--context']) {
@@ -79,34 +78,27 @@ export default async function parseArgs(rawArgs: string[]): Promise<void> {
 
     await askContextConfig();
     await generateContext();
-    return;
   }
 
   if (args['--hook']) {
-    await pregenerationSettings(GenerationEntities.Component, {
+    await pregenerationSettings(GenerationEntities.Hook, {
       name: args['--hook'],
     });
 
     await askHookConfig();
     await generateHook();
-    return;
   }
 
-  if (args['--test']) {
-    await pregenerationSettings(GenerationEntities.Component, {
+  const testName = args['--test'] || args['--component'] || args['--hook'];
+
+  if (testName) {
+    await pregenerationSettings(GenerationEntities.Test, {
       lib: testLib as TestLibs,
       type: testType as TestTypes,
-      name: args['--test'],
+      name: testName,
     });
 
     await askTestConfig();
     await generateTest();
-    return;
-  }
-
-  if (args['--component'] || args['--hook']) {
-    await askTestConfig();
-    await generateTest();
-    return;
   }
 }
