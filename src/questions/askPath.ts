@@ -13,7 +13,7 @@ async function askPath(entity?: GenerationEntities): Promise<string | null> {
   const dirPath = ((await inquirer.prompt([pathQuestion(entity || 'entity')])) as QuestionReply<string>).path;
 
   if (!dirPath || !dirPath.length) {
-    return null;
+    return '.';
   }
 
   return dirPath;

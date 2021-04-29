@@ -17,9 +17,9 @@ describe('askPath', () => {
     expect(await askPath()).toEqual(path);
   });
 
-  it('returns null', async () => {
+  it('returns same dir', async () => {
     ((inquirer.prompt as unknown) as jest.Mock).mockResolvedValue({ path: '' });
 
-    expect(await askPath()).toBeNull();
+    expect(await askPath()).toEqual('.');
   });
 });
