@@ -1,5 +1,6 @@
 import config from '../config';
 
+import askPath from './askPath';
 import askProgLang from './askProgLang';
 import askQuotes from './askQuotes';
 import askWhichEntity from './askWhichEntity';
@@ -20,6 +21,10 @@ async function askGlobalConfig(): Promise<void> {
 
   if (globalConfig.entity === GenerationEntities.Component && !globalConfig.quotes) {
     globalConfig.quotes = await askQuotes();
+  }
+
+  if (!globalConfig.path) {
+    globalConfig.path = await askPath();
   }
 
   config.set(Configs.Global, globalConfig);

@@ -1,6 +1,6 @@
 {
   "name": "react-juicy-cli",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Juicy CLI for React components generation",
   "main": "lib/index.js",
   "bin": {
@@ -11,7 +11,7 @@
     "build": "tsc -p src/tsconfig.prod.json",
     "prepublishOnly": "yarn build",
     "lint": "eslint --ext ts --max-warnings 0 src/",
-    "test": "yarn:lint && yarn test:unit",
+    "test": "yarn lint && yarn test:unit",
     "test:unit": "jest",
     "test:unit:total": "jest --collectCoverageFrom=src/**/*.ts"
   },
@@ -43,6 +43,7 @@
     "eslint": "^7.24.0",
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.6",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.5",
     "ts-node": "^9.1.1",

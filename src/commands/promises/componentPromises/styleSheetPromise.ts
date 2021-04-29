@@ -1,13 +1,16 @@
 import { sassTemplate, cssTemplate } from '../../../templates';
-import { writeData } from '../../../utils';
+import generateEntity from '../../generateEntity';
 
 import { StyleLangs } from '../../../enums';
 import { PromiseReturnStatus } from '../../../interfaces';
 
-export default function styleSheetPromise(name: string, lang: StyleLangs): Promise<PromiseReturnStatus> {
-  return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${lang}`, (lang === StyleLangs.SASS ? sassTemplate : cssTemplate)(name))
-      .then((status) => resolve(status))
-      .catch((error) => reject(error));
-  });
+export default function styleSheetPromise(
+  dir: string,
+  name: string,
+  lang: StyleLangs,
+): Promise<PromiseReturnStatus> {
+  return generateEntity(
+    `${dir}/${name}.${lang}`,
+    (lang === StyleLangs.SASS ? sassTemplate : cssTemplate)(name),
+  );
 }

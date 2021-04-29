@@ -1,5 +1,8 @@
 import { mockWriteDataError, ERROR } from '../../../__mocks__/writeDataMocks/mockWriteDataError';
-import { mockWriteDataSuccess, SUCCESS } from '../../../__mocks__/writeDataMocks/mockWriteDataSuccess';
+import {
+  mockWriteDataSuccess,
+  SUCCESS,
+} from '../../../__mocks__/writeDataMocks/mockWriteDataSuccess';
 
 import { writeData } from '../../../utils';
 import { switchExt, switchTestExt, switchTestLibTemplate } from '../../switchHelpers';
@@ -20,6 +23,7 @@ jest.mock('../../../utils', () => ({
 }));
 
 describe('testPromise', () => {
+  const dir = 'quuz';
   const name = 'corge';
   const lang = ProgLangNames.TS;
   const lib = TestLibs.Enzyme;
@@ -35,12 +39,12 @@ describe('testPromise', () => {
   it('creates a file with test template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
-    await expect(testPromise(name, lang, lib, type, entity)).resolves.toEqual(SUCCESS);
+    await expect(testPromise(dir, name, lang, lib, type, entity)).resolves.toEqual(SUCCESS);
   });
 
   it('throws an error', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataError);
 
-    await expect(testPromise(name, lang, lib, type, entity)).rejects.toEqual(ERROR);
+    await expect(testPromise(dir, name, lang, lib, type, entity)).rejects.toEqual(ERROR);
   });
 });

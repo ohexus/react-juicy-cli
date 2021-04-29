@@ -2,6 +2,7 @@ const FLAGS = {
   // Flags
   '--help': Boolean,
   '--version': Boolean,
+  '--path': String,
   '--component': String,
   '--context': String,
   '--hook': String,
@@ -24,6 +25,7 @@ const FLAGS = {
   // Aliases
   '-h': '--help',
   '-v': '--version',
+  '-p': '--path',
   '--cmp': '--component',
   '--ctx': '--context',
   '--hk': '--hook',

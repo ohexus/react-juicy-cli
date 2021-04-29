@@ -1,5 +1,8 @@
 import { mockWriteDataError, ERROR } from '../../../__mocks__/writeDataMocks/mockWriteDataError';
-import { mockWriteDataSuccess, SUCCESS } from '../../../__mocks__/writeDataMocks/mockWriteDataSuccess';
+import {
+  mockWriteDataSuccess,
+  SUCCESS,
+} from '../../../__mocks__/writeDataMocks/mockWriteDataSuccess';
 
 import { cssTemplate, sassTemplate } from '../../../templates';
 import { writeData } from '../../../utils';
@@ -19,7 +22,8 @@ jest.mock('../../../utils', () => ({
 }));
 
 describe('styleSheetPromise', () => {
-  const name = 'quuz';
+  const dir = 'quuz';
+  const name = 'foo';
   const sslang = StyleLangs.CSS;
 
   beforeEach(() => {
@@ -33,15 +37,18 @@ describe('styleSheetPromise', () => {
     ${StyleLangs.LESS}
     ${StyleLangs.SASS}
     ${StyleLangs.SCSS}
-  `('creates a file with template when style lang is $lang', async ({ lang }: { lang: StyleLangs }) => {
-    (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
+  `(
+    'creates a file with template when style lang is $lang',
+    async ({ lang }: { lang: StyleLangs }) => {
+      (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
-    await expect(styleSheetPromise(name, lang)).resolves.toEqual(SUCCESS);
-  });
+      await expect(styleSheetPromise(dir, name, lang)).resolves.toEqual(SUCCESS);
+    },
+  );
 
   it('throws an error', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataError);
 
-    await expect(styleSheetPromise(name, sslang)).rejects.toEqual(ERROR);
+    await expect(styleSheetPromise(dir, name, sslang)).rejects.toEqual(ERROR);
   });
 });

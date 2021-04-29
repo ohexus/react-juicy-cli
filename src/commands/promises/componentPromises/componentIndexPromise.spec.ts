@@ -1,5 +1,8 @@
 import { mockWriteDataError, ERROR } from '../../../__mocks__/writeDataMocks/mockWriteDataError';
-import { mockWriteDataSuccess, SUCCESS } from '../../../__mocks__/writeDataMocks/mockWriteDataSuccess';
+import {
+  mockWriteDataSuccess,
+  SUCCESS,
+} from '../../../__mocks__/writeDataMocks/mockWriteDataSuccess';
 
 import { writeData } from '../../../utils';
 import { switchExt } from '../../switchHelpers';
@@ -18,7 +21,8 @@ jest.mock('../../../utils', () => ({
 }));
 
 describe('componentIndexPromise', () => {
-  const name = 'quuz';
+  const dir = 'quuz';
+  const name = 'foo';
   const lang = ProgLangNames.TS;
 
   beforeEach(() => {
@@ -28,12 +32,12 @@ describe('componentIndexPromise', () => {
   it('creates a file with component index template', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataSuccess);
 
-    await expect(componentIndexPromise(name, lang)).resolves.toEqual(SUCCESS);
+    await expect(componentIndexPromise(dir, name, lang)).resolves.toEqual(SUCCESS);
   });
 
   it('throws an error', async () => {
     (writeData as jest.Mock).mockImplementation(mockWriteDataError);
 
-    await expect(componentIndexPromise(name, lang)).rejects.toEqual(ERROR);
+    await expect(componentIndexPromise(dir, name, lang)).rejects.toEqual(ERROR);
   });
 });

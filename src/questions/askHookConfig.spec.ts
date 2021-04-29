@@ -4,7 +4,6 @@ import askEntityName from './askEntityName';
 import askHookConfig from './askHookConfig';
 import { Configs } from '../enums';
 
-
 jest.mock('../config', () => ({
   __esModule: true,
   default: { get: jest.fn(), set: jest.fn() },

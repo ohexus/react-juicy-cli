@@ -12,24 +12,33 @@ import {
 import { Configs } from '../enums';
 import { ContextConfig, GlobalConfig, PromiseReturnStatus } from '../interfaces';
 
-const getContextConfig = (): ContextConfig & { prog: GlobalConfig['prog'] } => {
-  const { prog } = config.get(Configs.Global) as GlobalConfig;
+const getContextConfig = (): ContextConfig & {
+  path: GlobalConfig['path'];
+  prog: GlobalConfig['prog'];
+} => {
+  const { path, prog } = config.get(Configs.Global) as GlobalConfig;
   const contextConfig = config.get(Configs.Context) as ContextConfig;
 
-  return { prog, ...contextConfig };
+  return {
+    path,
+    prog,
+    ...contextConfig,
+  };
 };
 
 async function generateContext(): Promise<PromiseReturnStatus[]> {
-  const { name, prog } = getContextConfig();
+  const { name, path, prog } = getContextConfig();
 
-  makeDir(name);
+  const dir = path ?? name;
+
+  makeDir(dir);
 
   return Promise.all([
-    contextPromise(name, prog),
-    contextTypesPromise(name, prog),
-    contextIndexPromise(name, prog),
-    providerPromise(name, prog),
-    reducerPromise(name, prog),
+    contextPromise(dir, name, prog),
+    contextTypesPromise(dir, name, prog),
+    contextIndexPromise(dir, name, prog),
+    providerPromise(dir, name, prog),
+    reducerPromise(dir, name, prog),
   ]);
 }
 

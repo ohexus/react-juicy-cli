@@ -86,7 +86,9 @@ describe('askTestConfig', () => {
       type: null,
     };
 
-    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(emptyTestConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce(globalConfig)
+      .mockReturnValueOnce(emptyTestConfig);
 
     await askTestConfig();
 
@@ -106,7 +108,9 @@ describe('askTestConfig', () => {
       type: null,
     };
 
-    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(emptyTestConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce(globalConfig)
+      .mockReturnValueOnce(emptyTestConfig);
     (askTestLib as jest.Mock).mockResolvedValue(TestLibs.Skip);
 
     await askTestConfig();

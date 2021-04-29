@@ -1,15 +1,34 @@
 import arg from 'arg';
 import config from '../../config';
 
-import { generateComponent, generateContext, generateHook, generateTest, logHelp, logVersion } from '../../commands';
+import {
+  generateComponent,
+  generateContext,
+  generateHook,
+  generateTest,
+  logHelp,
+  logVersion,
+} from '../../commands';
 import { FLAGS } from '../../constants';
-import { askComponentConfig, askContextConfig, askHookConfig, askTestConfig } from '../../questions';
-
+import {
+  askComponentConfig,
+  askContextConfig,
+  askHookConfig,
+  askTestConfig,
+} from '../../questions';
 
 import isSeveralFlags from './isSeveralFlags';
 import pregenerationSettings from './pregenerationSettings';
 import switchEntity from './switchEntity';
-import { Configs, GenerationEntities, ProgLangNames, Quotes, StyleLangs, TestLibs, TestTypes } from '../../enums';
+import {
+  Configs,
+  GenerationEntities,
+  ProgLangNames,
+  Quotes,
+  StyleLangs,
+  TestLibs,
+  TestTypes,
+} from '../../enums';
 import { GlobalConfig } from '../../interfaces';
 
 function switchEntities<T extends arg.Spec>(args: arg.Result<T>) {
@@ -55,6 +74,7 @@ export default async function parseArgs(rawArgs: string[]): Promise<void> {
   const { prog, style, testLib, testType } = switchEntities(args);
 
   config.set(Configs.Global, {
+    path: args['--path'],
     prog,
     quotes: args['--double-quotes'] ? Quotes.Double : Quotes.Single,
     skipStyles: args['--skip'] || args['--skip-styles'] || false,
@@ -69,7 +89,6 @@ export default async function parseArgs(rawArgs: string[]): Promise<void> {
 
     await askComponentConfig();
     await generateComponent();
-    return;
   }
 
   if (args['--context']) {
@@ -79,34 +98,27 @@ export default async function parseArgs(rawArgs: string[]): Promise<void> {
 
     await askContextConfig();
     await generateContext();
-    return;
   }
 
   if (args['--hook']) {
-    await pregenerationSettings(GenerationEntities.Component, {
+    await pregenerationSettings(GenerationEntities.Hook, {
       name: args['--hook'],
     });
 
     await askHookConfig();
     await generateHook();
-    return;
   }
 
-  if (args['--test']) {
-    await pregenerationSettings(GenerationEntities.Component, {
+  const testName = args['--test'] || args['--component'] || args['--hook'];
+
+  if (testName) {
+    await pregenerationSettings(GenerationEntities.Test, {
       lib: testLib as TestLibs,
       type: testType as TestTypes,
-      name: args['--test'],
+      name: testName,
     });
 
     await askTestConfig();
     await generateTest();
-    return;
-  }
-
-  if (args['--component'] || args['--hook']) {
-    await askTestConfig();
-    await generateTest();
-    return;
   }
 }

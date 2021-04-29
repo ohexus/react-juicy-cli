@@ -26,13 +26,15 @@ jest.mock('../utils', () => ({
 const promises = [hookIndexPromise, hookPromise];
 
 describe('generateHook', () => {
-  const name = 'foo';
+  const path = 'foo';
+  const name = 'bar';
   const prog = 'baz';
 
   const promiseSuccess = 'corge';
   const promiseError = 'waldo';
 
   const globalConfig = {
+    path,
     prog,
   };
 
@@ -40,7 +42,7 @@ describe('generateHook', () => {
     name,
   };
 
-  it('generates hook', async () => {
+  it('generates hook at the specified path', async () => {
     (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(hookConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
@@ -52,10 +54,30 @@ describe('generateHook', () => {
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Hook);
 
     expect(hookIndexPromise).toHaveBeenCalledTimes(1);
-    expect(hookIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(hookIndexPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(hookPromise).toHaveBeenCalledTimes(1);
-    expect(hookPromise).toHaveBeenCalledWith(name, prog);
+    expect(hookPromise).toHaveBeenCalledWith(path, name, prog);
+  });
+
+  it('generates hook without path', async () => {
+    (config.get as jest.Mock)
+      .mockReturnValueOnce({ ...globalConfig, path: null })
+      .mockReturnValueOnce(hookConfig);
+
+    mockResolvedPromises(promises, promiseSuccess);
+
+    await expect(generateHook()).resolves.toEqual([promiseSuccess, promiseSuccess]);
+
+    expect(config.get).toHaveBeenCalledTimes(2);
+    expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
+    expect(config.get).toHaveBeenNthCalledWith(2, Configs.Hook);
+
+    expect(hookIndexPromise).toHaveBeenCalledTimes(1);
+    expect(hookIndexPromise).toHaveBeenCalledWith(name, name, prog);
+
+    expect(hookPromise).toHaveBeenCalledTimes(1);
+    expect(hookPromise).toHaveBeenCalledWith(name, name, prog);
   });
 
   it('rejects with error', async () => {
@@ -70,9 +92,9 @@ describe('generateHook', () => {
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Hook);
 
     expect(hookIndexPromise).toHaveBeenCalledTimes(1);
-    expect(hookIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(hookIndexPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(hookPromise).toHaveBeenCalledTimes(1);
-    expect(hookPromise).toHaveBeenCalledWith(name, prog);
+    expect(hookPromise).toHaveBeenCalledWith(path, name, prog);
   });
 });

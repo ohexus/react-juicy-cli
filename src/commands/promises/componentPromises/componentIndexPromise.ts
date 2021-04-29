@@ -1,16 +1,16 @@
 import { basicIndexTemplate } from '../../../templates';
-import { writeData } from '../../../utils';
+import generateEntity from '../../generateEntity';
 import { switchExt } from '../../switchHelpers';
 
 import { ProgLangNames } from '../../../enums';
 import { PromiseReturnStatus } from '../../../interfaces';
 
-export default function componentIndexPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
+export default function componentIndexPromise(
+  dir: string,
+  name: string,
+  lang: ProgLangNames,
+): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
 
-  return new Promise((resolve, reject) => {
-    writeData(`${name}/index.${ext}`, basicIndexTemplate(name))
-      .then((status) => resolve(status))
-      .catch((error) => reject(error));
-  });
+  return generateEntity(`${dir}/index.${ext}`, basicIndexTemplate(name));
 }

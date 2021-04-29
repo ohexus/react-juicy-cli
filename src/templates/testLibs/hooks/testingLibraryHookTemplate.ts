@@ -1,4 +1,4 @@
-const testingHookTemplate = (name: string): string => `import { renderHook } from '@testing-library/react-hooks';
+const testingLibraryHookTemplate = (name: string): string => `import { renderHook } from '@testing-library/react-hooks';
 
 import ${name} from './${name}';
 
@@ -20,4 +20,4 @@ describe('${name}', () => {
 });
 `;
 
-export default testingHookTemplate;
+export default testingLibraryHookTemplate;

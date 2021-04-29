@@ -27,7 +27,9 @@ describe('isSeveralFlags', () => {
     const mockArgs = { qux: true, quux: true, quuz: true };
     const mockFlags = ['qux', 'quux', 'quuz'];
 
-    expect(() => isSeveralFlags((mockArgs as unknown) as Result<Spec>, mockFlags)).toThrow(ERROR_MESSAGE);
+    expect(() => isSeveralFlags((mockArgs as unknown) as Result<Spec>, mockFlags)).toThrow(
+      ERROR_MESSAGE,
+    );
     expect(severalFlagsMessage).toHaveBeenCalledTimes(1);
   });
 });

@@ -5,7 +5,10 @@ import {
   enzymeHookTsTemplate,
   testingLibraryHookTemplate,
 } from '../../../templates';
-import switchTestLibTemplate, { switchTemplateForComponent, switchTemplateForHook } from './switchTestLibTemplate';
+import switchTestLibTemplate, {
+  switchTemplateForComponent,
+  switchTemplateForHook,
+} from './switchTestLibTemplate';
 
 import { GenerationEntities, ProgLangNames, TestLibs, TestTypes } from '../../../enums';
 
@@ -34,7 +37,9 @@ const TEST_TYPES = [TestTypes.Integration, TestTypes.Unit];
 describe('switchTemplateForComponent', () => {
   beforeEach(() => {
     (enzymeComponentTemplate as jest.Mock).mockImplementation(() => mockEnzymeComponentTemplate);
-    (testingLibraryComponentTemplate as jest.Mock).mockImplementation(() => mockTestingLibraryComponentTemplate);
+    (testingLibraryComponentTemplate as jest.Mock).mockImplementation(
+      () => mockTestingLibraryComponentTemplate,
+    );
   });
 
   it('switches template', () => {
@@ -60,7 +65,9 @@ describe('switchTemplateForHook', () => {
   beforeEach(() => {
     (enzymeHookJsTemplate as jest.Mock).mockImplementation(() => mockEnzymeHookJsTemplate);
     (enzymeHookTsTemplate as jest.Mock).mockImplementation(() => mockEnzymeHookTsTemplate);
-    (testingLibraryHookTemplate as jest.Mock).mockImplementation(() => mockTestingLibraryHookTemplate);
+    (testingLibraryHookTemplate as jest.Mock).mockImplementation(
+      () => mockTestingLibraryHookTemplate,
+    );
   });
 
   it('switches js template', () => {
@@ -89,18 +96,42 @@ describe('switchTemplateForHook', () => {
 describe('switchTestLibTemplate', () => {
   beforeEach(() => {
     (enzymeComponentTemplate as jest.Mock).mockImplementation(() => mockEnzymeComponentTemplate);
-    (testingLibraryComponentTemplate as jest.Mock).mockImplementation(() => mockTestingLibraryComponentTemplate);
+    (testingLibraryComponentTemplate as jest.Mock).mockImplementation(
+      () => mockTestingLibraryComponentTemplate,
+    );
     (enzymeHookJsTemplate as jest.Mock).mockImplementation(() => mockEnzymeHookJsTemplate);
     (enzymeHookTsTemplate as jest.Mock).mockImplementation(() => mockEnzymeHookTsTemplate);
-    (testingLibraryHookTemplate as jest.Mock).mockImplementation(() => mockTestingLibraryHookTemplate);
+    (testingLibraryHookTemplate as jest.Mock).mockImplementation(
+      () => mockTestingLibraryHookTemplate,
+    );
   });
 
   it('switches template', () => {
-    const template1 = switchTestLibTemplate(TestLibs.Enzyme, GenerationEntities.Component, ProgLangNames.JS);
-    const template2 = switchTestLibTemplate(TestLibs.TestingLibrary, GenerationEntities.Component, ProgLangNames.TS);
-    const template3 = switchTestLibTemplate(TestLibs.Enzyme, GenerationEntities.Hook, ProgLangNames.JS);
-    const template4 = switchTestLibTemplate(TestLibs.Enzyme, GenerationEntities.Hook, ProgLangNames.TS);
-    const template5 = switchTestLibTemplate(TestLibs.TestingLibrary, GenerationEntities.Hook, ProgLangNames.TS);
+    const template1 = switchTestLibTemplate(
+      TestLibs.Enzyme,
+      GenerationEntities.Component,
+      ProgLangNames.JS,
+    );
+    const template2 = switchTestLibTemplate(
+      TestLibs.TestingLibrary,
+      GenerationEntities.Component,
+      ProgLangNames.TS,
+    );
+    const template3 = switchTestLibTemplate(
+      TestLibs.Enzyme,
+      GenerationEntities.Hook,
+      ProgLangNames.JS,
+    );
+    const template4 = switchTestLibTemplate(
+      TestLibs.Enzyme,
+      GenerationEntities.Hook,
+      ProgLangNames.TS,
+    );
+    const template5 = switchTestLibTemplate(
+      TestLibs.TestingLibrary,
+      GenerationEntities.Hook,
+      ProgLangNames.TS,
+    );
 
     expect(template1(NAME, TestTypes.Unit)).toEqual(mockEnzymeComponentTemplate);
     expect(template2(NAME, TestTypes.Unit)).toEqual(mockTestingLibraryComponentTemplate);
@@ -110,7 +141,11 @@ describe('switchTestLibTemplate', () => {
   });
 
   it('returns default template', () => {
-    const template = switchTestLibTemplate(unknownTestLib, unknownGenerationEntity, unknownProgLangName);
+    const template = switchTestLibTemplate(
+      unknownTestLib,
+      unknownGenerationEntity,
+      unknownProgLangName,
+    );
 
     TEST_TYPES.forEach((type) => {
       expect(template(NAME, type)).toEqual(mockEnzymeComponentTemplate);

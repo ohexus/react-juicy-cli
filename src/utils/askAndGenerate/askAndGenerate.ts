@@ -1,7 +1,13 @@
 import config from '../../config';
 
 import { generateComponent, generateContext, generateHook, generateTest } from '../../commands';
-import { askGlobalConfig, askComponentConfig, askContextConfig, askHookConfig, askTestConfig } from '../../questions';
+import {
+  askGlobalConfig,
+  askComponentConfig,
+  askContextConfig,
+  askHookConfig,
+  askTestConfig,
+} from '../../questions';
 
 import { Configs, GenerationEntities } from '../../enums';
 import { GlobalConfig } from '../../interfaces';

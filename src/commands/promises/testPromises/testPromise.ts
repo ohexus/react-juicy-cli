@@ -1,10 +1,11 @@
-import { writeData } from '../../../utils';
+import generateEntity from '../../generateEntity';
 import { switchExt, switchTestExt, switchTestLibTemplate } from '../../switchHelpers';
 
 import { ProgLangNames, TestLibs, TestTypes, GenerationEntities } from '../../../enums';
 import { PromiseReturnStatus } from '../../../interfaces';
 
 export default function testPromise(
+  dir: string,
   name: string,
   lang: ProgLangNames,
   lib: TestLibs,
@@ -15,9 +16,5 @@ export default function testPromise(
   const testExt = switchTestExt(type);
   const template = switchTestLibTemplate(lib, entity, lang);
 
-  return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}.${testExt}.${ext}x`, template(name, type))
-      .then((status) => resolve(status))
-      .catch((error) => reject(error));
-  });
+  return generateEntity(`${dir}/${name}.${testExt}.${ext}x`, template(name, type));
 }

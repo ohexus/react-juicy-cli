@@ -1,16 +1,16 @@
-import { writeData } from '../../../utils';
+import generateEntity from '../../generateEntity';
 import { switchExt, switchContextReducerTemplate } from '../../switchHelpers';
 
 import { ProgLangNames } from '../../../enums';
 import { PromiseReturnStatus } from '../../../interfaces';
 
-export default function reducerPromise(name: string, lang: ProgLangNames): Promise<PromiseReturnStatus> {
+export default function reducerPromise(
+  dir: string,
+  name: string,
+  lang: ProgLangNames,
+): Promise<PromiseReturnStatus> {
   const ext = switchExt(lang);
   const template = switchContextReducerTemplate(lang);
 
-  return new Promise((resolve, reject) => {
-    writeData(`${name}/${name}Reducer.${ext}`, template(name))
-      .then((status) => resolve(status))
-      .catch((error) => reject(error));
-  });
+  return generateEntity(`${dir}/${name}Reducer.${ext}`, template(name));
 }

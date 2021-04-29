@@ -1,15 +1,30 @@
-const relativePaths = '{.,..,../..,../../..,../../../..}';
+const genRelativePaths = (depth) => {
+  const paths = ['.'];
+
+  for (let i = 1; i <= depth; i++) {
+    paths.push(new Array(i).fill('..').join('/'));
+  }
+
+  return `{${paths.join(',')}}`;
+};
+
+// Increase number if structure depth grows.
+// Unfortunately import/order doesn't want to handle leading paths like this: '**'
+const relativePaths = genRelativePaths(6);
 
 module.exports = {
   reportUnusedDisableDirectives: true,
   env: {
     browser: true,
     es2020: true,
+    'jest/globals': true,
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:import/typescript',
+    'plugin:jest/recommended',
+    'plugin:jest/style',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,7 +32,7 @@ module.exports = {
     project: './src/tsconfig.json',
     sourceType: 'module',
   },
-  plugins: ['import', '@typescript-eslint'],
+  plugins: ['import', 'jest', '@typescript-eslint'],
   rules: {
     // typescript-eslint overrides.
     'no-duplicate-imports': 'off',
@@ -67,9 +82,15 @@ module.exports = {
     'sort-imports': 'off',
     'import/prefer-default-export': 'off',
     indent: ['error', 2, { SwitchCase: 1 }],
+    'jest/no-disabled-tests': 'error',
+    'jest/no-focused-tests': 'error',
+    'jest/no-identical-title': 'error',
+    'jest/no-mocks-import': 'off',
+    'jest/prefer-to-have-length': 'error',
+    'jest/valid-expect': 'error',
     'linebreak-style': ['error', 'unix'],
     'lines-between-class-members': 'off',
-    'max-len': ['error', { code: 120, ignoreTemplateLiterals: true, tabWidth: 2 }],
+    'max-len': ['error', { code: 100, ignoreTemplateLiterals: true, tabWidth: 2 }],
     'no-console': 'off',
     'no-multiple-empty-lines': 'error',
     'object-curly-newline': ['error', { consistent: true }],

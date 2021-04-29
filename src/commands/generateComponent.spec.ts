@@ -27,6 +27,7 @@ jest.mock('../utils', () => ({
 const promises = [componentIndexPromise, componentPromise, styleSheetPromise];
 
 describe('generateComponent', () => {
+  const path = 'corge';
   const name = 'foo';
   const style = 'bar';
   const prog = 'baz';
@@ -36,6 +37,7 @@ describe('generateComponent', () => {
   const promiseError = 'waldo';
 
   const globalConfig = {
+    path,
     prog,
     quotes,
     skipStyles: false,
@@ -47,24 +49,30 @@ describe('generateComponent', () => {
   };
 
   it('generates component with styles', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(componentConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce(globalConfig)
+      .mockReturnValueOnce(componentConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 
-    await expect(generateComponent()).resolves.toEqual([promiseSuccess, promiseSuccess, promiseSuccess]);
+    await expect(generateComponent()).resolves.toEqual([
+      promiseSuccess,
+      promiseSuccess,
+      promiseSuccess,
+    ]);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
 
     expect(componentIndexPromise).toHaveBeenCalledTimes(1);
-    expect(componentIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(componentIndexPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(componentPromise).toHaveBeenCalledTimes(1);
-    expect(componentPromise).toHaveBeenCalledWith(name, prog, style, quotes);
+    expect(componentPromise).toHaveBeenCalledWith(path, name, prog, style, quotes);
 
     expect(styleSheetPromise).toHaveBeenCalledTimes(1);
-    expect(styleSheetPromise).toHaveBeenCalledWith(name, style);
+    expect(styleSheetPromise).toHaveBeenCalledWith(path, name, style);
   });
 
   it('generates component without styles', async () => {
@@ -81,16 +89,45 @@ describe('generateComponent', () => {
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
 
     expect(componentIndexPromise).toHaveBeenCalledTimes(1);
-    expect(componentIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(componentIndexPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(componentPromise).toHaveBeenCalledTimes(1);
-    expect(componentPromise).toHaveBeenCalledWith(name, prog, style, quotes);
+    expect(componentPromise).toHaveBeenCalledWith(path, name, prog, style, quotes);
 
     expect(styleSheetPromise).not.toHaveBeenCalled();
   });
 
+  it('generates component without path', async () => {
+    (config.get as jest.Mock)
+      .mockReturnValueOnce({ ...globalConfig, path: null })
+      .mockReturnValueOnce(componentConfig);
+
+    mockResolvedPromises(promises, promiseSuccess);
+
+    await expect(generateComponent()).resolves.toEqual([
+      promiseSuccess,
+      promiseSuccess,
+      promiseSuccess,
+    ]);
+
+    expect(config.get).toHaveBeenCalledTimes(2);
+    expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
+    expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
+
+    expect(componentIndexPromise).toHaveBeenCalledTimes(1);
+    expect(componentIndexPromise).toHaveBeenCalledWith(name, name, prog);
+
+    expect(componentPromise).toHaveBeenCalledTimes(1);
+    expect(componentPromise).toHaveBeenCalledWith(name, name, prog, style, quotes);
+
+    expect(styleSheetPromise).toHaveBeenCalledTimes(1);
+    expect(styleSheetPromise).toHaveBeenCalledWith(name, name, style);
+  });
+
   it('rejects with error', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(componentConfig);
+    (config.get as jest.Mock)
+      .mockReturnValueOnce(globalConfig)
+      .mockReturnValueOnce(componentConfig);
 
     mockRejectedPromises(promises, promiseError);
 
@@ -101,12 +138,12 @@ describe('generateComponent', () => {
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
 
     expect(componentIndexPromise).toHaveBeenCalledTimes(1);
-    expect(componentIndexPromise).toHaveBeenCalledWith(name, prog);
+    expect(componentIndexPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(componentPromise).toHaveBeenCalledTimes(1);
-    expect(componentPromise).toHaveBeenCalledWith(name, prog, style, quotes);
+    expect(componentPromise).toHaveBeenCalledWith(path, name, prog, style, quotes);
 
     expect(styleSheetPromise).toHaveBeenCalledTimes(1);
-    expect(styleSheetPromise).toHaveBeenCalledWith(name, style);
+    expect(styleSheetPromise).toHaveBeenCalledWith(path, name, style);
   });
 });
