@@ -1,4 +1,16 @@
-const relativePaths = '{.,..,../..,../../..,../../../..}';
+const genRelativePaths = (depth) => {
+  const paths = ['.'];
+
+  for (let i = 1; i <= depth; i++) {
+    paths.push(new Array(i).fill('..').join('/'));
+  }
+
+  return `{${paths.join(',')}}`;
+};
+
+// Increase number if structure depth grows.
+// Unfortunately import/order doesn't want to handle leading paths like this: '**'
+const relativePaths = genRelativePaths(6);
 
 module.exports = {
   reportUnusedDisableDirectives: true,
