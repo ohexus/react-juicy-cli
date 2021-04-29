@@ -25,10 +25,10 @@ jest.mock('../utils', () => ({
 const promises = [testPromise];
 
 describe('generateTest', () => {
-  const dir = 'corge';
   const entity = 'foo';
   const lib = 'bar';
   const name = 'baz';
+  const path = 'corge';
   const prog = 'qux';
   const type = 'quux';
 
@@ -37,6 +37,7 @@ describe('generateTest', () => {
 
   const globalConfig = {
     entity,
+    path,
     prog,
     skipTests: false,
   };
@@ -52,18 +53,18 @@ describe('generateTest', () => {
 
     mockResolvedPromises(promises, promiseSuccess);
 
-    await expect(generateTest(dir)).resolves.toEqual([promiseSuccess]);
+    await expect(generateTest()).resolves.toEqual([promiseSuccess]);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Test);
 
     expect(testPromise).toHaveBeenCalledTimes(1);
-    expect(testPromise).toHaveBeenCalledWith(dir, name, prog, lib, type, entity);
+    expect(testPromise).toHaveBeenCalledWith(path, name, prog, lib, type, entity);
   });
 
   it('generates test without path', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(testConfig);
+    (config.get as jest.Mock).mockReturnValueOnce({ ...globalConfig, path: null }).mockReturnValueOnce(testConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 
@@ -96,13 +97,13 @@ describe('generateTest', () => {
 
     mockRejectedPromises(promises, promiseError);
 
-    await expect(generateTest(dir)).rejects.toEqual(promiseError);
+    await expect(generateTest()).rejects.toEqual(promiseError);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Test);
 
     expect(testPromise).toHaveBeenCalledTimes(1);
-    expect(testPromise).toHaveBeenCalledWith(dir, name, prog, lib, type, entity);
+    expect(testPromise).toHaveBeenCalledWith(path, name, prog, lib, type, entity);
   });
 });

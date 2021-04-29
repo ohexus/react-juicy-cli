@@ -27,7 +27,7 @@ jest.mock('../utils', () => ({
 const promises = [componentIndexPromise, componentPromise, styleSheetPromise];
 
 describe('generateComponent', () => {
-  const dir = 'corge';
+  const path = 'corge';
   const name = 'foo';
   const style = 'bar';
   const prog = 'baz';
@@ -37,6 +37,7 @@ describe('generateComponent', () => {
   const promiseError = 'waldo';
 
   const globalConfig = {
+    path,
     prog,
     quotes,
     skipStyles: false,
@@ -52,20 +53,20 @@ describe('generateComponent', () => {
 
     mockResolvedPromises(promises, promiseSuccess);
 
-    await expect(generateComponent(dir)).resolves.toEqual([promiseSuccess, promiseSuccess, promiseSuccess]);
+    await expect(generateComponent()).resolves.toEqual([promiseSuccess, promiseSuccess, promiseSuccess]);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
 
     expect(componentIndexPromise).toHaveBeenCalledTimes(1);
-    expect(componentIndexPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(componentIndexPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(componentPromise).toHaveBeenCalledTimes(1);
-    expect(componentPromise).toHaveBeenCalledWith(dir, name, prog, style, quotes);
+    expect(componentPromise).toHaveBeenCalledWith(path, name, prog, style, quotes);
 
     expect(styleSheetPromise).toHaveBeenCalledTimes(1);
-    expect(styleSheetPromise).toHaveBeenCalledWith(dir, name, style);
+    expect(styleSheetPromise).toHaveBeenCalledWith(path, name, style);
   });
 
   it('generates component without styles', async () => {
@@ -75,23 +76,23 @@ describe('generateComponent', () => {
 
     mockResolvedPromises(promises, promiseSuccess);
 
-    await expect(generateComponent(dir)).resolves.toEqual([promiseSuccess, promiseSuccess]);
+    await expect(generateComponent()).resolves.toEqual([promiseSuccess, promiseSuccess]);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
 
     expect(componentIndexPromise).toHaveBeenCalledTimes(1);
-    expect(componentIndexPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(componentIndexPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(componentPromise).toHaveBeenCalledTimes(1);
-    expect(componentPromise).toHaveBeenCalledWith(dir, name, prog, style, quotes);
+    expect(componentPromise).toHaveBeenCalledWith(path, name, prog, style, quotes);
 
     expect(styleSheetPromise).not.toHaveBeenCalled();
   });
 
   it('generates component without path', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(componentConfig);
+    (config.get as jest.Mock).mockReturnValueOnce({ ...globalConfig, path: null }).mockReturnValueOnce(componentConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 
@@ -116,19 +117,19 @@ describe('generateComponent', () => {
 
     mockRejectedPromises(promises, promiseError);
 
-    await expect(generateComponent(dir)).rejects.toEqual(promiseError);
+    await expect(generateComponent()).rejects.toEqual(promiseError);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Component);
 
     expect(componentIndexPromise).toHaveBeenCalledTimes(1);
-    expect(componentIndexPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(componentIndexPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(componentPromise).toHaveBeenCalledTimes(1);
-    expect(componentPromise).toHaveBeenCalledWith(dir, name, prog, style, quotes);
+    expect(componentPromise).toHaveBeenCalledWith(path, name, prog, style, quotes);
 
     expect(styleSheetPromise).toHaveBeenCalledTimes(1);
-    expect(styleSheetPromise).toHaveBeenCalledWith(dir, name, style);
+    expect(styleSheetPromise).toHaveBeenCalledWith(path, name, style);
   });
 });

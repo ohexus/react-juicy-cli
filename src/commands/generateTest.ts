@@ -8,20 +8,27 @@ import { GlobalConfig, TestConfig, PromiseReturnStatus } from '../interfaces';
 
 const getTestConfig = (): TestConfig & {
   entity: GlobalConfig['entity'];
+  path: GlobalConfig['path'];
   prog: GlobalConfig['prog'];
   skipTests: GlobalConfig['skipTests'];
 } => {
-  const { entity, prog, skipTests } = config.get(Configs.Global) as GlobalConfig;
+  const { entity, path, prog, skipTests } = config.get(Configs.Global) as GlobalConfig;
   const testConfig = config.get(Configs.Test) as TestConfig;
 
-  return { entity, prog, skipTests, ...testConfig };
+  return {
+    entity,
+    path,
+    prog,
+    skipTests,
+    ...testConfig,
+  };
 };
 
-async function generateTest(dirPath?: string): Promise<PromiseReturnStatus[] | void> {
-  const { entity, lib, name, prog, skipTests, type } = getTestConfig();
+async function generateTest(): Promise<PromiseReturnStatus[] | void> {
+  const { entity, lib, name, path, prog, skipTests, type } = getTestConfig();
 
   if (!skipTests) {
-    const dir = dirPath ?? name;
+    const dir = path ?? name;
 
     makeDir(dir);
 

@@ -29,7 +29,7 @@ jest.mock('../utils', () => ({
 const promises = [contextIndexPromise, contextPromise, contextTypesPromise, providerPromise, reducerPromise];
 
 describe('generateContext', () => {
-  const dir = 'foo';
+  const path = 'foo';
   const name = 'bar';
   const prog = 'baz';
 
@@ -37,6 +37,7 @@ describe('generateContext', () => {
   const promiseError = 'waldo';
 
   const globalConfig = {
+    path,
     prog,
   };
 
@@ -49,30 +50,30 @@ describe('generateContext', () => {
 
     mockResolvedPromises(promises, promiseSuccess);
 
-    await expect(generateContext(dir)).resolves.toEqual(promises.map(() => promiseSuccess));
+    await expect(generateContext()).resolves.toEqual(promises.map(() => promiseSuccess));
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Context);
 
     expect(contextPromise).toHaveBeenCalledTimes(1);
-    expect(contextPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(contextPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(contextIndexPromise).toHaveBeenCalledTimes(1);
-    expect(contextIndexPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(contextIndexPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(contextTypesPromise).toHaveBeenCalledTimes(1);
-    expect(contextTypesPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(contextTypesPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(providerPromise).toHaveBeenCalledTimes(1);
-    expect(providerPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(providerPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(reducerPromise).toHaveBeenCalledTimes(1);
-    expect(reducerPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(reducerPromise).toHaveBeenCalledWith(path, name, prog);
   });
 
   it('generates context without path', async () => {
-    (config.get as jest.Mock).mockReturnValueOnce(globalConfig).mockReturnValueOnce(contextConfig);
+    (config.get as jest.Mock).mockReturnValueOnce({ ...globalConfig, path: null }).mockReturnValueOnce(contextConfig);
 
     mockResolvedPromises(promises, promiseSuccess);
 
@@ -103,25 +104,25 @@ describe('generateContext', () => {
 
     mockRejectedPromises(promises, promiseError);
 
-    await expect(generateContext(dir)).rejects.toEqual(promiseError);
+    await expect(generateContext()).rejects.toEqual(promiseError);
 
     expect(config.get).toHaveBeenCalledTimes(2);
     expect(config.get).toHaveBeenNthCalledWith(1, Configs.Global);
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Context);
 
     expect(contextPromise).toHaveBeenCalledTimes(1);
-    expect(contextPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(contextPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(contextIndexPromise).toHaveBeenCalledTimes(1);
-    expect(contextIndexPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(contextIndexPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(contextTypesPromise).toHaveBeenCalledTimes(1);
-    expect(contextTypesPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(contextTypesPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(providerPromise).toHaveBeenCalledTimes(1);
-    expect(providerPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(providerPromise).toHaveBeenCalledWith(path, name, prog);
 
     expect(reducerPromise).toHaveBeenCalledTimes(1);
-    expect(reducerPromise).toHaveBeenCalledWith(dir, name, prog);
+    expect(reducerPromise).toHaveBeenCalledWith(path, name, prog);
   });
 });

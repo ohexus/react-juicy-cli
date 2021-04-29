@@ -7,14 +7,16 @@ import { Configs } from '../enums';
 import { ComponentConfig, GlobalConfig, PromiseReturnStatus } from '../interfaces';
 
 const getComponentConfig = (): ComponentConfig & {
+  path: GlobalConfig['path'];
   prog: GlobalConfig['prog'];
   quotes: GlobalConfig['quotes'];
   skipStyles: GlobalConfig['skipStyles'];
 } => {
-  const { prog, quotes, skipStyles } = config.get(Configs.Global) as GlobalConfig;
+  const { path, prog, quotes, skipStyles } = config.get(Configs.Global) as GlobalConfig;
   const componentConfig = config.get(Configs.Component) as ComponentConfig;
 
   return {
+    path,
     prog,
     quotes,
     skipStyles,
@@ -22,10 +24,10 @@ const getComponentConfig = (): ComponentConfig & {
   };
 };
 
-async function generateComponent(dirPath?: string): Promise<PromiseReturnStatus[]> {
-  const { name, prog, quotes, style, skipStyles } = getComponentConfig();
+async function generateComponent(): Promise<PromiseReturnStatus[]> {
+  const { name, path, prog, quotes, style, skipStyles } = getComponentConfig();
 
-  const dir = dirPath ?? name;
+  const dir = path ?? name;
 
   makeDir(dir);
 
