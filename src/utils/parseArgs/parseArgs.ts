@@ -5,7 +5,6 @@ import { generateComponent, generateContext, generateHook, generateTest, logHelp
 import { FLAGS } from '../../constants';
 import { askComponentConfig, askContextConfig, askHookConfig, askTestConfig } from '../../questions';
 
-
 import isSeveralFlags from './isSeveralFlags';
 import pregenerationSettings from './pregenerationSettings';
 import switchEntity from './switchEntity';
@@ -55,6 +54,7 @@ export default async function parseArgs(rawArgs: string[]): Promise<void> {
   const { prog, style, testLib, testType } = switchEntities(args);
 
   config.set(Configs.Global, {
+    path: args['--path'],
     prog,
     quotes: args['--double-quotes'] ? Quotes.Double : Quotes.Single,
     skipStyles: args['--skip'] || args['--skip-styles'] || false,
