@@ -42,7 +42,7 @@ export default async function askAndGenerate(): Promise<void> {
       return;
   }
 
-  if (entity === GenerationEntities.Component || entity === GenerationEntities.Test) {
+  if (entity === GenerationEntities.Component || entity === GenerationEntities.Hook) {
     await askTestConfig();
     await generateTest();
   }
