@@ -55,6 +55,29 @@ function checkForSeveralFlags<T extends arg.Spec>(args: arg.Result<T>) {
   isSeveralFlags(args, ['--single-quotes', '--double-quotes']);
 }
 
+function setMainEntityAfterGeneration<T extends arg.Spec>(args: arg.Result<T>) {
+  const setEntity = (entity: GenerationEntities) => {
+    config.set(`${Configs.Global}.entity`, entity);
+  };
+
+  if (args['--component']) {
+    setEntity(GenerationEntities.Component);
+    return;
+  }
+  if (args['--context']) {
+    setEntity(GenerationEntities.Context);
+    return;
+  }
+  if (args['--hook']) {
+    setEntity(GenerationEntities.Hook);
+    return;
+  }
+  if (args['--test']) {
+    setEntity(GenerationEntities.Test);
+    return;
+  }
+}
+
 export default async function parseArgs(rawArgs: string[]): Promise<void> {
   const args = arg(FLAGS, { argv: rawArgs });
 
@@ -121,4 +144,6 @@ export default async function parseArgs(rawArgs: string[]): Promise<void> {
     await askTestConfig();
     await generateTest();
   }
+
+  setMainEntityAfterGeneration(args);
 }
