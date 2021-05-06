@@ -1,6 +1,6 @@
 {
   "name": "react-juicy-cli",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "Juicy CLI for React components generation",
   "main": "lib/index.js",
   "bin": {
