@@ -3,6 +3,7 @@ import config from '../config';
 
 import askEntityName from './askEntityName';
 import askTestConfig from './askTestConfig';
+import askTestEntity from './askTestEntity';
 import askTestLib from './askTestLib';
 import askTestType from './askTestType';
 import { Configs, TestLibs } from '../enums';
@@ -22,6 +23,11 @@ jest.mock('./askEntityName', () => ({
   default: jest.fn(),
 }));
 
+jest.mock('./askTestEntity', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
 jest.mock('./askTestLib', () => ({
   __esModule: true,
   default: jest.fn(),
@@ -33,18 +39,21 @@ jest.mock('./askTestType', () => ({
 }));
 
 describe('askTestConfig', () => {
-  const lib = 'foo';
-  const name = 'bar';
-  const type = 'baz';
+  const lib = 'bar';
+  const name = 'baz';
+  const testEntity = 'foo';
+  const type = 'qux';
 
   const testConfig = {
     lib,
     name,
+    testEntity,
     type,
   };
 
   beforeEach(() => {
     (askEntityName as jest.Mock).mockResolvedValue(name);
+    (askTestEntity as jest.Mock).mockResolvedValue(testEntity);
     (askTestLib as jest.Mock).mockResolvedValue(lib);
     (askTestType as jest.Mock).mockResolvedValue(type);
   });
@@ -83,6 +92,7 @@ describe('askTestConfig', () => {
     const emptyTestConfig = {
       lib: null,
       name: null,
+      testEntity: null,
       type: null,
     };
 
@@ -105,6 +115,7 @@ describe('askTestConfig', () => {
     const emptyTestConfig = {
       lib: null,
       name: null,
+      testEntity: null,
       type: null,
     };
 
