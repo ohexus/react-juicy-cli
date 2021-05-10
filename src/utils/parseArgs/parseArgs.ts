@@ -41,13 +41,20 @@ function switchEntities<T extends arg.Spec>(args: arg.Result<T>) {
 }
 
 function checkForNoEntity<T extends arg.Spec>(args: arg.Result<T>) {
-  if (!args['--component'] && !args['--context'] && !args['--hook'] && !args['--test']) {
+  if (
+    !args['--component'] &&
+    !args['--context'] &&
+    !args['--hook'] &&
+    !args['--test'] &&
+    !args['--test-component'] &&
+    !args['--test-hook']
+  ) {
     throw new Error('No entity specified!');
   }
 }
 
 function checkForSeveralFlags<T extends arg.Spec>(args: arg.Result<T>) {
-  isSeveralFlags(args, ['--component', '--context', '--hook']);
+  isSeveralFlags(args, ['--component', '--context', '--hook', '--test']);
   isSeveralFlags(args, ['--javascript', '--typescript']);
   isSeveralFlags(args, ['--css', '--sass', '--scss', '--less']);
   isSeveralFlags(args, ['--enzyme', '--testing-library']);
@@ -132,13 +139,25 @@ export default async function parseArgs(rawArgs: string[]): Promise<void> {
     await generateHook();
   }
 
-  const testName = args['--test'] || args['--component'] || args['--hook'];
+  const testName =
+    args['--test'] ||
+    args['--test-component'] ||
+    args['--test-hook'] ||
+    args['--component'] ||
+    args['--hook'];
 
   if (testName) {
+    let testEntity = GenerationEntities.Component;
+
+    if (args['--test-hook']) {
+      testEntity = GenerationEntities.Hook;
+    }
+
     await pregenerationSettings(GenerationEntities.Test, {
       lib: testLib as TestLibs,
-      type: testType as TestTypes,
       name: testName,
+      testEntity,
+      type: testType as TestTypes,
     });
 
     await askTestConfig();
