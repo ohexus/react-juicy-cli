@@ -69,23 +69,31 @@ const FLAG_INFO = [
   },
   {
     flags: ['-u', '--unit'],
-    desc: `generate .spec file according to your component ${extension}`,
+    desc: `generate unit test according to your component ${extension}`,
   },
   {
     flags: ['-i', '--integration'],
-    desc: `generate .test file according to your component ${extension}`,
+    desc: `generate integration test according to your component ${extension}`,
   },
   {
     flags: ['--skipS', '--skip-styles'],
-    desc: 'skip styles step and generate component with tests',
+    desc: 'skip styles step',
   },
   {
     flags: ['--skipT', '--skip-tests'],
-    desc: 'skip tests step and generate component with styles',
+    desc: 'skip tests step',
+  },
+  {
+    flags: ['--t-cmp', '--test-component'],
+    desc: `generate tests for ${component}`,
+  },
+  {
+    flags: ['--t-hk', '--test-hook'],
+    desc: `generate tests for ${hook}`,
   },
   {
     flags: ['--skip'],
-    desc: 'skip styles and tests and generate only component',
+    desc: `skip styles and tests and generate only ${component}`,
   },
   {
     flags: ['--sq', '--single-quotes'],

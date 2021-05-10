@@ -9,7 +9,13 @@ import { ${testMethod} } from 'enzyme';
 import ${name} from './${name}';
 
 describe('${name}', () => {
-  it('should mount', () => {
+  it('renders with required props', () => {
+    const wrapper = ${testMethod}(<${name} />);
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders with all props', () => {
     const wrapper = ${testMethod}(<${name} />);
 
     expect(wrapper).toMatchSnapshot();

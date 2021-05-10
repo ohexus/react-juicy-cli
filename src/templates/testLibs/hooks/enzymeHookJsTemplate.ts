@@ -6,24 +6,23 @@ import ${name} from './${name}';
 describe('${name}', () => {
   const NullComponent = () => null;
   const TestComponent = ({ value }) => {
-    const prevValue = ${name}(value);
+    const value = ${name}(val);
 
-    return <NullComponent prevValue={prevValue} currValue={value} />;
+    return <NullComponent value={value} />;
   };
 
   const FIRST_VALUE = 'foo';
   const SECOND_VALUE = 'bar';
 
-  it('returns previous value', () => {
-    const wrapper = mount(<TestComponent value={FIRST_VALUE} />);
+  it('returns value', () => {
+    const wrapper = mount(<TestComponent val={FIRST_VALUE} />);
 
-    expect(wrapper.find(NullComponent).prop('prevValue')).toBeUndefined();
-    expect(wrapper.find(NullComponent).prop('currValue')).toEqual(FIRST_VALUE);
+    expect(wrapper.find(NullComponent).prop('value')).toEqual(FIRST_VALUE);
 
-    wrapper.setProps({ value: SECOND_VALUE });
+    wrapper.setProps({ val: SECOND_VALUE });
+    wrapper.update();
 
-    expect(wrapper.find(NullComponent).prop('prevValue')).toEqual(FIRST_VALUE);
-    expect(wrapper.find(NullComponent).prop('currValue')).toEqual(SECOND_VALUE);
+    expect(wrapper.find(NullComponent).prop('value')).toEqual(SECOND_VALUE);
   });
 });
 `;

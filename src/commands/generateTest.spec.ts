@@ -25,7 +25,7 @@ jest.mock('../utils', () => ({
 const promises = [testPromise];
 
 describe('generateTest', () => {
-  const entity = 'foo';
+  const testEntity = 'foo';
   const lib = 'bar';
   const name = 'baz';
   const path = 'corge';
@@ -36,7 +36,6 @@ describe('generateTest', () => {
   const promiseError = 'waldo';
 
   const globalConfig = {
-    entity,
     path,
     prog,
     skipTests: false,
@@ -45,6 +44,7 @@ describe('generateTest', () => {
   const testConfig = {
     lib,
     name,
+    testEntity,
     type,
   };
 
@@ -60,7 +60,7 @@ describe('generateTest', () => {
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Test);
 
     expect(testPromise).toHaveBeenCalledTimes(1);
-    expect(testPromise).toHaveBeenCalledWith(path, name, prog, lib, type, entity);
+    expect(testPromise).toHaveBeenCalledWith(path, name, prog, lib, type, testEntity);
   });
 
   it('generates test without path', async () => {
@@ -77,7 +77,7 @@ describe('generateTest', () => {
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Test);
 
     expect(testPromise).toHaveBeenCalledTimes(1);
-    expect(testPromise).toHaveBeenCalledWith(name, name, prog, lib, type, entity);
+    expect(testPromise).toHaveBeenCalledWith(name, name, prog, lib, type, testEntity);
   });
 
   it('does not generate test', async () => {
@@ -108,6 +108,6 @@ describe('generateTest', () => {
     expect(config.get).toHaveBeenNthCalledWith(2, Configs.Test);
 
     expect(testPromise).toHaveBeenCalledTimes(1);
-    expect(testPromise).toHaveBeenCalledWith(path, name, prog, lib, type, entity);
+    expect(testPromise).toHaveBeenCalledWith(path, name, prog, lib, type, testEntity);
   });
 });
