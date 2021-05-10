@@ -28,6 +28,7 @@ config.set(Configs.Hook, {
 config.set(Configs.Test, {
   lib: null,
   name: null,
+  testEntity: null,
   type: null,
 });
 
