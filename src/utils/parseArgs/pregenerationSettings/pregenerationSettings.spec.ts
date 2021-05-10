@@ -35,7 +35,7 @@ describe('pregenerationSettings', () => {
     ${GenerationEntities.Component} | ${capitalizedEntityConfig}
     ${GenerationEntities.Context}   | ${capitalizedEntityConfig}
     ${GenerationEntities.Hook}      | ${lowercasedEntityConfig}
-    ${GenerationEntities.Test}      | ${capitalizedEntityConfig}
+    ${GenerationEntities.Test}      | ${lowercasedEntityConfig}
   `('sets Global and $entity configs', async ({ entity, expectedConfig }) => {
     (capitalizeFirstLetter as jest.Mock).mockReturnValueOnce(capitalizedName);
 

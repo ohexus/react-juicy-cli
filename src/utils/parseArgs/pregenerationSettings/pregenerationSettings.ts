@@ -10,7 +10,7 @@ export default async function pregenerationSettings(
   entity: GenerationEntities,
   entityConfig: ComponentConfig | ContextConfig | HookConfig | TestConfig,
 ): Promise<void> {
-  if (entity !== GenerationEntities.Hook) {
+  if (entity !== GenerationEntities.Hook && entity !== GenerationEntities.Test) {
     entityConfig.name = capitalizeFirstLetter(entityConfig.name);
   }
 
