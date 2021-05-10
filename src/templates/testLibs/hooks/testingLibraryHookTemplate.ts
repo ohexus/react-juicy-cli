@@ -5,19 +5,20 @@ const testingLibraryHookTemplate = (
 import ${name} from './${name}';
 
 describe('${name}', () => {
-  it('returns previous value', () => {
-    const value = 'foo';
+  const FIRST_VALUE = 'foo';
+  const SECOND_VALUE = 'bar';
 
-    const { result, rerender } = renderHook(() => ${name}(value));
+  it('returns previous value', () => {
+    const { result, rerender } = renderHook(() => ${name}(FIRST_VALUE));
 
     const firstResult = result.current;
 
-    rerender('bar');
+    rerender(SECOND_VALUE);
 
     const secondResult = result.current;
 
-    expect(firstResult).toBeUndefined();
-    expect(secondResult).toEqual(value);
+    expect(firstResult).toEqual(FIRST_VALUE);
+    expect(secondResult).toEqual(SECOND_VALUE);
   });
 });
 `;
