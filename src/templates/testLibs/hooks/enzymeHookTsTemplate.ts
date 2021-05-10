@@ -3,36 +3,31 @@ import { mount } from 'enzyme';
 
 import ${name} from './${name}';
 
-interface TestComponentProps {
+interface NullComponentProps {
   value: string;
 }
 
-interface NullComponentProps {
-  prevValue?: string;
-  currValue: string;
+interface TestComponentProps {
+  val: string;
 }
 
 describe('${name}', () => {
   const NullComponent: FC<NullComponentProps> = () => null;
-  const TestComponent: FC<TestComponentProps> = ({ value }) => {
-    const prevValue = ${name}(value);
+  const TestComponent: FC<TestComponentProps> = ({ val }) => {
+    const value = ${name}(val);
 
-    return <NullComponent prevValue={prevValue} currValue={value} />;
+    return <NullComponent value={value} />;
   };
 
-  const FIRST_VALUE = 'foo';
-  const SECOND_VALUE = 'bar';
+  it('returns value', () => {
+    const wrapper = mount(<TestComponent val={FIRST_VALUE} />);
 
-  it('returns previous value', () => {
-    const wrapper = mount(<TestComponent value={FIRST_VALUE} />);
+    expect(wrapper.find(NullComponent).prop('value')).toEqual('foo');
 
-    expect(wrapper.find(NullComponent).prop('prevValue')).toBeUndefined();
-    expect(wrapper.find(NullComponent).prop('currValue')).toEqual(FIRST_VALUE);
+    wrapper.setProps({ val: 'bar' });
+    wrapper.update();
 
-    wrapper.setProps({ value: SECOND_VALUE });
-
-    expect(wrapper.find(NullComponent).prop('prevValue')).toEqual(FIRST_VALUE);
-    expect(wrapper.find(NullComponent).prop('currValue')).toEqual(SECOND_VALUE);
+    expect(wrapper.find(NullComponent).prop('value')).toEqual('bar');
   });
 });
 `;

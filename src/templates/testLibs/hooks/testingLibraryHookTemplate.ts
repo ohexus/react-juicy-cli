@@ -1,12 +1,14 @@
-const testingLibraryHookTemplate = (name: string): string => `import { renderHook } from '@testing-library/react-hooks';
+const testingLibraryHookTemplate = (
+  name: string,
+): string => `import { renderHook } from '@testing-library/react-hooks';
 
 import ${name} from './${name}';
 
 describe('${name}', () => {
   it('returns previous value', () => {
-    const FIRST_VALUE = 'foo';
+    const value = 'foo';
 
-    const { result, rerender } = renderHook(() => ${name}(FIRST_VALUE));
+    const { result, rerender } = renderHook(() => ${name}(value));
 
     const firstResult = result.current;
 
@@ -14,8 +16,8 @@ describe('${name}', () => {
 
     const secondResult = result.current;
 
-    expect(firstResult).toEqual(undefined);
-    expect(secondResult).toEqual(FIRST_VALUE);
+    expect(firstResult).toBeUndefined();
+    expect(secondResult).toEqual(value);
   });
 });
 `;
