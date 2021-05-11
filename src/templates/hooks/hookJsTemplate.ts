@@ -1,6 +1,6 @@
 const hookJsTemplate = (name: string): string => `import { useRef, useEffect } from 'react';
 
-export default function ${name}(value) {
+const ${name} = (value) => {
   const ref = useRef();
 
   useEffect(() => {
@@ -9,6 +9,8 @@ export default function ${name}(value) {
 
   return ref.current;
 }
+
+export default ${name};
 `;
 
 export default hookJsTemplate;
