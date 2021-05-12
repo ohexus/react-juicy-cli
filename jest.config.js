@@ -20,6 +20,7 @@ module.exports = {
     'config.ts',
     'juicyFiglet.ts',
     'logVersion.ts',
+    'questions/common',
   ],
 
   coverageReporters: [
