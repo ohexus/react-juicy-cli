@@ -46,6 +46,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - id: check
+        uses: EndBug/version-check@v1
+
       - uses: actions/cache@v2
         with:
           path: "**/node_modules"
@@ -60,14 +63,13 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/master' }}
     steps:
+      - uses: actions/checkout@v2
+
       - id: check
         uses: EndBug/version-check@v1
 
       - if: steps.check.outputs.changed == 'false'
         run: 'echo "No version change"'
-
-      - if: steps.check.outputs.changed == 'true'
-        uses: actions/checkout@v2
 
       - if: steps.check.outputs.changed == 'true'
         uses: actions/cache@v2
