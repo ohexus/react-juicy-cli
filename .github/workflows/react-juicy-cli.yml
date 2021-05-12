@@ -23,6 +23,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --frozen-lockfile
+      
       - run: yarn lint
 
   test-unit:
@@ -36,6 +37,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --frozen-lockfile
+      
       - run: yarn test:unit
 
   build:
@@ -50,6 +52,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --frozen-lockfile
+      
       - run: yarn build
 
   npm-publish:
@@ -63,15 +66,21 @@ jobs:
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+
       - run: yarn install --frozen-lockfile
+
       - run: yarn build
 
-      - uses: actions/setup-node@v2
+      - id: check
+        uses: EndBug/version-check@v1
+
+      - if: steps.check.outputs.changed == 'true'
+        uses: actions/setup-node@v2
         with:
           node-version: "10.x"
           registry-url: "https://registry.npmjs.org"
 
-      - run: yarn publish
+        run: yarn publish
 
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
