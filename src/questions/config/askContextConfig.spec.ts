@@ -43,7 +43,7 @@ describe('askContextConfig', () => {
 
   it('sets context config if config is empty', async () => {
     const name = 'foo';
-    const capitalizedName = 'foo';
+    const capitalizedName = 'Foo';
 
     const contextConfig = {
       name: null,

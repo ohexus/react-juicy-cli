@@ -36,9 +36,9 @@ jest.mock('../common/askWhichEntity', () => ({
 
 describe('askGlobalConfig', () => {
   const entity = 'foo';
-  const path = 'foo';
-  const prog = 'foo';
-  const quotes = 'bar';
+  const path = 'bar';
+  const prog = 'baz';
+  const quotes = 'qux';
 
   const globalConfig = {
     entity,

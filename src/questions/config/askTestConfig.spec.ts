@@ -35,9 +35,9 @@ jest.mock('../common/askTestType', () => ({
 }));
 
 describe('askTestConfig', () => {
-  const lib = 'bar';
-  const name = 'baz';
-  const testEntity = 'foo';
+  const lib = 'foo';
+  const name = 'bar';
+  const testEntity = 'baz';
   const type = 'qux';
 
   const testConfig = {
