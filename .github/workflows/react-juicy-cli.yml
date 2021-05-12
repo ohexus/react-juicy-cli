@@ -87,6 +87,7 @@ jobs:
           node-version: "10.x"
           registry-url: "https://registry.npmjs.org"
 
+      - if: steps.check.outputs.changed == 'true'
         run: yarn publish
 
         env:
