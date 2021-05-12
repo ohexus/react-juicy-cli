@@ -1,13 +1,17 @@
-export { default as askComponentConfig } from './askComponentConfig';
-export { default as askContextConfig } from './askContextConfig';
-export { default as askEntityName } from './askEntityName';
-export { default as askGlobalConfig } from './askGlobalConfig';
-export { default as askHookConfig } from './askHookConfig';
-export { default as askProgLang } from './askProgLang';
-export { default as askQuotes } from './askQuotes';
-export { default as askStyleLang } from './askStyleLang';
-export { default as askTestConfig } from './askTestConfig';
-export { default as askTestEntity } from './askTestEntity';
-export { default as askTestLib } from './askTestLib';
-export { default as askTestType } from './askTestType';
-export { default as askWhichEntity } from './askWhichEntity';
+export {
+  askEntityName,
+  askProgLang,
+  askQuotes,
+  askStyleLang,
+  askTestEntity,
+  askTestLib,
+  askTestType,
+  askWhichEntity,
+} from './common';
+export {
+  askComponentConfig,
+  askContextConfig,
+  askGlobalConfig,
+  askHookConfig,
+  askTestConfig,
+} from './config';

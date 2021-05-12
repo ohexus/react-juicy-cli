@@ -1,22 +1,23 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import config from '../config';
-import { capitalizeFirstLetter } from '../utils';
+import config from '../../config';
+import { capitalizeFirstLetter } from '../../utils';
 
+import askEntityName from '../common/askEntityName';
 import askContextConfig from './askContextConfig';
-import askEntityName from './askEntityName';
-import { Configs } from '../enums';
 
-jest.mock('../config', () => ({
+import { Configs } from '../../enums';
+
+jest.mock('../../config', () => ({
   __esModule: true,
   default: { get: jest.fn(), set: jest.fn() },
 }));
 
-jest.mock('../utils', () => ({
+jest.mock('../../utils', () => ({
   __esModule: true,
   capitalizeFirstLetter: jest.fn(),
 }));
 
-jest.mock('./askEntityName', () => ({
+jest.mock('../common/askEntityName', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
@@ -42,7 +43,7 @@ describe('askContextConfig', () => {
 
   it('sets context config if config is empty', async () => {
     const name = 'foo';
-    const capitalizedName = 'foo';
+    const capitalizedName = 'Foo';
 
     const contextConfig = {
       name: null,

@@ -1,44 +1,44 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import config from '../config';
+import config from '../../config';
 
+import askPath from '../common/askPath';
+import askProgLang from '../common/askProgLang';
+import askQuotes from '../common/askQuotes';
+import askWhichEntity from '../common/askWhichEntity';
 import askGlobalConfig from './askGlobalConfig';
-import askPath from './askPath';
-import askProgLang from './askProgLang';
-import askQuotes from './askQuotes';
-import askWhichEntity from './askWhichEntity';
 
-import { Configs, GenerationEntities } from '../enums';
+import { Configs, GenerationEntities } from '../../enums';
 
-jest.mock('../config', () => ({
+jest.mock('../../config', () => ({
   __esModule: true,
   default: { get: jest.fn(), set: jest.fn() },
 }));
 
-jest.mock('./askPath', () => ({
+jest.mock('../common/askPath', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-jest.mock('./askProgLang', () => ({
+jest.mock('../common/askProgLang', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-jest.mock('./askQuotes', () => ({
+jest.mock('../common/askQuotes', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-jest.mock('./askWhichEntity', () => ({
+jest.mock('../common/askWhichEntity', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
 describe('askGlobalConfig', () => {
   const entity = 'foo';
-  const path = 'foo';
-  const prog = 'foo';
-  const quotes = 'bar';
+  const path = 'bar';
+  const prog = 'baz';
+  const quotes = 'qux';
 
   const globalConfig = {
     entity,

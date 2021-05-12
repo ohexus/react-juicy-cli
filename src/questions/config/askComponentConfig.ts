@@ -1,11 +1,11 @@
-import config from '../config';
-import { capitalizeFirstLetter } from '../utils';
+import config from '../../config';
+import { capitalizeFirstLetter } from '../../utils';
 
-import askEntityName from './askEntityName';
-import askStyleLang from './askStyleLang';
+import askEntityName from '../common/askEntityName';
+import askStyleLang from '../common/askStyleLang';
 
-import { Configs, GenerationEntities, StyleLangs } from '../enums';
-import { ComponentConfig } from '../interfaces';
+import { Configs, GenerationEntities, StyleLangs } from '../../enums';
+import { ComponentConfig } from '../../interfaces';
 
 async function askComponentConfig(): Promise<void> {
   const componentConfig = config.get(Configs.Component) as ComponentConfig;

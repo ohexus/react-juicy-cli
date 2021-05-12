@@ -1,47 +1,43 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import config from '../config';
+import config from '../../config';
 
-import askEntityName from './askEntityName';
+import askEntityName from '../common/askEntityName';
+import askTestEntity from '../common/askTestEntity';
+import askTestLib from '../common/askTestLib';
+import askTestType from '../common/askTestType';
 import askTestConfig from './askTestConfig';
-import askTestEntity from './askTestEntity';
-import askTestLib from './askTestLib';
-import askTestType from './askTestType';
-import { Configs, TestLibs } from '../enums';
 
-jest.mock('../config', () => ({
+import { Configs, TestLibs } from '../../enums';
+
+jest.mock('../../config', () => ({
   __esModule: true,
   default: { get: jest.fn(), set: jest.fn() },
 }));
 
-jest.mock('./askProgLang', () => ({
+jest.mock('../common/askEntityName', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-jest.mock('./askEntityName', () => ({
+jest.mock('../common/askTestEntity', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-jest.mock('./askTestEntity', () => ({
+jest.mock('../common/askTestLib', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-jest.mock('./askTestLib', () => ({
-  __esModule: true,
-  default: jest.fn(),
-}));
-
-jest.mock('./askTestType', () => ({
+jest.mock('../common/askTestType', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
 describe('askTestConfig', () => {
-  const lib = 'bar';
-  const name = 'baz';
-  const testEntity = 'foo';
+  const lib = 'foo';
+  const name = 'bar';
+  const testEntity = 'baz';
   const type = 'qux';
 
   const testConfig = {

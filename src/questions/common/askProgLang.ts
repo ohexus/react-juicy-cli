@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 
-import { ProgLangNames } from '../enums';
-import { GlobalConfig, QuestionReply } from '../interfaces';
+import { ProgLangNames } from '../../enums';
+import { GlobalConfig, QuestionReply } from '../../interfaces';
 
 const progLangQuestion = {
   name: 'prog',

@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import config from '../config';
-import askEntityName from './askEntityName';
-import askHookConfig from './askHookConfig';
-import { Configs } from '../enums';
+import config from '../../config';
 
-jest.mock('../config', () => ({
+import askEntityName from '../common/askEntityName';
+import askHookConfig from './askHookConfig';
+
+import { Configs } from '../../enums';
+
+jest.mock('../../config', () => ({
   __esModule: true,
   default: { get: jest.fn(), set: jest.fn() },
 }));
 
-jest.mock('./askEntityName', () => ({
+jest.mock('../common/askEntityName', () => ({
   __esModule: true,
   default: jest.fn(),
 }));

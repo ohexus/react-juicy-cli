@@ -1,12 +1,12 @@
-import config from '../config';
+import config from '../../config';
 
-import askEntityName from './askEntityName';
-import askTestEntity from './askTestEntity';
-import askTestLib from './askTestLib';
-import askTestType from './askTestType';
+import askEntityName from '../common/askEntityName';
+import askTestEntity from '../common/askTestEntity';
+import askTestLib from '../common/askTestLib';
+import askTestType from '../common/askTestType';
 
-import { Configs, GenerationEntities, TestLibs } from '../enums';
-import { GlobalConfig, TestConfig } from '../interfaces';
+import { Configs, GenerationEntities, TestLibs } from '../../enums';
+import { GlobalConfig, TestConfig } from '../../interfaces';
 
 async function askTestConfig(): Promise<void> {
   const { entity, skipTests } = config.get(Configs.Global) as GlobalConfig;

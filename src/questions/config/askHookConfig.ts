@@ -1,9 +1,9 @@
-import config from '../config';
+import config from '../../config';
 
-import askEntityName from './askEntityName';
+import askEntityName from '../common/askEntityName';
 
-import { Configs, GenerationEntities } from '../enums';
-import { HookConfig } from '../interfaces';
+import { Configs, GenerationEntities } from '../../enums';
+import { HookConfig } from '../../interfaces';
 
 async function askHookConfig(): Promise<void> {
   const hookConfig = config.get(Configs.Hook) as HookConfig;
