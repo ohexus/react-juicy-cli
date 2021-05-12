@@ -1,28 +1,29 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import config from '../config';
-import { capitalizeFirstLetter } from '../utils';
+import config from '../../config';
+import { capitalizeFirstLetter } from '../../utils';
 
+import askEntityName from '../common/askEntityName';
+import askStyleLang from '../common/askStyleLang';
 import askComponentConfig from './askComponentConfig';
-import askEntityName from './askEntityName';
-import askStyleLang from './askStyleLang';
-import { Configs, StyleLangs } from '../enums';
 
-jest.mock('../config', () => ({
+import { Configs, StyleLangs } from '../../enums';
+
+jest.mock('../../config', () => ({
   __esModule: true,
   default: { get: jest.fn(), set: jest.fn() },
 }));
 
-jest.mock('../utils', () => ({
+jest.mock('../../utils', () => ({
   __esModule: true,
   capitalizeFirstLetter: jest.fn(),
 }));
 
-jest.mock('./askEntityName', () => ({
+jest.mock('../common/askEntityName', () => ({
   __esModule: true,
   default: jest.fn(),
 }));
 
-jest.mock('./askStyleLang', () => ({
+jest.mock('../common/askStyleLang', () => ({
   __esModule: true,
   default: jest.fn(),
 }));

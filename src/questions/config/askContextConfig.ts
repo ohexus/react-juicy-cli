@@ -1,10 +1,10 @@
-import config from '../config';
-import { capitalizeFirstLetter } from '../utils';
+import config from '../../config';
+import { capitalizeFirstLetter } from '../../utils';
 
-import askEntityName from './askEntityName';
+import askEntityName from '../common/askEntityName';
 
-import { Configs, GenerationEntities } from '../enums';
-import { ContextConfig } from '../interfaces';
+import { Configs, GenerationEntities } from '../../enums';
+import { ContextConfig } from '../../interfaces';
 
 async function askContextConfig(): Promise<void> {
   const contextConfig = config.get(Configs.Context) as ContextConfig;

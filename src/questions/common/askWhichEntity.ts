@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 
-import { GenerationEntities } from '../enums';
-import { QuestionReply } from '../interfaces';
+import { GenerationEntities } from '../../enums';
+import { QuestionReply } from '../../interfaces';
 
 const entityQuestion = {
   name: 'entity',

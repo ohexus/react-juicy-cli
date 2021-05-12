@@ -1,12 +1,12 @@
-import config from '../config';
+import config from '../../config';
 
-import askPath from './askPath';
-import askProgLang from './askProgLang';
-import askQuotes from './askQuotes';
-import askWhichEntity from './askWhichEntity';
+import askPath from '../common/askPath';
+import askProgLang from '../common/askProgLang';
+import askQuotes from '../common/askQuotes';
+import askWhichEntity from '../common/askWhichEntity';
 
-import { Configs, GenerationEntities } from '../enums';
-import { GlobalConfig } from '../interfaces';
+import { Configs, GenerationEntities } from '../../enums';
+import { GlobalConfig } from '../../interfaces';
 
 async function askGlobalConfig(): Promise<void> {
   const globalConfig = config.get(Configs.Global) as GlobalConfig;

@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 
-import { TestLibs } from '../enums';
-import { QuestionReply, TestConfig } from '../interfaces';
+import { TestLibs } from '../../enums';
+import { QuestionReply, TestConfig } from '../../interfaces';
 
 const testLibQuestion = {
   name: 'testLib',

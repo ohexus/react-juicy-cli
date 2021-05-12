@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 
-import { Quotes } from '../enums';
-import { GlobalConfig, QuestionReply } from '../interfaces';
+import { Quotes } from '../../enums';
+import { GlobalConfig, QuestionReply } from '../../interfaces';
 
 const quotesQuestion = {
   name: 'quotes',

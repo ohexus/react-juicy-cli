@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 
-import { StyleLangs } from '../enums';
-import { ComponentConfig, QuestionReply } from '../interfaces';
+import { StyleLangs } from '../../enums';
+import { ComponentConfig, QuestionReply } from '../../interfaces';
 
 const styleLangQuestion = {
   name: 'style',
