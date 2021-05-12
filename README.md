@@ -46,7 +46,7 @@ $ react-juicy-cli --cmp TestComponent --js --skip
 
 Don't worry if you miss a few flag, the CLI will ask you a question from a questionnaire about missing information.\
 The only thing you should know is that the generator uses single quotes and the current directory by default, you will only get the quotes and path questions if no flags are specified.\
-If you use arguments and want to swap quotes, use the --single-quotes (--sq) or --double-quotes (--dq) flag.
+If you use arguments and want to swap quotes, use the --single-quotes (--sq) or --double-quotes (--dq) flags.\
 If you use arguments and want to change path, use the --path (-p) flag.
 
 ### Flags
@@ -60,6 +60,8 @@ If you use arguments and want to change path, use the --path (-p) flag.
 | --context         | String    | specify context name and tell CLI to generate a context                                                  |
 | --hook            | String    | specify hook name and tell CLI to generate a hook                                                        |
 | --test            | String    | specify test name and tell CLI to generate a test                                                        |
+| --test-component  | String    | specify test name and tell CLI to generate a test                                                        |
+| --test-hook       | String    | specify test name and tell CLI to generate a test                                                        |
 | --javascript      | Boolean   | generate JavaScript component                                                                            |
 | --typescript      | Boolean   | generate TypeScript component                                                                            |
 | --css             | Boolean   | generate CSS                                                                                             |
@@ -94,6 +96,8 @@ If you use arguments and want to change path, use the --path (-p) flag.
 | -i         | --integration     |
 | --skipS    | --skip-styles     |
 | --skipT    | --skip-tests      |
+| --t-cmp    | --test-component  |
+| --t-hk     | --test-hook       |
 | --sq       | --single-quotes   |
 | --dq       | --double-quotes   |
 
@@ -103,6 +107,8 @@ If you use arguments and want to change path, use the --path (-p) flag.
 | ----------------- | --------------------------------------------- |
 | --skip-styles     | --skip-style, --skipStyle, --skipStyles       |
 | --skip-tests      | --skip-test, --skipTest, --skipTests          |
+| --test-component  | --tCmp, --testCmp, --testComponent            |
+| --test-hook       | --tHk, --testHk, --testHook                   |
 | --testing-library | --testing-lib, --testingLib, --testingLibrary |
 
 ## Maintainers

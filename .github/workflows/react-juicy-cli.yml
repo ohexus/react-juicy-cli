@@ -23,6 +23,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --frozen-lockfile
+
       - run: yarn lint
 
   test-unit:
@@ -36,6 +37,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --frozen-lockfile
+
       - run: yarn test:unit
 
   build:
@@ -50,6 +52,7 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
 
       - run: yarn install --frozen-lockfile
+
       - run: yarn build
 
   npm-publish:
@@ -57,21 +60,35 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.ref == 'refs/heads/master' }}
     steps:
-      - uses: actions/checkout@v2
+      - id: check
+        uses: EndBug/version-check@v1
 
-      - uses: actions/cache@v2
+      - if: steps.check.outputs.changed == 'false'
+        run: 'echo "No version change"'
+
+      - if: steps.check.outputs.changed == 'true'
+        uses: actions/checkout@v2
+
+      - if: steps.check.outputs.changed == 'true'
+        uses: actions/cache@v2
         with:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn install --frozen-lockfile
-      - run: yarn build
 
-      - uses: actions/setup-node@v2
+      - if: steps.check.outputs.changed == 'true'
+        run: yarn install --frozen-lockfile
+
+      - if: steps.check.outputs.changed == 'true'
+        run: yarn build
+
+      - if: steps.check.outputs.changed == 'true'
+        uses: actions/setup-node@v2
         with:
           node-version: "10.x"
           registry-url: "https://registry.npmjs.org"
 
-      - run: yarn publish
+      - if: steps.check.outputs.changed == 'true'
+        run: yarn publish
 
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
