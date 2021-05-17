@@ -17,8 +17,8 @@ describe('${name}', () => {
 
     const secondResult = result.current;
 
-    expect(firstResult).toEqual(FIRST_VALUE);
-    expect(secondResult).toEqual(SECOND_VALUE);
+    expect(firstResult).toBeUndefined();
+    expect(secondResult).toEqual(FIRST_VALUE);
   });
 });
 `;
