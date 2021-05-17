@@ -149,7 +149,7 @@ export default async function parseArgs(rawArgs: string[]): Promise<void> {
   if (testName) {
     let testEntity = GenerationEntities.Component;
 
-    if (args['--test-hook']) {
+    if (args['--test-hook'] || args['--hook']) {
       testEntity = GenerationEntities.Hook;
     }
 

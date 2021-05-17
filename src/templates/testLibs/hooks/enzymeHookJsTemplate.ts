@@ -13,13 +13,19 @@ describe('${name}', () => {
 
   const FIRST_VALUE = 'foo';
   const SECOND_VALUE = 'bar';
+  const THIRD_VALUE = 'baz';
 
-  it('returns value', () => {
+  it('returns previous value', () => {
     const wrapper = mount(<TestComponent val={FIRST_VALUE} />);
+
+    expect(wrapper.find(NullComponent).prop('value')).toBeUndefined();
+
+    wrapper.setProps({ val: SECOND_VALUE });
+    wrapper.update();
 
     expect(wrapper.find(NullComponent).prop('value')).toEqual(FIRST_VALUE);
 
-    wrapper.setProps({ val: SECOND_VALUE });
+    wrapper.setProps({ val: THIRD_VALUE });
     wrapper.update();
 
     expect(wrapper.find(NullComponent).prop('value')).toEqual(SECOND_VALUE);
