@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/unbound-method */
-import { mockRejectedPromises, mockResolvedPromises } from '../__mocks__/mockGenerationPromises';
 import config from '../config';
+import { mockRejectedPromises, mockResolvedPromises } from '../__mocks__/mockGenerationPromises';
 
 import generateComponent from './generateComponent';
 import { componentIndexPromise, componentPromise, styleSheetPromise } from './promises';
