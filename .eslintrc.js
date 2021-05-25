@@ -51,12 +51,6 @@ module.exports = {
         groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'],
         pathGroups: [
           {
-            pattern: `__mocks__{,/*}`,
-            patternOptions: { matchBase: true },
-            group: 'internal',
-            position: 'before',
-          },
-          {
             pattern: `config`,
             patternOptions: { matchBase: true },
             group: 'internal',
