@@ -51,28 +51,21 @@ module.exports = {
         groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'],
         pathGroups: [
           {
-            pattern: `${relativePaths}/__mocks__{,/*}`,
+            pattern: `__mocks__{,/*}`,
+            patternOptions: { matchBase: true },
             group: 'internal',
             position: 'before',
           },
           {
-            pattern: `${relativePaths}/config`,
+            pattern: `config`,
+            patternOptions: { matchBase: true },
             group: 'internal',
             position: 'after',
           },
           {
-            pattern: `${relativePaths}/{enums,interfaces}`,
+            pattern: `{enums,interfaces}`,
+            patternOptions: { matchBase: true },
             group: 'index',
-            position: 'after',
-          },
-          {
-            pattern: `./**`,
-            group: 'sibling',
-            position: 'after',
-          },
-          {
-            pattern: `${relativePaths}/**`,
-            group: 'parent',
             position: 'after',
           },
         ],
