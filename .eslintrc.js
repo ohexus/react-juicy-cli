@@ -1,22 +1,8 @@
-const genRelativePaths = (depth) => {
-  const paths = ['.'];
-
-  for (let i = 1; i <= depth; i++) {
-    paths.push(new Array(i).fill('..').join('/'));
-  }
-
-  return `{${paths.join(',')}}`;
-};
-
-// Increase number if structure depth grows.
-// Unfortunately import/order doesn't want to handle leading paths like this: '**'
-const relativePaths = genRelativePaths(6);
-
 module.exports = {
   reportUnusedDisableDirectives: true,
   env: {
-    browser: true,
-    es2020: true,
+    'browser': true,
+    'es2020': true,
     'jest/globals': true,
   },
   extends: [
@@ -68,7 +54,7 @@ module.exports = {
     ],
     'sort-imports': 'off',
     'import/prefer-default-export': 'off',
-    indent: ['error', 2, { SwitchCase: 1 }],
+    'indent': ['error', 2, { SwitchCase: 1 }],
     'jest/no-disabled-tests': 'error',
     'jest/no-focused-tests': 'error',
     'jest/no-identical-title': 'error',
@@ -81,8 +67,8 @@ module.exports = {
     'no-console': 'off',
     'no-multiple-empty-lines': 'error',
     'object-curly-newline': ['error', { consistent: true }],
-    quotes: ['error', 'single', { avoidEscape: true }],
-    semi: ['error', 'always'],
+    'quotes': ['error', 'single', { avoidEscape: true }],
+    'semi': ['error', 'always'],
   },
   settings: {
     'import/parsers': {
